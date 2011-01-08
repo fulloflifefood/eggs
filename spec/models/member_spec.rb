@@ -78,4 +78,100 @@ describe Member do
     member_with_joined_on.joined_on.should == date
 
   end
+
+  it "can export order history for a specified farm and timeframe" do
+    farm = Factory(:farm)
+    farm.members << Factory(:member)
+    member = farm.members.first
+    sub = member.subscriptions.first
+
+    farm.products << Factory(:product, :name => "Chicken", :farm => farm)
+    farm.products << Factory(:product, :name => "Eggs", :farm => farm)
+
+    # credits
+    make_transaction(sub, false, 100, Date.new(2010, 4, 1))
+    make_transaction(sub, false, 100, Date.new(2010, 5, 1))
+    make_transaction(sub, false, 100, Date.new(2009, 3, 1))
+    make_transaction(sub, false, 100, Date.new(2011, 4, 1))
+
+    # debits
+    make_transaction(sub, true, 40, Date.new(2010, 4, 15))
+    make_transaction(sub, true, 30, Date.new(2010, 6, 1))
+    make_transaction(sub, true, 50, Date.new(2009, 10, 4))
+    make_transaction(sub, true, 20, Date.new(2011, 1, 2))
+
+    delivery1 = Factory(:delivery, :farm => farm, :date => '2010-01-27')
+    delivery2 = Factory(:delivery, :farm => farm, :date => '2010-02-27')
+    delivery3 = Factory(:delivery, :farm => farm, :date => '2009-01-27')
+    delivery4 = Factory(:delivery, :farm => farm, :date => '2011-01-27')
+
+    delivery1.stock_items << Factory(:stock_item, :product => farm.products.first, :delivery => delivery1)
+    delivery1.stock_items << Factory(:stock_item, :product => farm.products.last, :delivery => delivery1)
+
+    delivery2.stock_items << Factory(:stock_item, :product => farm.products.first, :delivery => delivery2)
+    delivery2.stock_items << Factory(:stock_item, :product => farm.products.last, :delivery => delivery2)
+
+    delivery3.stock_items << Factory(:stock_item, :product => farm.products.first, :delivery => delivery3)
+    delivery3.stock_items << Factory(:stock_item, :product => farm.products.last, :delivery => delivery3)
+
+    delivery4.stock_items << Factory(:stock_item, :product => farm.products.first, :delivery => delivery4)
+    delivery4.stock_items << Factory(:stock_item, :product => farm.products.last, :delivery => delivery4)
+
+
+
+
+    order1 = Order.new_from_delivery(delivery1)
+    order2 = Order.new_from_delivery(delivery2)
+    order3 = Order.new_from_delivery(delivery3)
+    order4 = Order.new_from_delivery(delivery4)
+    order1.member = order2.member = order3.member = order4.member = member
+    order1.location = order2.location = order3.location = order4.location = Factory(:location)
+    order1.delivery = delivery1
+    order2.delivery = delivery2
+    order3.delivery = delivery3
+    order4.delivery = delivery4
+
+    order1.order_items.first.quantity = 3
+    order1.order_items.last.quantity = 3
+
+    order2.order_items.first.quantity = 2
+    order2.order_items.last.quantity = 1
+
+    order3.order_items.first.quantity = 3
+    order3.order_items.last.quantity = 3
+
+    order4.order_items.first.quantity = 3
+    order4.order_items.first.quantity = 3
+
+    order1.finalized_total = 36.36
+    order2.finalized_total = 42.42
+    order3.finalized_total = 30.50
+    order4.finalized_total = 30.56
+
+    order1.save!
+    order2.save!
+    order3.save!
+    order4.save!
+    
+    farm.products.size.should == 2
+    farm.members.size.should == 1
+
+    member.orders.size.should == 4
+
+    member_history = member.export_history(farm, Date.new(2010), Date.new(2011))
+
+    member_history[:orders].size.should == 2
+    member_history[:products].size.should == 2
+    member_history[:products].first[:quantity].should == 5
+    member_history[:products].last[:quantity].should == 4
+    member_history[:deposited].should == 200
+    member_history[:spent].should == 78.78
+
+        
+  end
+
+  def make_transaction(subscription, debit, amount, date)
+    Transaction.new(:subscription => subscription, :amount => amount, :debit => debit, :date => date).save! 
+
+  end
 end

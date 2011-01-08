@@ -49,5 +49,42 @@ class Member < ActiveRecord::Base
   def subscription_for_farm(farm)
     subscriptions.detect{|subscription|subscription.farm_id == farm.id}
   end
+
+  def export_history(farm, start_date, end_date)
+
+    orders = Order.find_all_by_member_id(self.id)
+    orders = orders.select{|order| order.delivery.farm == farm}
+    orders = orders.select{|order| order.delivery.date > start_date && order.delivery.date < end_date}
+
+    products = []
+    farm.products.each {|product| products.push({:id => product.id, :name => product.name, :quantity => 0})}
+
+    total_spent = 0
+    orders.each do |order|
+      order.order_items.each do |item|
+        p = products.select{|product| product[:id] == item.stock_item.product_id}[0]
+        p[:quantity] += item.quantity
+      end
+
+      total_spent += order.finalized_total if order.finalized_total
+    end
+
+    sub = self.subscription_for_farm(farm)
+    transactions = Transaction.find_all_by_subscription_id_and_debit(sub.id, false, :conditions => "date #{(start_date..end_date).to_s(:db)}")
+
+    deposited = transactions.inject(0) {|sum, transaction| sum += transaction.amount}
+
+
+    history = {
+            :orders => orders,
+            :products => products,
+            :spent => total_spent,
+            :deposited => deposited
+    }
+
+
+    return history
+
+  end
   
 end

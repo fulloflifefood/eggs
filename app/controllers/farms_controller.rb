@@ -30,6 +30,14 @@ class FarmsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @farm }
+
+      format.csv do
+        csv_string = FarmExporter.get_csv(@farm, 2010)
+
+        send_data csv_string,
+                :type => 'text/csv; charset=iso-8859-1; header=present',
+                :disposition => "attachment; filename=#{@farm.name}#{2010}.csv"
+      end
     end
   end
 
