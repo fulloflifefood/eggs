@@ -14,7 +14,7 @@
 
 class Farm < ActiveRecord::Base
   validates_presence_of :name
-  has_many :products
+  has_many :products, :order => 'position'
   has_many :deliveries
   has_many :subscriptions
   has_many :members, :through => :subscriptions, :order => 'last_name, first_name', :include => [:user,:subscriptions]
