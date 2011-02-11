@@ -17,6 +17,8 @@ class Product < ActiveRecord::Base
   belongs_to :farm
   has_many :stock_items
 
+  acts_as_list :scope => :farm
+
   validates_associated :farm
   validates_presence_of :name
 end

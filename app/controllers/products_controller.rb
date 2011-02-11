@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.find_all_by_farm_id(@farm.id)
+    @products = Product.find_all_by_farm_id(@farm.id, :order => 'position')
 
     respond_to do |format|
       format.html # index.html.erb
