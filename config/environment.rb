@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -23,19 +23,6 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-
-  config.gem 'hoptoad_notifier'
-  config.gem 'authlogic'
-  config.gem "acl9", :source => "http://gemcutter.org", :lib => "acl9"
-  config.gem "factory_girl", :source => "http://gemcutter.org"
-  config.gem "fastercsv"
-  config.gem "prawn"
-  config.gem "liquid"
-  config.gem "validates_email_format_of"
-  config.gem "spreadsheet"
-  #config.gem "spec"
-  #config.gem 'email_spec', :lib => 'email_spec'
-  config.gem 'money'
 
   
   # Only load the plugins named here, in the order given (default is alphabetical).
