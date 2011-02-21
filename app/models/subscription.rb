@@ -28,4 +28,10 @@ class Subscription < ActiveRecord::Base
     last_transaction ? last_transaction.balance : 0
   end
 
+  def calculate_balance
+    self.transactions.all.inject(0) do |total, transaction|
+      total + (transaction.debit? ? transaction.amount * -1 : transaction.amount)
+    end
+  end
+
 end

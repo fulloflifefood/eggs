@@ -14,7 +14,7 @@ require 'spec_helper'
 describe Subscription do
   before(:each) do
     @valid_attributes = {
-      
+
     }
   end
 
@@ -55,6 +55,21 @@ describe Subscription do
     subscription.pending.should == true
     subscription.joined_mailing_list.should == false
     subscription.deposit_received.should == false
+  end
+
+  describe "#calculate_balance" do
+    before do
+      @subscription = Factory(:subscription)
+
+      Factory(:transaction, :amount => 100, :debit => false, :subscription => @subscription)
+      Factory(:transaction, :amount => 40, :debit => true, :balance => 0, :subscription => @subscription)
+    end
+
+    it "calculates based on all transactions" do
+      @subscription.current_balance.should == 0
+      @subscription.calculate_balance.should == 60
+    end
+
   end
 
 

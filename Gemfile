@@ -16,10 +16,10 @@ group :development, :test do
   gem 'factory_girl', '1.2.3'
   gem 'rspec', '1.2.9'
   gem 'rspec-rails', '1.2.9'
-end
-
-group :test do
-  gem 'email_spec', '0.6.5'
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'webrat'
 end
 
 group :development do
