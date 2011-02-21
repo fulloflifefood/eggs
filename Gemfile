@@ -1,4 +1,3 @@
-source :rubygems
 source :gemcutter
 
 gem 'rails', '2.3.5'
@@ -15,8 +14,12 @@ gem 'spreadsheet'
 
 group :development, :test do
   gem 'factory_girl', '1.2.3'
+  gem 'rspec', '1.2.9'
   gem 'rspec-rails', '1.2.9'
-  gem 'email_spec'
+end
+
+group :test do
+  gem 'email_spec', '0.6.5'
 end
 
 group :development do
