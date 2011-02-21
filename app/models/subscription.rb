@@ -34,4 +34,17 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def self.print_balance_diff
+    Subscription.all.each do |subscription|
+      next if !subscription.member.present?
+      current = subscription.current_balance.to_i
+      calculated = subscription.calculate_balance.to_i
+      diff = current - calculated
+      next if diff == 0
+      puts "#{subscription.member.last_name}:"
+      puts "  diff=#{diff},curr=#{current},calc=#{calculated}"
+    end
+    nil
+  end
+
 end
