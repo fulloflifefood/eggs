@@ -12,8 +12,10 @@ gem 'liquid', '2.0.0'
 gem 'validates_email_format_of'
 gem 'spreadsheet'
 
+# Required outside of :test group for some reason to avoid cucumber errors
+gem 'factory_girl'
+
 group :development, :test do
-  gem 'factory_girl', '1.2.3'
   gem 'rspec', '1.2.9'
   gem 'rspec-rails', '1.2.9'
   gem 'cucumber'
