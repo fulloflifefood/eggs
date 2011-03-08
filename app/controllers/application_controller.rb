@@ -5,9 +5,6 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :password
-
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
   before_filter :authenticate
@@ -35,7 +32,11 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return @current_user if defined? @current_user
-    @current_user = current_user_session && current_user_session.record
+    @current_user = current_user_session && current_user_session.user
+  end
+
+  def store_location
+    session[:return_to] = request.fullpath
   end
 
   def set_farm

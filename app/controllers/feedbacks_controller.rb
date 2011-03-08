@@ -14,7 +14,7 @@ class FeedbacksController < ApplicationController
     @feedback.user = "#{current_user.member.first_name} #{current_user.member.last_name}" if current_user && current_user.member
 
     if @feedback.valid?
-      FeedbackMailer.deliver_feedback(@feedback)
+      FeedbackMailer.feedback(@feedback).deliver
       render :status => :created, :text => '<h3>Thank you for your feedback!</h3>'
     else
       @error_message = "Please enter your #{@feedback.subject.to_s.downcase}"

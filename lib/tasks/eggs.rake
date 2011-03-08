@@ -1,5 +1,4 @@
 require "csv"
-require "importer"
 
 # Loads a single-delivery CSV file (exported from gDocs)
 # and saves the following to the database:

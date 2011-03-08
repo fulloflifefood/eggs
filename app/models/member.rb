@@ -33,7 +33,7 @@ class Member < ActiveRecord::Base
   liquid_methods :first_name, :last_name, :email_address, :address, :phone_number, :alternate_email,
                  :balance_for_farm, :referral, :deposit_type, :deposit_received, :joined_mailing_list
 
-  def after_create
+  after_create do
     self.update_attribute(:joined_on, Date.today) if !joined_on
   end
 

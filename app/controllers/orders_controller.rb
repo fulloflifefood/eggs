@@ -64,7 +64,7 @@ class OrdersController < ApplicationController
     
     respond_to do |format|
       if @order.save
-        Notifier.deliver_order_confirmation(@order)
+        Notifier.order_confirmation(@order).deliver
         flash[:notice] = 'Order was successfully created.'
         format.html { redirect_to order_path(:id => @order, :farm_id => @farm.id) }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
@@ -85,7 +85,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.update_attributes(params[:order])
-        Notifier.deliver_order_confirmation(@order, true)
+        Notifier.order_confirmation(@order, true).deliver
         flash[:notice] = 'Order was successfully updated.'
         format.html { redirect_to order_path(:id => @order, :farm_id => @farm.id) }
         format.xml  { head :ok }

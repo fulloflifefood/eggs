@@ -46,7 +46,7 @@ describe OrderItem do
 
     order_item = Factory.build(:order_item, :stock_item => stock_item, :quantity => 1)
     order_item.valid?.should == false
-    order_item.errors.on("quantity").downcase.should include "sold out"
+    order_item.errors["quantity"].first.downcase.should include "sold out"
   end
 
   it "should allow you to update an order_item with your last quantity regardless of inventory" do

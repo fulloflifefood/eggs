@@ -24,8 +24,8 @@ describe ReminderManager do
       @reminder_manager.schedule_reminders_for_delivery(delivery)
       reminders = DeliveryOrderReminder.find_all_by_delivery_id(delivery.id)
       reminders.size.should == 2
-      reminders.first.deliver_at == delivery.date - 6.days
-      reminders.last.deliver_at == delivery.date - 14.days
+      reminders.first.deliver_at.should == delivery.date - 6.days
+      reminders.last.deliver_at.should == delivery.date - 14.days
       reminders.first.deliver_at.hour.should == 7
       reminders.last.deliver_at.hour.should == 7
     end

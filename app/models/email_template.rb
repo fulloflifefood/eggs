@@ -63,7 +63,7 @@ class EmailTemplate < ActiveRecord::Base
 
     # Liquid doesn't like symbols as keys
     options.stringify_keys!
-    ApplicationMailer.deliver_email_template(address, self, options)
+    ApplicationMailer.email_template(address, self, options).deliver
   end
 
   #

@@ -108,7 +108,7 @@ class TransactionsController < ApplicationController
 
     # we must make sure this transaction id is not already completed
     if !Transaction.count("*", :conditions => ["paypal_transaction_id = ?", notify.transaction_id]).zero?
-      Notifier.deliver_admin_notification({:subject => 'Duplicate Transaction Attempt',
+      Notifier.admin_notification({:subject => 'Duplicate Transaction Attempt',
                                           :body => <<EOS 
 This PayPal payment has previously been entered and is being ignored.
 Probably nothing to worry about - I'm just sending a notification for everything right now.
@@ -118,7 +118,7 @@ Probably nothing to worry about - I'm just sending a notification for everything
   Sent to Business: #{params[:business]}
   Amount: $#{notify.amount}
 EOS
-}, @farm)
+}, @farm).deliver
       return
     end
 
@@ -133,7 +133,7 @@ EOS
         member = Member.find_by_alternate_email(params[:payer_email])
         subscription = member.subscription_for_farm(@farm)
       else
-        Notifier.deliver_admin_notification({:subject => 'PayPal payment from unknown member',
+        Notifier.admin_notification({:subject => 'PayPal payment from unknown member',
            :body => <<EOS 
 Unable to locate member for Paypal Transaction:
 
@@ -142,7 +142,7 @@ Unable to locate member for Paypal Transaction:
   Sent to Business: #{params[:business]}
   Amount: $#{notify.amount}
 EOS
-},@farm)
+},@farm).deliver
 
         return
       end
@@ -161,7 +161,7 @@ EOS
           transaction.deliver_credit_notification!
         else
            #Reason to be suspicious
-            Notifier.deliver_admin_notification({:subject => 'Unusual PayPal notification ',
+            Notifier.admin_notification({:subject => 'Unusual PayPal notification ',
               :body => <<EOS
 This PayPal payment wasn't able to be added.  Maybe it's not complete?:
 
@@ -170,7 +170,7 @@ This PayPal payment wasn't able to be added.  Maybe it's not complete?:
   Sent to Business: #{params[:business]}
   Amount: $#{notify.amount}
 EOS
-              },@farm)
+              },@farm).deliver
         end
 
       rescue => e
@@ -179,7 +179,7 @@ EOS
         #make sure we logged everything we must
       end
     else #transaction was not acknowledged
-Notifier.deliver_admin_notification({:subject => 'Suspicious Paypal Notification',
+Notifier.admin_notification({:subject => 'Suspicious Paypal Notification',
               :body => <<EOS
 This PayPal notification doesn't seem to be verified by PayPal and has not been entered.
 Double check the validity of the payment before entering manually.
@@ -189,7 +189,8 @@ Double check the validity of the payment before entering manually.
   Sent to Business: #{params[:business]}
   Amount: $#{notify.amount}
 EOS
-              },@farm)    end
+              },@farm).deliver
+    end
 
     render :nothing => true
   end

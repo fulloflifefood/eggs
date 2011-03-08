@@ -16,7 +16,7 @@ class Subscription < ActiveRecord::Base
 
   liquid_methods :member, :farm
 
-  def after_create
+  after_create do
     self.pending = true
     self.deposit_received = false
     self.joined_mailing_list = false

@@ -49,7 +49,7 @@ class ReminderManager
         template.deliver_to(member.email_address, :delivery => reminder.delivery)
       end
 
-      Notifier.deliver_admin_notify_reminders_sent(reminder.delivery, template)
+      Notifier.admin_notify_reminders_sent(reminder.delivery, template).deliver
 
       reminder.delete
       
@@ -61,7 +61,7 @@ class ReminderManager
 
     members = delivery.farm.members
 
-    return [Member.find_by_email_address('kathryn@kathrynaaker.com')] if RAILS_ENV == 'development'
+    return [Member.find_by_email_address('kathryn@kathrynaaker.com')] if Rails.env == 'development'
 
 
     members.reject do |member|
