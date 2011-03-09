@@ -18,10 +18,12 @@ gem 'newrelic_rpm'
 gem 'easy_dates'
 gem 'dynamic_form'
 
+# See http://stackoverflow.com/questions/3219988/cucumber-features-failing-undefined-method-factory-with-bundler-rails-2-3-5
+# for why this isn't in the group below
+gem 'factory_girl_rails'
+
 group :development, :test do
-  gem 'factory_girl_rails'
   gem 'rspec-rails'
-#  gem 'rspec2-rails-views-matchers'
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'database_cleaner'

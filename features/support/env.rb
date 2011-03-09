@@ -17,9 +17,12 @@ require 'webrat'
 require 'webrat/core/matchers'
 
 Webrat.configure do |config|
-  config.mode = :rails
-  config.open_error_files = false # Set to true if you want error pages to pop up in the browser
+config.mode = :rack
+config.open_error_files = false
 end
+
+World(Webrat::Methods)
+World(Webrat::Matchers)
 
 
 # If you set this to false, any error raised from within your app will bubble 
@@ -46,6 +49,7 @@ ActionController::Base.allow_rescue = false
 # subsequent scenarios. If you do this, we recommend you create a Before
 # block that will explicitly put your database in a known state.
 Cucumber::Rails::World.use_transactional_fixtures = true
+
 # How to clean your database when transactions are turned off. See
 # http://github.com/bmabey/database_cleaner for more info.
 if defined?(ActiveRecord::Base)
