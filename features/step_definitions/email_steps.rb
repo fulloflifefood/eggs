@@ -48,21 +48,23 @@ end
 # Check how many emails have been sent/received
 #
 
-Then /^(?:I|they|"([^"]*?)") should receive (an|no|\d+) emails?$/ do |address, amount|
-  unread_emails_for(address).size.should == parse_email_count(amount)
-end
-
-Then /^(?:I|they|"([^"]*?)") should have (an|no|\d+) emails?$/ do |address, amount|
-  mailbox_for(address).size.should == parse_email_count(amount)
+Then /^(?:I|they|"([^"]*?)") should receive (\d+) emails?$/ do |address, amount|
+  emails_for(address).size.should == amount.to_i
 end
 
 Then /^(?:I|they|"([^"]*?)") should receive (an|no|\d+) emails? with subject "([^"]*?)"$/ do |address, amount, subject|
-  unread_emails_for(address).select { |m| m.subject =~ Regexp.new(subject) }.size.should == parse_email_count(amount)
+  emails_for(address).select { |m| m.subject =~ Regexp.new(subject) }.size.should == parse_email_count(amount)
 end
 
-Then /^(?:I|they|"([^"]*?)") should receive an email with the following body:$/ do |address, expected_body|
-  open_email(address, :with_text => expected_body)
+# TODO: implement a body searching method
+#Then /^(?:I|they|"([^"]*?)") should receive an email with the following body:$/ do |address, expected_body|
+#  open_email(address, :with_text => expected_body)
+#end
+
+def emails_for(address)
+  ActionMailer::Base.deliveries.select{|mail| mail.to.include? address}
 end
+
 
 #
 # Accessing emails

@@ -36,7 +36,7 @@ Scenario: Submit Order Form with Success
   And I select "2" from "order_order_items_attributes_0_quantity"
   And I press "Submit"
   Then I should see "Order was successfully created."
-  And "benbrown@kathrynaaker.com" should receive an email
+  And "benbrown@kathrynaaker.com" should receive 1 email
   
 
 #Scenario: Submit order with a delivery question
