@@ -22,5 +22,5 @@ Scenario: See a positive account balance
     Given I have a balance of "-12"
     When I go to home
     Then I should see "Mission / Potrero"
-    Then I should see "$-12.00"
+    Then I should see "-$12.00"
     And I should not see "Credit:"

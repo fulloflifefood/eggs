@@ -33,6 +33,7 @@ Eggs::Application.routes.draw do
     end
   end
 
+  match '/home' => 'home#index', :as => :home
   match '/' => 'home#index', :as => :root
   match '/:controller(/:action(/:id))'
 end

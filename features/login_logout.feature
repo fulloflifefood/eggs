@@ -7,6 +7,7 @@ Scenario: Logging in and out
   Given I am the registered admin user jennyjones@kathrynaaker.com
   And I am on login
   When I login with valid credentials
+  Then I should not see "You are being redirected"
   Then I should see "Soul Food Farm"
   And I follow "Log out"
   And I go to farms

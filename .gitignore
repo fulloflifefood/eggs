@@ -10,3 +10,4 @@ log/*.log
 tmp/
 .idea/
 vendor/gems/*
+*.log
