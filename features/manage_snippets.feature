@@ -37,5 +37,6 @@ Scenario: Updating a Snippet
   When I follow "edit"
   Then I should see "Editing snippet"
   When I press "Submit"
-  Then I should see "snippets"
+  Then I should see "Snippet was successfully updated"
+  And I should see "Snippet:"
 

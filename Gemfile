@@ -17,6 +17,7 @@ gem 'acts_as_list'
 gem 'newrelic_rpm'
 gem 'easy_dates'
 gem 'dynamic_form'
+gem 'jquery-rails'
 
 # See http://stackoverflow.com/questions/3219988/cucumber-features-failing-undefined-method-factory-with-bundler-rails-2-3-5
 # for why this isn't in the group below
