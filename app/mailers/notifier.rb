@@ -22,7 +22,7 @@ class Notifier < ActionMailer::Base
     sent_on       Time.now
     body          :user => user, :farm => farm
   end
-
+  
   def mailing_list_subscription_request(user,farm)
     subject       "Subscribe"
     from          user.email

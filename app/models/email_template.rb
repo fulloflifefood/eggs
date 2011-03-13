@@ -89,17 +89,11 @@ class EmailTemplate < ActiveRecord::Base
   # Returns a usable Liquid:Template instance
   #
   def template
-    return @template unless @template.nil?
-
-    @template = Liquid::Template.parse body
-    @template
+    @template ||= Liquid::Template.parse body
   end
 
   def subject_template
-    return @subject_template unless @subject_template.nil?
-
-    @subject_template = Liquid::Template.parse subject
-    @subject_template
+    @subject_template ||= Liquid::Template.parse subject
   end
 
 end
