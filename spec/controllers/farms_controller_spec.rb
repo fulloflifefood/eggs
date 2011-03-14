@@ -29,7 +29,7 @@ describe FarmsController do
   it "should update deliveries on show" do
     farm = Factory(:farm_with_deliveries)
     delivery = Factory(:delivery, :status => 'notyetopen',
-                       :opening_at => DateTime.now - 10.minutes, :farm => farm,
+                       :opening_at => Time.current - 10.minutes, :farm => farm,
                        :status_override => false)
 
     get :show, :id => farm.id

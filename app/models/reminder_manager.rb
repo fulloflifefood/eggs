@@ -7,13 +7,11 @@ class ReminderManager
     last_call_email = EmailTemplate.find_by_farm_id_and_identifier(delivery.farm.id, "order_reminder_last_call")
     reminder_email = EmailTemplate.find_by_farm_id_and_identifier(delivery.farm.id, "order_reminder")
 
-    d = delivery.date - 6.days
-    #noinspection RubyArgCount
-    last_call_datetime = DateTime.new(d.year, d.month, d.day, 7, 0, 0)
-    
-    d = delivery.date - 14.days
-    #noinspection RubyArgCount
-    reminder_datetime = DateTime.new(d.year, d.month, d.day, 7, 0, 0)
+
+    datetime = date_to_time_with_zone(delivery.date, 7, 0, 0)
+
+    last_call_datetime = datetime.advance :days => -6
+    reminder_datetime  = datetime.advance :days => -14
     
     DeliveryOrderReminder.create!(:delivery_id => delivery.id,
                                   :email_template_id => last_call_email.id,
@@ -30,7 +28,7 @@ class ReminderManager
 
     reminders = DeliveryOrderReminder.find(
             :all,
-            :conditions => ["deliver_at BETWEEN ? and ?", DateTime.now - 20.days, DateTime.now]
+            :conditions => ["deliver_at BETWEEN ? and ?", Time.current.utc - 20.days, Time.current.utc]
     )
 
     return reminders
@@ -75,6 +73,12 @@ class ReminderManager
       end
       has_order
     end
+  end
+
+  private
+
+  def date_to_time_with_zone(date, hour = 0, min = 0, sec = 0)
+    Time.zone.local(date.year, date.month, date.day, hour, min, sec)
   end
 
 end
