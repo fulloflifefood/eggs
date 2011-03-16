@@ -14,11 +14,11 @@
                             :header_tag => :h4 %>
     <%= form.hidden_field :remember_me, :value => true %>
     <p>
-      <label>Email</label>
+      <label for="user_session_email">Email</label>
       <%= form.text_field :email %>
     </p>
     <p>
-      <label>Password</label>
+      <label for="user_session_password">Password</label>
       <%= form.password_field :password %>
     </p>
     <%= form.submit "Login", :class => "login button" %>
