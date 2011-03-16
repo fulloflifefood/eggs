@@ -24,7 +24,7 @@ class Transaction < ActiveRecord::Base
   liquid_methods :amount, :description, :paypal_transaction_id, :debit, :balance,
                  :subscription
 
-  def after_initialize
+  after_initialize do
     self.debit = false if !self.debit
   end
 

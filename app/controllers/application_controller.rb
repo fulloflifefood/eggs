@@ -5,9 +5,6 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :password
-
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
   before_filter :authenticate
@@ -18,10 +15,10 @@ class ApplicationController < ActionController::Base
   ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     if instance.error_message.kind_of?(Array)
       %(#{html_tag}<span class="validation-error">&nbsp;
-        #{instance.error_message.join(', ')}</span>)
+        #{instance.error_message.join(', ')}</span>).html_safe
     else
       %(#{html_tag}<span class="validation-error">&nbsp;
-        #{instance.error_message}</span>)
+        #{instance.error_message}</span>).html_safe
       end
   end
 
@@ -35,7 +32,11 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return @current_user if defined? @current_user
-    @current_user = current_user_session && current_user_session.record
+    @current_user = current_user_session && current_user_session.user
+  end
+
+  def store_location
+    session[:return_to] = request.fullpath
   end
 
   def set_farm

@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
 
   def deliver_welcome_and_activation!
     reset_perishable_token!
-    Notifier.deliver_welcome_and_activation(self)
+    Notifier.welcome_and_activation(self).deliver
   end
 
   def deliver_activation_instructions!(registration_url)
@@ -87,13 +87,13 @@ class User < ActiveRecord::Base
                         {:farm => self.member.farms.first, :user => self}) if template
 
 
-    Notifier.deliver_new_member_notification(self, self.member.farms.first)
+    Notifier.new_member_notification(self, self.member.farms.first).deliver
     # Notifier.deliver_mailing_list_subscription_request(self, self.member.farms.first)
   end
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    Notifier.deliver_password_reset_instructions(self)
+    Notifier.password_reset_instructions(self).deliver
   end
 
 

@@ -97,7 +97,7 @@ class Order < ActiveRecord::Base
   def total_meets_minimum
     if delivery
       if delivery.minimum_order_total
-        errors.add_to_base("your order does not meet the minimum") if estimated_total < delivery.minimum_order_total
+        errors.add(:base, "your order does not meet the minimum") if estimated_total < delivery.minimum_order_total
       end
     end
   end

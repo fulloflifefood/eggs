@@ -12,7 +12,6 @@
 #  location_id     :integer(4)
 #
 
-require 'spec'
 require 'spec_helper'
 
 describe Order do
@@ -68,7 +67,7 @@ describe Order do
     order = Factory.build(:order, :delivery => Factory(:delivery, :minimum_order_total => 25))
     order.order_items << Factory(:cheap_order_item)
     order.valid?.should == false
-    order.errors.on_base.should == "your order does not meet the minimum"
+    order.errors[:base].first.should == "your order does not meet the minimum"
 
     order.order_items << Factory(:expensive_order_item)
     order.valid?.should == true

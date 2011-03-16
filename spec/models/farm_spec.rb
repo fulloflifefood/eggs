@@ -12,7 +12,6 @@
 #  contact_name  :string(255)
 #
 
-require 'spec'
 require 'spec_helper'
 
 describe Farm do

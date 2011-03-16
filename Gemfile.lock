@@ -1,33 +1,64 @@
+GIT
+  remote: git://github.com/odorcicd/authlogic.git
+  revision: a087ad0cba3c165ba22fcf176c28b6f7517931e8
+  branch: rails3
+  specs:
+    authlogic (2.1.3)
+      activesupport
+
 GEM
   remote: http://rubygems.org/
   specs:
+    abstract (1.0.0)
     acl9 (0.12.0)
-    actionmailer (2.3.5)
-      actionpack (= 2.3.5)
-    actionpack (2.3.5)
-      activesupport (= 2.3.5)
-      rack (~> 1.0.0)
-    activerecord (2.3.5)
-      activesupport (= 2.3.5)
-    activeresource (2.3.5)
-      activesupport (= 2.3.5)
-    activesupport (2.3.5)
-    authlogic (2.1.3)
-      activesupport
-    aws-s3 (0.6.2)
-      builder
-      mime-types
-      xml-simple
-    backup (2.3.1)
+    actionmailer (3.0.5)
+      actionpack (= 3.0.5)
+      mail (~> 2.2.15)
+    actionpack (3.0.5)
+      activemodel (= 3.0.5)
+      activesupport (= 3.0.5)
+      builder (~> 2.1.2)
+      erubis (~> 2.6.6)
+      i18n (~> 0.4)
+      rack (~> 1.2.1)
+      rack-mount (~> 0.6.13)
+      rack-test (~> 0.5.7)
+      tzinfo (~> 0.3.23)
+    activemerchant (1.12.0)
+      activesupport (>= 2.3.8)
+      braintree (>= 2.0.0)
+      builder (>= 2.0.0)
+    activemodel (3.0.5)
+      activesupport (= 3.0.5)
+      builder (~> 2.1.2)
+      i18n (~> 0.4)
+    activerecord (3.0.5)
+      activemodel (= 3.0.5)
+      activesupport (= 3.0.5)
+      arel (~> 2.0.2)
+      tzinfo (~> 0.3.23)
+    activeresource (3.0.5)
+      activemodel (= 3.0.5)
+      activesupport (= 3.0.5)
+    activesupport (3.0.5)
+    acts_as_list (0.1.2)
+    arel (2.0.9)
+    backup (2.4.5.1)
       activerecord (>= 2.3.5)
-      aws-s3 (>= 0.6.2)
+      cloudfiles (>= 1.4.7)
+      dropbox (>= 1.1.2)
+      fog (~> 0.3.5)
       hirb (>= 0.2.9)
+      json_pure (~> 1.4.6)
       net-scp (>= 1.0.2)
       net-sftp (>= 2.0.4)
       net-ssh (>= 2.0.15)
       pony (>= 0.5)
-      sqlite3-ruby (>= 1.2.5)
-    builder (3.0.0)
+    braintree (2.8.0)
+      builder
+    builder (2.1.2)
+    cloudfiles (1.4.14)
+      mime-types (>= 1.16)
     configuration (1.2.0)
     cucumber (0.10.0)
       builder (>= 2.1.2)
@@ -37,39 +68,72 @@ GEM
       term-ansicolor (~> 1.0.5)
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
-    database_cleaner (0.6.3)
+    database_cleaner (0.6.4)
     diff-lcs (1.1.2)
+    dropbox (1.2.3)
+      json (>= 1.2.0)
+      mechanize (>= 1.0.0)
+      multipart-post (>= 1.0)
+      oauth (>= 0.3.6)
+    dynamic_form (1.1.3)
+    easy_dates (0.1.1)
+    erubis (2.6.6)
+      abstract (>= 1.0.0)
+    excon (0.5.6)
     factory_girl (1.3.3)
+    factory_girl_rails (1.0.1)
+      factory_girl (~> 1.3)
+      railties (>= 3.0.0)
     fastercsv (1.5.1)
+    fog (0.3.34)
+      builder
+      excon (>= 0.3.6)
+      formatador (>= 0.0.16)
+      json
+      mime-types
+      net-ssh (>= 2.0.23)
+      nokogiri (>= 1.4.4)
+      ruby-hmac
+    formatador (0.0.16)
     gherkin (2.3.3)
       json (~> 1.4.6)
-    heroku (1.17.16)
+    heroku (1.17.17)
       json (~> 1.4.6)
       launchy (~> 0.3.2)
       rest-client (>= 1.4.0, < 1.7.0)
-    hirb (0.3.6)
+    hirb (0.4.0)
     hoptoad_notifier (2.4.6)
       activesupport
       builder
     i18n (0.5.0)
+    jquery-rails (0.2.7)
+      rails (~> 3.0)
+      thor (~> 0.14.4)
     json (1.4.6)
+    json_pure (1.4.6)
     launchy (0.3.7)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
     liquid (2.0.0)
-    mail (2.2.1)
-      activesupport (>= 2.3.4)
-      mime-types
-      treetop (>= 1.4.5)
+    mail (2.2.15)
+      activesupport (>= 2.3.6)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mechanize (1.0.0)
+      nokogiri (>= 1.2.1)
     mime-types (1.16)
-    money (3.6.0)
+    money (3.6.1)
       i18n (~> 0.4)
+    multipart-post (1.1.0)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.1.0)
+    net-ssh (2.1.3)
+    newrelic_rpm (2.13.4)
     nokogiri (1.4.4)
+    oauth (0.4.4)
     polyglot (0.3.1)
     pony (1.1)
       mail (> 2.0)
@@ -80,23 +144,41 @@ GEM
     prawn-core (0.7.2)
     prawn-layout (0.7.2)
     prawn-security (0.7.1)
-    rack (1.0.1)
+    rack (1.2.1)
+    rack-mount (0.6.13)
+      rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
-    rails (2.3.5)
-      actionmailer (= 2.3.5)
-      actionpack (= 2.3.5)
-      activerecord (= 2.3.5)
-      activeresource (= 2.3.5)
-      activesupport (= 2.3.5)
-      rake (>= 0.8.3)
+    rails (3.0.5)
+      actionmailer (= 3.0.5)
+      actionpack (= 3.0.5)
+      activerecord (= 3.0.5)
+      activeresource (= 3.0.5)
+      activesupport (= 3.0.5)
+      bundler (~> 1.0)
+      railties (= 3.0.5)
+    railties (3.0.5)
+      actionpack (= 3.0.5)
+      activesupport (= 3.0.5)
+      rake (>= 0.8.7)
+      thor (~> 0.14.4)
     rake (0.8.7)
     rest-client (1.6.1)
       mime-types (>= 1.16)
-    rspec (1.2.9)
-    rspec-rails (1.2.9)
-      rack (>= 1.0.0)
-      rspec (>= 1.2.9)
+    rspec (2.5.0)
+      rspec-core (~> 2.5.0)
+      rspec-expectations (~> 2.5.0)
+      rspec-mocks (~> 2.5.0)
+    rspec-core (2.5.1)
+    rspec-expectations (2.5.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.5.0)
+    rspec-rails (2.5.0)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      railties (~> 3.0)
+      rspec (~> 2.5.0)
+    ruby-hmac (0.4.0)
     ruby-ole (1.2.11.1)
     sequel (3.17.0)
     sinatra (1.0)
@@ -114,36 +196,43 @@ GEM
       sinatra (~> 1.0.0)
       sqlite3-ruby (~> 1.2)
     term-ansicolor (1.0.5)
+    thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
+    tzinfo (0.3.24)
     validates_email_format_of (1.4.5)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
-    xml-simple (1.0.14)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  acl9 (= 0.12.0)
-  authlogic (= 2.1.3)
-  backup (= 2.3.1)
+  acl9
+  activemerchant
+  acts_as_list
+  authlogic!
+  backup
   cucumber
   cucumber-rails
   database_cleaner
-  factory_girl
+  dynamic_form
+  easy_dates
+  factory_girl_rails
   fastercsv (= 1.5.1)
   heroku
   hoptoad_notifier
+  jquery-rails
   liquid (= 2.0.0)
   money
+  newrelic_rpm
   prawn (= 0.7.2)
-  rails (= 2.3.5)
-  rspec (= 1.2.9)
-  rspec-rails (= 1.2.9)
+  rails (>= 3)
+  rspec-rails
   spreadsheet
+  sqlite3
   taps
   validates_email_format_of
   webrat

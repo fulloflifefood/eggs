@@ -1,10 +1,13 @@
-log/
-db/*.sqlite3
+.bundle
+rerun.txt
 *~
 .DS_Store
 *.swp
-.idea/
 *.iml
-rerun.txt
 config/heroku_env.rb
+db/*.sqlite3
+log/*.log
+tmp/
+.idea/
 vendor/gems/*
+*.log

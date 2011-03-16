@@ -7,8 +7,8 @@ describe ReminderManager do
     @farm = Factory(:farm_with_members, :reminders_enabled => true)
     3.times do
       @farm.deliveries << Factory(:delivery, :farm => @farm, :status => "open",
-                                  :date => Time.now + 13.days,
-                                  :created_at => Time.now - 20.days)
+                                  :date => Time.current.to_date + 13.days,
+                                  :created_at => Time.current - 20.days)
     end
     
     @reminder_manager = ReminderManager.new
@@ -24,8 +24,8 @@ describe ReminderManager do
       @reminder_manager.schedule_reminders_for_delivery(delivery)
       reminders = DeliveryOrderReminder.find_all_by_delivery_id(delivery.id)
       reminders.size.should == 2
-      reminders.first.deliver_at == delivery.date - 6.days
-      reminders.last.deliver_at == delivery.date - 14.days
+      reminders.first.deliver_at.to_date.should == delivery.date - 6.days
+      reminders.last.deliver_at.to_date.should == delivery.date - 14.days
       reminders.first.deliver_at.hour.should == 7
       reminders.last.deliver_at.hour.should == 7
     end
