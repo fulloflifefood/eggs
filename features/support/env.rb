@@ -67,3 +67,5 @@ require "authlogic/test_case"
 Before do
   activate_authlogic
 end
+
+require File.expand_path(File.dirname(__FILE__) + '/stop')
