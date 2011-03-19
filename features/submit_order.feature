@@ -59,3 +59,14 @@ Scenario: Edit an Order
   Then I should see "view/edit order"
   And I follow "view/edit order"
   Then I should see "Mission / Potrero"
+
+# this happens when an admin has reduced availability of an item already ordered by a member
+#@stop @wip
+Scenario: Submit an order when a stock_item has negative availability
+  Given the delivery has a stock_item with negative availability
+  When I go to home
+  And I follow "Mission / Potrero"
+  Then I should see "New Order"
+  And I select "2" from "order_order_items_attributes_2_quantity"
+  And I press "Submit"
+  Then I should see "Order was successfully created."

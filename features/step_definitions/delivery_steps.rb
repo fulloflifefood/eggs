@@ -31,6 +31,11 @@ Given /^the delivery has a minimum total of (.+)$/ do |minimum_total|
   @delivery.save!
 end
 
+Given /^the delivery has a stock_item with negative availability$/ do
+  stock_item = @delivery.stock_items.first
+  stock_item.update_attribute('quantity_available', -1)
+end
+
 Given /^there is a "([^\"]*)" delivery "([^\"]*)"$/ do |status, delivery_name|
   steps %Q{
     Given there is a farm
@@ -71,3 +76,4 @@ Given /^there is a delivery question "([^\"]*)" with options ([^\"]*)$/ do |desc
   delivery_question = DeliveryQuestion.new(:description => description, :options => options, :delivery => @delivery)
   delivery_question.save!  
 end
+

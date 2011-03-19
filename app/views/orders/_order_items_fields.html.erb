@@ -14,15 +14,15 @@
   </thead>
 
   <% @order.order_items.each do |item| %>
-      <tr <%= "class='zero_quantity'" if item.stock_item.quantity_available.zero? %>>
-      <tr class="<%= 'zero_quantity' if item.stock_item.quantity_available.zero? %>
+      <tr <%= "class='zero_quantity'" if item.stock_item.quantity_available < 1 %>>
+      <tr class="<%= 'zero_quantity' if item.stock_item.quantity_available < 1 %>
           <%= cycle("even", "odd") %>">  
 
         <%= f.fields_for :order_items, item do |builder| %>
             <%= builder.hidden_field :stock_item_id, :value => item.stock_item.id %>
             <td>
               <% if @order.new_record? %>
-                <% if item.stock_item.available_per_member == 0 %>
+                <% if item.stock_item.available_per_member <= 0 %>
                   <%= builder.hidden_field :quantity, :value => 0 %>
                   SOLD OUT
                 <% else %>
