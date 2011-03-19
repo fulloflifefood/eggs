@@ -14,8 +14,8 @@
   </thead>
 
   <% @order.order_items.each do |item| %>
-      <tr <%= "class='zero_quantity'" if item.stock_item.quantity_available < 1 %>>
-      <tr class="<%= 'zero_quantity' if item.stock_item.quantity_available < 1 %>
+      <tr <%= "class='zero_quantity'" if item.stock_item.quantity_available < 1 && item.quantity == 0 %>>
+      <tr class="<%= 'zero_quantity' if item.stock_item.quantity_available < 1 && item.quantity == 0 %>
           <%= cycle("even", "odd") %>">  
 
         <%= f.fields_for :order_items, item do |builder| %>
