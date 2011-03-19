@@ -67,12 +67,12 @@
         <th>Available</th>
         <th>Remaining</th>
       </tr>
-        <% @delivery.stock_items.with_quantity.each do |s|%>
-          <tr>
+        <% @delivery.stock_items.with_nonzero_quantity.each do |s|%>
+          <tr <%= "class='warning'" if s.quantity_remaining < 0 %>>
               <td><%= s.product_name %></td>
               <td><%= s.quantity_ordered %></td>
               <td><%= s.quantity_available %></td>
-              <td><%= s.quantity_remaining %></td>
+              <td ><%= s.quantity_remaining %></td>
           </tr>
         <% end %>
       </table>

@@ -35,3 +35,7 @@ tr.zero_quantity {
 pre.farm_address {
   background-color: #E2E4E4;
 }
+
+.warning {
+  color: #cc0000;
+}

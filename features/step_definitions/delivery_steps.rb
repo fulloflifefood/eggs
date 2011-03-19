@@ -34,6 +34,7 @@ end
 Given /^the delivery has a stock_item with negative availability$/ do
   stock_item = @delivery.stock_items.first
   stock_item.update_attribute('quantity_available', -1)
+  stock_item.update_attribute('product_name', stock_item.product_name + " - NEGATIVE")
 end
 
 Given /^there is a "([^\"]*)" delivery "([^\"]*)"$/ do |status, delivery_name|

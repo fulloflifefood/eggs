@@ -39,3 +39,10 @@ Scenario: Entering Finalized Totals
   And I press "Update"
   Then I should see "Delivery was successfully updated"
   And I should see "Enter Finalized Totals"
+
+Scenario: Reducing quantity of a stock_item after orders are placed for it
+  Given there is a "inprogress" delivery "SF - Hayes Valley"
+  Given the delivery has a stock_item with negative availability
+  When I go to the delivery "SF - Hayes Valley"
+  Then I should see "Chicken, REGULAR - NEGATIVE"
+  And I should see "-1"
