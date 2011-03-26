@@ -38,7 +38,8 @@ class Subscription < ActiveRecord::Base
   # such as a transaction deleted from database directly
   def recalculate_balance_history!
     self.transactions.each_with_index do |transaction, i|
-      transaction.calculate_balance(self.transactions.at(i-1))
+      previous_transaction = i > 0 ? self.transactions.at(i-1) : nil
+      transaction.calculate_balance(previous_transaction)
       transaction.save!
     end
     if Rails.env != "test"

@@ -91,6 +91,19 @@ describe Subscription do
       @subscription.transactions.last.balance.should == 60
 
     end
+
+    it "recalculates and applies correct balances for all transactions when not 0" do
+      @subscription.transactions.first.update_attribute(:balance, -50)
+      @subscription.transactions.last.update_attribute(:balance, 25)
+
+      @subscription.current_balance.should == 25
+      @subscription.recalculate_balance_history!
+      @subscription.current_balance.should == 60
+
+      @subscription.transactions.first.balance.should == 100
+      @subscription.transactions.last.balance.should == 60
+
+    end
     
   end
 
