@@ -12,7 +12,7 @@
 class Subscription < ActiveRecord::Base
   belongs_to :farm
   belongs_to :member
-  has_many :transactions
+  has_many :transactions, :order => 'created_at ASC'
 
   liquid_methods :member, :farm
 
@@ -34,17 +34,34 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  # to be executed only in the case of invalid history for some reason,
+  # such as a transaction deleted from database directly
+  def recalculate_balance_history!
+    self.transactions.each_with_index do |transaction, i|
+      transaction.calculate_balance(self.transactions.at(i-1))
+      transaction.save!
+    end
+    if Rails.env != "test"
+      puts "-- recalculated balance history for #{self.member.last_name}"
+    end
+  end
+
   def self.print_balance_diff
     Subscription.all.each do |subscription|
       next if !subscription.member.present?
-      current = subscription.current_balance.to_i
-      calculated = subscription.calculate_balance.to_i
+      current = subscription.current_balance.to_f.round(2)
+      calculated = subscription.calculate_balance.to_f.round(2)
       diff = current - calculated
       next if diff == 0
-      puts "#{subscription.member.last_name}:"
-      puts "  diff=#{diff},curr=#{current},calc=#{calculated}"
+      puts "#{subscription.member.last_name}, #{subscription.member.first_name}:"
+      puts subscription.member.email_address
+      puts "subscription id: #{subscription.id}"
+      puts "  current:    #{current}"
+      puts "  calculated: #{calculated}"
+      puts "  diff:       #{diff}"
+      puts " "
     end
-    nil
+    return nil
   end
 
 end

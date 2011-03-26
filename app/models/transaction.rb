@@ -19,7 +19,11 @@ class Transaction < ActiveRecord::Base
   belongs_to :subscription
   belongs_to :order
 
-  before_create :zero_nil_amount, :calculate_balance
+  before_create :zero_nil_amount
+
+  before_create do
+    calculate_balance self.subscription.transactions.last
+  end
 
   liquid_methods :amount, :description, :paypal_transaction_id, :debit, :balance,
                  :subscription
@@ -32,14 +36,11 @@ class Transaction < ActiveRecord::Base
     self.amount = 0 if self.amount == nil
   end
 
-  def calculate_balance
-    if !balance
-      last = Transaction.find_all_by_subscription_id(subscription.id, :order => 'date ASC').last
-      if last
-        self.balance = last.balance + (debit ? -amount : amount)
-      else
-        self.balance = debit ? -amount : amount
-      end
+  def calculate_balance(previous_transaction)
+    if previous_transaction
+      self.balance = previous_transaction.balance + (debit ? -amount : amount)
+    else
+      self.balance = debit ? -amount : amount
     end
   end
 

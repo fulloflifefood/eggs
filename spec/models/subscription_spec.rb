@@ -62,7 +62,8 @@ describe Subscription do
       @subscription = Factory(:subscription)
 
       Factory(:transaction, :amount => 100, :debit => false, :subscription => @subscription)
-      Factory(:transaction, :amount => 40, :debit => true, :balance => 0, :subscription => @subscription)
+      transaction = Factory(:transaction, :amount => 40, :debit => true, :subscription => @subscription)
+      transaction.update_attribute(:balance, 0)
     end
 
     it "calculates based on all transactions" do
@@ -72,5 +73,25 @@ describe Subscription do
 
   end
 
+  describe "#recalculate_balance_history!" do
+    before do
+      @subscription = Factory(:subscription)
+      
+      Factory(:transaction, :amount => 100, :debit => false, :subscription => @subscription).update_attribute(:balance, 0)
+      Factory(:transaction, :amount => 40, :debit => true, :subscription => @subscription).update_attribute(:balance, 0)
+
+    end
+
+    it "recalculates and applies correct balances for all transactions" do
+      @subscription.current_balance.should == 0
+      @subscription.recalculate_balance_history!
+      @subscription.current_balance.should == 60
+
+      @subscription.transactions.first.balance.should == 100
+      @subscription.transactions.last.balance.should == 60
+
+    end
+    
+  end
 
 end

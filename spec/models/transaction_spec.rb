@@ -23,7 +23,7 @@ describe Transaction do
       :date => Date.today,
       :amount => 1.5,
       :description => "value for description",
-      :subscription_id => 1,
+      :subscription_id => Factory(:subscription).id,
       :balance => 10,
       :debit => true
     }
