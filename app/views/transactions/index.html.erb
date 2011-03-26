@@ -49,7 +49,7 @@
       </p>
       <% end %>
 
-      <%= @balance_template.render('farm' => @farm) if @balance_template %>
+      <%= @balance_template.render('farm' => @farm).html_safe if @balance_template %>
     </div>
   <% end %>
 

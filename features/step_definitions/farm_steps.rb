@@ -25,3 +25,7 @@ Given /^the farm has the member "([^\"]*)"$/ do |member_name|
   
   Factory.create(:user, :member => member, :email => member.email_address)
 end
+
+Given /^there is a snippet for "([^"]*)" with "([^"]*)"$/ do |identifier, body_text|
+  Snippet.create!(:farm => @farm, :identifier => identifier, :body => body_text)
+end
