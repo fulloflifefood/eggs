@@ -48,13 +48,13 @@ describe UsersController do
     farm = Factory(:farm)
     member = Factory(:member)
     user = Factory(:member_user, :member => member)
-    sub = Factory(:subscription, :member => member, :farm => farm)
+    subscription = Factory(:subscription, :member => member, :farm => farm)
 
     UserSession.create user
     get :show, :farm_id => farm.id, :id => user.id
 
     response.should  render_template('users/home')
-    assigns(:subscription).should == sub
+    assigns(:subscription).should == subscription
     
   end
 

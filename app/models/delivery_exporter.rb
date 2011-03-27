@@ -25,11 +25,11 @@ class DeliveryExporter < ActiveRecord::Base
 
       # rows
       delivery.orders.each do |order|
-        sub = order.member.subscriptions.select{|item| item.farm.name == order.delivery.farm.name}.first
+        subscription = order.member.subscriptions.select{|item| item.farm.name == order.delivery.farm.name}.first
         row = [order.member.last_name, order.member.first_name, order.member.email_address, order.member.phone_number, order.location.name]
         order.order_items.with_stock_quantity.each{ |item| row << item.quantity }
         order.order_questions.visible.each {|question| row << question.option_code }
-        row += [order.notes, order.estimated_total, order.finalized_total, sub.current_balance, nil, order.member.last_name]
+        row += [order.notes, order.estimated_total, order.finalized_total, subscription.current_balance, nil, order.member.last_name]
         csv << row
       end
       

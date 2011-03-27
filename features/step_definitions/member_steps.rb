@@ -1,8 +1,8 @@
 Given /^the member "([^\"]*)" is pending$/ do |last_name|
   member = Member.find_by_last_name(last_name)
-  sub = member.subscription_for_farm(@farm)
-  sub.pending = true
-  sub.save!
+  subscription = member.subscription_for_farm(@farm)
+  subscription.pending = true
+  subscription.save!
 end
 
 Given /^the member "([^\"]*)" has the email address "([^\"]*)"$/ do |name, email|

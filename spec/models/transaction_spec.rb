@@ -34,11 +34,11 @@ describe Transaction do
   end
 
   it "should calculate a new balance based on the previous" do
-    sub = Factory(:subscription)
-    Factory(:transaction, :subscription => sub, :amount => 100, :debit => false, :balance => 100)
-    Factory(:transaction, :subscription => sub, :amount => 40, :debit => true)
-    sub.transactions.reload
-    sub.current_balance.should == 60;
+    subscription = Factory(:subscription)
+    Factory(:transaction, :subscription => subscription, :amount => 100, :debit => false, :balance => 100)
+    Factory(:transaction, :subscription => subscription, :amount => 40, :debit => true)
+    subscription.transactions.reload
+    subscription.current_balance.should == 60;
   end
 
 end

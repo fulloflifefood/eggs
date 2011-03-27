@@ -69,8 +69,8 @@ class Member < ActiveRecord::Base
       total_spent += order.finalized_total if order.finalized_total
     end
 
-    sub = self.subscription_for_farm(farm)
-    transactions = Transaction.find_all_by_subscription_id_and_debit(sub.id, false, :conditions => "date #{(start_date..end_date).to_s(:db)}")
+    subscription = self.subscription_for_farm(farm)
+    transactions = Transaction.find_all_by_subscription_id_and_debit(subscription.id, false, :conditions => "date #{(start_date..end_date).to_s(:db)}")
 
     deposited = transactions.inject(0) {|sum, transaction| sum += transaction.amount}
 

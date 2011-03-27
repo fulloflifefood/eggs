@@ -83,22 +83,22 @@ describe Member do
     farm = Factory(:farm)
     farm.members << Factory(:member)
     member = farm.members.first
-    sub = member.subscriptions.first
+    subscription = member.subscriptions.first
 
     farm.products << Factory(:product, :name => "Chicken", :farm => farm)
     farm.products << Factory(:product, :name => "Eggs", :farm => farm)
 
     # credits
-    make_transaction(sub, false, 100, Date.new(2010, 4, 1))
-    make_transaction(sub, false, 100, Date.new(2010, 5, 1))
-    make_transaction(sub, false, 100, Date.new(2009, 3, 1))
-    make_transaction(sub, false, 100, Date.new(2011, 4, 1))
+    make_transaction(subscription, false, 100, Date.new(2010, 4, 1))
+    make_transaction(subscription, false, 100, Date.new(2010, 5, 1))
+    make_transaction(subscription, false, 100, Date.new(2009, 3, 1))
+    make_transaction(subscription, false, 100, Date.new(2011, 4, 1))
 
     # debits
-    make_transaction(sub, true, 40, Date.new(2010, 4, 15))
-    make_transaction(sub, true, 30, Date.new(2010, 6, 1))
-    make_transaction(sub, true, 50, Date.new(2009, 10, 4))
-    make_transaction(sub, true, 20, Date.new(2011, 1, 2))
+    make_transaction(subscription, true, 40, Date.new(2010, 4, 15))
+    make_transaction(subscription, true, 30, Date.new(2010, 6, 1))
+    make_transaction(subscription, true, 50, Date.new(2009, 10, 4))
+    make_transaction(subscription, true, 20, Date.new(2011, 1, 2))
 
     delivery1 = Factory(:delivery, :farm => farm, :date => '2010-01-27')
     delivery2 = Factory(:delivery, :farm => farm, :date => '2010-02-27')
