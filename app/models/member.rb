@@ -17,8 +17,8 @@
 #
 
 class Member < ActiveRecord::Base
-  has_many :subscriptions
-  has_many :farms, :through => :subscriptions
+  has_many :accounts
+  has_many :farms, :through => :accounts
   has_many :orders, :dependent => :destroy, :include => :delivery, :order => 'deliveries.date DESC' do
     def filter_by_farm(farm)
       self.select {|order| order.delivery.farm == farm}
@@ -42,12 +42,12 @@ class Member < ActiveRecord::Base
   end
 
   def balance_for_farm(farm)
-    subscription = subscription_for_farm(farm)
-    subscription.current_balance
+    account = account_for_farm(farm)
+    account.current_balance
   end
 
-  def subscription_for_farm(farm)
-    subscriptions.detect{|subscription|subscription.farm_id == farm.id}
+  def account_for_farm(farm)
+    accounts.detect{|account|account.farm_id == farm.id}
   end
 
   def export_history(farm, start_date, end_date)
@@ -69,8 +69,8 @@ class Member < ActiveRecord::Base
       total_spent += order.finalized_total if order.finalized_total
     end
 
-    subscription = self.subscription_for_farm(farm)
-    transactions = Transaction.find_all_by_subscription_id_and_debit(subscription.id, false, :conditions => "date #{(start_date..end_date).to_s(:db)}")
+    account = self.account_for_farm(farm)
+    transactions = Transaction.find_all_by_account_id_and_debit(account.id, false, :conditions => "date #{(start_date..end_date).to_s(:db)}")
 
     deposited = transactions.inject(0) {|sum, transaction| sum += transaction.amount}
 

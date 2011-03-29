@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    members = Member.all :joins => :subscriptions, :conditions => {:subscriptions => {:farm_id => @farm.id}}
+    members = Member.all :joins => :accounts, :conditions => {:accounts => {:farm_id => @farm.id}}
     @users = User.all :conditions => ["member_id IN (?)", members]
 
     respond_to do |format|
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
     @user = User.find(params[:id])
     @farm = @user.member.farms.first if !@farm      
-    @subscription = Subscription.find_by_member_id_and_farm_id(@user.member.id,@farm.id)
+    @account = Account.find_by_member_id_and_farm_id(@user.member.id,@farm.id)
 
     if(current_user == @user)
       orders = @user.member.orders.filter_by_farm(@farm)

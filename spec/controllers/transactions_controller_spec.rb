@@ -8,7 +8,7 @@ describe TransactionsController do
     UserSession.create Factory(:admin_user)
 
     @member = UserSession.find.user.member
-    @subscription = Factory(:subscription, :farm => @farm, :member => @member)
+    @account = Factory(:account, :farm => @farm, :member => @member)
   end
 
   def mock_transaction(stubs={})
@@ -26,37 +26,37 @@ describe TransactionsController do
 
       before(:each) do
 
-        @subscription = Factory(:subscription)
+        @account = Factory(:account)
 
         @trans_id = "16F08736TA389152H"
         @ipn_params = {"payment_date" => "04:33:33 Oct 13.2007+PDT" ,
           "txn_type" => "web_accept",
-          "last_name" => @subscription.member.last_name,
+          "last_name" => @account.member.last_name,
           "residence_country" => "US",
           "item_name" => "CSA top-up",
           "payment_gross" => "100.00",
           "mc_currency" => "USD",
-          "business" => @subscription.farm.paypal_account,
+          "business" => @account.farm.paypal_account,
           "payment_type" => "instant",
           "verify_sign" => "AZQLcOZ7B.YM2m-QDAXOrQQcLFYuA0N0XoC3zadaGhkGNF2nlRWmpzlI",
           "payer_status" => "verified",
           "test_ipn" => "1",
           "tax" => "0.00",
-          "payer_email" => @subscription.member.email_address ,
+          "payer_email" => @account.member.email_address ,
           "txn_id" => @trans_id,
           "quantity" => "1",
           "receiver_email" => 'receivertest@example.com',
-          "first_name" => @subscription.member.first_name,
+          "first_name" => @account.member.first_name,
           "invoice" => nil,
           "payer_id" =>  '2094040',
           "receiver_id" => '3934949',
-          "item_number" => @subscription.id,
+          "item_number" => @account.id,
           "payment_status" => "Completed",
           "payment_fee" => "5.52",
           "mc_fee" => "5.52",
           "shipping" => "0.00",
           "mc_gross" => "100.00",
-          "custom" => @subscription.farm.id,
+          "custom" => @account.farm.id,
           "charset" => "windows-1252",
           "notify_version" => "2.4"
         }
@@ -68,11 +68,11 @@ describe TransactionsController do
 
       it "acknowledges a successful transaction" do
 
-        @subscription.transactions.count.should == 0
+        @account.transactions.count.should == 0
         post :ipn, @ipn_params.merge("acknowledge" => "true")
         response.should be_success
-        @subscription.transactions.count.should == 1
-        @subscription.current_balance.should == 100
+        @account.transactions.count.should == 1
+        @account.current_balance.should == 100
 
       end
 
@@ -82,25 +82,25 @@ describe TransactionsController do
         post :ipn, @ipn_params.merge("acknowledge" => "true")
         response.should be_success
 
-        @subscription.transactions.count.should == 1
-        @subscription.current_balance.should == 100
+        @account.transactions.count.should == 1
+        @account.current_balance.should == 100
 
       end
 
-      it "should look up a subscription by email address if no id is given" do
+      it "should look up a account by email address if no id is given" do
         post :ipn, @ipn_params.merge("acknowledge" => "true", "item_number" => nil)
-        @subscription.transactions.count.should == 1
-        @subscription.current_balance.should == 100
+        @account.transactions.count.should == 1
+        @account.current_balance.should == 100
       end
 
-      it "should look up the subscription by alternate email, too" do
-        @subscription.member.update_attribute(:alternate_email, "myalternate@example.com")
+      it "should look up the account by alternate email, too" do
+        @account.member.update_attribute(:alternate_email, "myalternate@example.com")
         post :ipn, @ipn_params.merge("acknowledge" => "true",
                                      "item_number" => nil,
-                                     "payer_email" => @subscription.member.alternate_email)
+                                     "payer_email" => @account.member.alternate_email)
 
-        @subscription.transactions.count.should == 1
-        @subscription.current_balance.should == 100
+        @account.transactions.count.should == 1
+        @account.current_balance.should == 100
         
       end
 
@@ -122,9 +122,9 @@ describe TransactionsController do
       UserSession.create Factory(:member_user)      
       member = UserSession.find.user.member
       farm = Factory(:farm)
-      subscription = Factory(:subscription, :farm => farm, :member => member)
+      account = Factory(:account, :farm => farm, :member => member)
       Factory(:transaction)
-      Factory(:transaction, :subscription => subscription)
+      Factory(:transaction, :account => account)
 
       get :index, :member_id => member.id, :farm_id => farm.id
       assigns[:transactions].length.should == 1

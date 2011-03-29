@@ -32,7 +32,7 @@
       <div><%= select_tag 'deposit_type', "<option>PayPal</option><option>Check</option><option>N/A (Previous Member)</option>",
                           :class => "field select small" %></div>
       <% else %>
-      <div><%= @subscription.deposit_type if @subscription %></div>
+      <div><%= @account.deposit_type if @account %></div>
       <% end %>
     </li>
 
@@ -65,22 +65,22 @@
     </li>
     <% end %>
 
-    <% if current_user && current_user.has_role?(:admin) && @subscription %>
+    <% if current_user && current_user.has_role?(:admin) && @account %>
     <h4>Admin use</h4>
 
     <li>
       <label>Deposit Paid?</label>
-      <div><%= check_box_tag :deposit_received, true, @subscription.deposit_received %></div>
+      <div><%= check_box_tag :deposit_received, true, @account.deposit_received %></div>
     </li>
 
     <li>
       <label>Joined Mailing List?</label>
-      <div><%= check_box_tag :joined_mailing_list, true, @subscription.joined_mailing_list %></div>
+      <div><%= check_box_tag :joined_mailing_list, true, @account.joined_mailing_list %></div>
     </li>
 
     <li>
       <label>Member Pending?</label>
-      <div><%= check_box_tag :pending, true, @subscription.pending %></div>
+      <div><%= check_box_tag :pending, true, @account.pending %></div>
     </li>
 
     <li>
@@ -89,7 +89,7 @@
     </li>
     <li>
       <label>Private notes (only admins see):</label>
-      <div><%= text_area :private_notes, :value => @subscription.private_notes %></div>
+      <div><%= text_area :private_notes, :value => @account.private_notes %></div>
     </li>
     <% end %>
 

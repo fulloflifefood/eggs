@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: subscriptions
+# Table name: accounts
 #
 #  id         :integer(4)      not null, primary key
 #  member_id  :integer(4)
@@ -9,7 +9,7 @@
 #  updated_at :datetime
 #
 
-class Subscription < ActiveRecord::Base
+class Account < ActiveRecord::Base
   belongs_to :farm
   belongs_to :member
   has_many :transactions, :order => 'created_at ASC'
@@ -48,15 +48,15 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.print_balance_diff
-    Subscription.all.each do |subscription|
-      next if !subscription.member.present?
-      current = subscription.current_balance.to_f.round(2)
-      calculated = subscription.calculate_balance.to_f.round(2)
+    Account.all.each do |account|
+      next if !account.member.present?
+      current = account.current_balance.to_f.round(2)
+      calculated = account.calculate_balance.to_f.round(2)
       diff = current - calculated
       next if diff == 0
-      puts "#{subscription.member.last_name}, #{subscription.member.first_name}:"
-      puts subscription.member.email_address
-      puts "subscription id: #{subscription.id}"
+      puts "#{account.member.last_name}, #{account.member.first_name}:"
+      puts account.member.email_address
+      puts "account id: #{account.id}"
       puts "  current:    #{current}"
       puts "  calculated: #{calculated}"
       puts "  diff:       #{diff}"

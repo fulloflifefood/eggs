@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
 
 
     Notifier.new_member_notification(self, self.member.farms.first).deliver
-    # Notifier.deliver_mailing_list_subscription_request(self, self.member.farms.first)
+    # Notifier.deliver_mailing_list_account_request(self, self.member.farms.first)
   end
 
   def deliver_password_reset_instructions!

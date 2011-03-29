@@ -31,7 +31,7 @@ Factory.define :farm do |f|
   f.sequence(:paypal_account) {|n| "testfarm#{n}@example.com" }
 end
 
-Factory.define :subscription do |s|
+Factory.define :account do |s|
   s.association :farm
   s.association :member
 end
@@ -116,7 +116,7 @@ end
 Factory.define :farm_with_members, :parent => :farm do |farm|
   farm.after_create do |f|
     4.times do
-      s = Factory(:subscription, :farm => f, :member => Factory(:member))
+      s = Factory(:account, :farm => f, :member => Factory(:member))
     end
   end
 end
@@ -171,7 +171,7 @@ end
 Factory.define :transaction do |transaction|
   transaction.amount 24.50
   transaction.debit false
-  transaction.association :subscription
+  transaction.association :account
 end
 
 Factory.define :snippet do |snippet|

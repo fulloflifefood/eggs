@@ -107,8 +107,8 @@ class Delivery < ActiveRecord::Base
     return false if self.deductions_complete
     ActiveRecord::Base.transaction do
       orders.each do |order|
-        subscription = Subscription.find_by_farm_id_and_member_id(farm.id, order.member.id)
-        transaction = Transaction.new(:subscription_id => subscription.id,
+        account = Account.find_by_farm_id_and_member_id(farm.id, order.member.id)
+        transaction = Transaction.new(:account_id => account.id,
                                       :amount => order.finalized_total,
                                       :debit => true,
                                       :date => Date.today,

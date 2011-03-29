@@ -19,9 +19,9 @@ Given /^the farm has the member "([^\"]*)"$/ do |member_name|
   Given 'there is a farm'
   name = member_name.split(' ')
   member = Factory.create(:member, :first_name => name[0], :last_name => name[1], :joined_on => Date.parse("Mon, 22 Mar 2010"))
-  subscription = Factory.create(:subscription, :member => member, :farm => @farm)
-  subscription.pending = false
-  subscription.save!
+  account = Factory.create(:account, :member => member, :farm => @farm)
+  account.pending = false
+  account.save!
   
   Factory.create(:user, :member => member, :email => member.email_address)
 end

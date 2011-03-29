@@ -12,21 +12,21 @@
 #  updated_at      :datetime
 #  debit           :boolean(1)
 #  balance         :float
-#  subscription_id :integer(4)
+#  account_id :integer(4)
 #
 
 class Transaction < ActiveRecord::Base
-  belongs_to :subscription
+  belongs_to :account
   belongs_to :order
 
   before_create :zero_nil_amount
 
   before_create do
-    calculate_balance self.subscription.transactions.last
+    calculate_balance self.account.transactions.last
   end
 
   liquid_methods :amount, :description, :paypal_transaction_id, :debit, :balance,
-                 :subscription
+                 :account
 
   after_initialize do
     self.debit = false if !self.debit
@@ -45,8 +45,8 @@ class Transaction < ActiveRecord::Base
   end
 
   def deliver_credit_notification!
-    template = EmailTemplate.find_by_identifier_and_farm_id("transaction_notification", self.subscription.farm.id)
-    template.deliver_to(self.subscription.member.email_address, :transaction => self) if template
+    template = EmailTemplate.find_by_identifier_and_farm_id("transaction_notification", self.account.farm.id)
+    template.deliver_to(self.account.member.email_address, :transaction => self) if template
   end
 
 end

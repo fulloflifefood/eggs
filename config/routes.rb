@@ -18,7 +18,7 @@ Eggs::Application.routes.draw do
   resources :user_sessions
   resources :order_items
   resources :orders
-  resources :subscriptions
+  resources :accounts
   resources :users
   resources :stock_items
   resources :deliveries do

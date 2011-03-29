@@ -16,8 +16,8 @@ class Farm < ActiveRecord::Base
   validates_presence_of :name
   has_many :products, :order => 'position'
   has_many :deliveries
-  has_many :subscriptions
-  has_many :members, :through => :subscriptions, :order => 'last_name, first_name', :include => [:user,:subscriptions]
+  has_many :accounts
+  has_many :members, :through => :accounts, :order => 'last_name, first_name', :include => [:user,:accounts]
   has_many :locations
   has_many :email_templates
   has_many :product_questions
@@ -29,7 +29,7 @@ class Farm < ActiveRecord::Base
   # TODO: Figure out why this relationship is broken!
   def users
     user_arr = []
-    subscriptions.each do |s|
+    accounts.each do |s|
       user_arr << User.find(s.user.id)
     end
     user_arr

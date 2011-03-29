@@ -12,7 +12,7 @@
 #  updated_at      :datetime
 #  debit           :boolean(1)
 #  balance         :float
-#  subscription_id :integer(4)
+#  account_id :integer(4)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
@@ -23,7 +23,7 @@ one:
   description: Initial PayPal topup, transaction id 39394943
   debit: false
   balance: 100
-  subscription: ben_sf
+  account: ben_sf
 
 two:
   date: 2010-02-03
@@ -32,7 +32,7 @@ two:
   order: ben_sf_emeryville_feb3
   debit: true
   balance: 74.80
-  subscription: ben_sf
+  account: ben_sf
 
 three:
   date: 2010-02-05
@@ -40,7 +40,7 @@ three:
   description: Balance adjustment for egg mixup
   debit: false
   balance: 81.3
-  subscription: ben_sf
+  account: ben_sf
 
 four:
   date: 2010-02-03
@@ -48,4 +48,4 @@ four:
   description:
   debit: false
   balance: 33
-  subscription: kathryn_sf
+  account: kathryn_sf

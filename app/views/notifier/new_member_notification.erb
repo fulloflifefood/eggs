@@ -9,6 +9,6 @@ Phone number: <%= @user.member.phone_number %>
 Address: <%= @user.member.address %>
 
 Signup Details:
-Deposit type: <%= @user.member.subscription_for_farm(@farm).deposit_type %>
-Referral: <%= @user.member.subscription_for_farm(@farm).referral %>
+Deposit type: <%= @user.member.account_for_farm(@farm).deposit_type %>
+Referral: <%= @user.member.account_for_farm(@farm).referral %>
 

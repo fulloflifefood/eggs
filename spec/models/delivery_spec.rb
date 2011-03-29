@@ -38,7 +38,7 @@ describe Delivery do
   it "should be able to deduct finalized order prices from member balances" do
     delivery = Factory(:delivery_with_orders)
     delivery.orders.each do |order|
-      subscription = Factory.create(:subscription, :farm => delivery.farm, :member => order.member)
+      account = Factory.create(:account, :farm => delivery.farm, :member => order.member)
     end
 
     delivery.deductions_complete.should == false
@@ -46,7 +46,7 @@ describe Delivery do
     delivery.orders.first.finalized_total = 24.5
 
     # set initial balance
-    Transaction.create!(:subscription_id => member.subscriptions.first, :amount => 100, :debit => false, :date => Date.today)
+    Transaction.create!(:account_id => member.accounts.first, :amount => 100, :debit => false, :date => Date.today)
     
     member.balance_for_farm(delivery.farm).should == 100
     delivery.perform_deductions!.should == true
@@ -165,7 +165,7 @@ describe Delivery do
       order = Order.new_from_delivery(delivery)
       order.delivery = delivery
       order.member = Factory(:member)
-      order.member.subscriptions << Factory(:subscription, :member => order.member, :farm => farm)
+      order.member.accounts << Factory(:account, :member => order.member, :farm => farm)
       order.order_items[0].quantity = 1
       order.order_items[1].quantity = 2
       order.location = delivery.locations.first

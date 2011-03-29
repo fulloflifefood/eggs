@@ -10,17 +10,17 @@
 
   <p style="color: green"><%= flash[:notice] %></p>
 
-  <% if @subscription.pending %>
+  <% if @account.pending %>
     <%= @member_pending_template.render('farm' => @farm).html_safe if @member_pending_template %>
 
-    <% if !@subscription.joined_mailing_list %>
+    <% if !@account.joined_mailing_list %>
       <hr/>
       <h3>Mailing List:</h3>
       <%= @member_pending_mailing_list_template.render('user' => @user).html_safe if @member_pending_mailing_list_template %>
       <hr/>
     <% end %>
 
-    <% if !@subscription.deposit_received %>
+    <% if !@account.deposit_received %>
       <h3>Initial deposit:</h3>
       <%= @member_pending_deposit_template.render('farm' => @farm).html_safe if @member_pending_deposit_template %>
       <hr/>
@@ -166,10 +166,10 @@
     <div class="block">
       <h5>Your Account Balance:</h5>
 
-      <% if @subscription.current_balance > 0%>
-        <h4 style="color:green">Credit: <%= number_to_currency @subscription.current_balance %></h4>
+      <% if @account.current_balance > 0%>
+        <h4 style="color:green">Credit: <%= number_to_currency @account.current_balance %></h4>
       <% else %>
-        <h4><%= number_to_currency @subscription.current_balance %></h4>
+        <h4><%= number_to_currency @account.current_balance %></h4>
       <% end %>
 
       <ul class="menu">

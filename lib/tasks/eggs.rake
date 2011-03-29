@@ -2,7 +2,7 @@ require "csv"
 
 # Loads a single-delivery CSV file (exported from gDocs)
 # and saves the following to the database:
-#   * users (no subscription yet)
+#   * users (no account yet)
 #   * products
 #   * stock_items
 #   * orders
@@ -143,7 +143,7 @@ namespace :eggs do
     task :user => :environment do
       member = Member.create!(:first_name => "John", :last_name => "Doe",
                               :email_address => "johndoe@example.com", :phone_number => "123-456-7890")
-      subscription = Subscription.create(:farm => Farm.find_by_name("Soul Food Farm"), :member => member)
+      account = Account.create(:farm => Farm.find_by_name("Soul Food Farm"), :member => member)
       user = User.create!(:email => member.email_address, :password => "eggsrock", :password_confirmation => "eggsrock", :member => member)
       user.has_role!(:member)
     end

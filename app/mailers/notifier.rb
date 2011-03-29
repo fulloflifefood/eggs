@@ -23,7 +23,7 @@ class Notifier < ActionMailer::Base
     body          :user => user, :farm => farm
   end
   
-  def mailing_list_subscription_request(user,farm)
+  def mailing_list_account_request(user,farm)
     subject       "Subscribe"
     from          user.email
     recipients    farm.mailing_list_subscribe_address

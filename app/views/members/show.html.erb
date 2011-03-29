@@ -6,7 +6,7 @@
 
   <p style="color: green"><%= flash[:notice] %></p>
 
-  <h4>Account Balance: <%= number_to_currency @subscription.current_balance %></h4>
+  <h4>Account Balance: <%= number_to_currency @account.current_balance %></h4>
 
   <ul class="menu">
     <li><%= link_to "View Balance Details", transactions_path(:farm_id => @farm.id, :member_id => @member.id)%></li>
@@ -48,23 +48,23 @@
       </tr>
       <tr>
         <th>Deposit Type:</th>
-        <td><%= @subscription.deposit_type %></td>
+        <td><%= @account.deposit_type %></td>
       </tr>
       <tr>
         <th>Deposit Received?</th>
-        <td><%= @subscription.deposit_received %></td>
+        <td><%= @account.deposit_received %></td>
       </tr>
       <tr>
         <th>Joined mailing list?</th>
-        <td><%= @subscription.joined_mailing_list %></td>
+        <td><%= @account.joined_mailing_list %></td>
       </tr>
       <tr>
         <th>Member Pending?</th>
-        <td><%= @subscription.pending %></td>
+        <td><%= @account.pending %></td>
       </tr>
       <tr>
         <th>Referred by?</th>
-        <td><%= @subscription.referral %></td>
+        <td><%= @account.referral %></td>
       </tr>
       <tr>
         <th>Joined On:</th>
@@ -74,7 +74,7 @@
   </div>
   <div class="clear"></div>
   <h5>Private Member notes: (edit through member details)</h5>
-  <div><%= simple_format @subscription.private_notes %></div>
+  <div><%= simple_format @account.private_notes %></div>
 
   <h4>Order History:</h4>
   <table>

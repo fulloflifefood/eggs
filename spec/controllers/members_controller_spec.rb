@@ -8,7 +8,7 @@ describe MembersController do
 #  it "should let a member view their own page" do
 #    user = Factory(:member_user)
 #    farm = Factory(:farm)
-#    Factory(:subscription, :farm => farm, :member => user.member)
+#    Factory(:account, :farm => farm, :member => user.member)
 #    UserSession.create user
 #    get :show, :id => user.member.id, :farm_id => farm.id
 #    response.should be_success
@@ -43,7 +43,7 @@ describe MembersController do
     end
   end
 
-  it "should create a user, subscription, and assign roles when creating a member" do
+  it "should create a user, account, and assign roles when creating a member" do
     admin = Factory(:admin_user)
     UserSession.create admin
 
@@ -54,7 +54,7 @@ describe MembersController do
     
     assigns[:member].should_not be_nil
     assigns[:user].member.should == assigns[:member]
-    assigns[:member].subscriptions.first.farm.should == farm
+    assigns[:member].accounts.first.farm.should == farm
     assigns[:user].has_role?(:member).should == true
 
   end

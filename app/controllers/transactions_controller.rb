@@ -13,8 +13,8 @@ class TransactionsController < ApplicationController
 
   def index
     @member = Member.find(params[:member_id])
-    @subscription = Subscription.find_by_member_id_and_farm_id(params[:member_id], @farm.id)
-    @transactions = @subscription.transactions
+    @account = Account.find_by_member_id_and_farm_id(params[:member_id], @farm.id)
+    @transactions = @account.transactions
 
     balance_snippet = Snippet.find_by_identifier_and_farm_id('balance_details', @farm.id)
     @balance_template = Liquid::Template.parse(balance_snippet.body) if balance_snippet
@@ -40,8 +40,8 @@ class TransactionsController < ApplicationController
   # GET /transactions/new.xml
   def new
     @transaction = Transaction.new
-    @subscription = Subscription.find_by_member_id_and_farm_id(params[:member_id], @farm.id)
-    @member = @subscription.member
+    @account = Account.find_by_member_id_and_farm_id(params[:member_id], @farm.id)
+    @member = @account.member
 
     respond_to do |format|
       format.html # new.html.erb
@@ -123,15 +123,15 @@ EOS
     end
 
     if notify.item_id != '' && notify.item_id != nil
-      subscription = Subscription.find(notify.item_id)
+      account = Account.find(notify.item_id)
     else
 
       if Member.exists?(:email_address => params[:payer_email])
         member = Member.find_by_email_address(params[:payer_email])
-        subscription = member.subscription_for_farm(@farm)
+        account = member.account_for_farm(@farm)
       elsif Member.exists?(:alternate_email => params[:payer_email])
         member = Member.find_by_alternate_email(params[:payer_email])
-        subscription = member.subscription_for_farm(@farm)
+        account = member.account_for_farm(@farm)
       else
         Notifier.admin_notification({:subject => 'PayPal payment from unknown member',
            :body => <<EOS 
@@ -151,7 +151,7 @@ EOS
     if notify.acknowledge
       begin
         if notify.complete?
-          transaction = subscription.transactions.create(:date => Date.today,
+          transaction = account.transactions.create(:date => Date.today,
                                            :amount => notify.amount,
                                            :paypal_transaction_id => notify.transaction_id,
                                            :debit => false,

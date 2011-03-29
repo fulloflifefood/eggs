@@ -39,16 +39,16 @@ describe Member do
     member.orders.filter_by_farm(member.farms.first).size.should == 1
   end
 
-  it "can return the balance for a subscription given a farm" do
+  it "can return the balance for a account given a farm" do
     farm = Factory(:farm_with_members)
     member = farm.members.first
-    member.subscriptions.size.should == 1
+    member.accounts.size.should == 1
 
-    transaction = Transaction.new(:subscription => member.subscriptions.first,
+    transaction = Transaction.new(:account => member.accounts.first,
                     :amount => 90, :debit => true)
     
     transaction.save.should == true
-    member.subscriptions.first.current_balance.should == -90
+    member.accounts.first.current_balance.should == -90
     member.balance_for_farm(farm).should == -90
 
   end
@@ -83,22 +83,22 @@ describe Member do
     farm = Factory(:farm)
     farm.members << Factory(:member)
     member = farm.members.first
-    subscription = member.subscriptions.first
+    account = member.accounts.first
 
     farm.products << Factory(:product, :name => "Chicken", :farm => farm)
     farm.products << Factory(:product, :name => "Eggs", :farm => farm)
 
     # credits
-    make_transaction(subscription, false, 100, Date.new(2010, 4, 1))
-    make_transaction(subscription, false, 100, Date.new(2010, 5, 1))
-    make_transaction(subscription, false, 100, Date.new(2009, 3, 1))
-    make_transaction(subscription, false, 100, Date.new(2011, 4, 1))
+    make_transaction(account, false, 100, Date.new(2010, 4, 1))
+    make_transaction(account, false, 100, Date.new(2010, 5, 1))
+    make_transaction(account, false, 100, Date.new(2009, 3, 1))
+    make_transaction(account, false, 100, Date.new(2011, 4, 1))
 
     # debits
-    make_transaction(subscription, true, 40, Date.new(2010, 4, 15))
-    make_transaction(subscription, true, 30, Date.new(2010, 6, 1))
-    make_transaction(subscription, true, 50, Date.new(2009, 10, 4))
-    make_transaction(subscription, true, 20, Date.new(2011, 1, 2))
+    make_transaction(account, true, 40, Date.new(2010, 4, 15))
+    make_transaction(account, true, 30, Date.new(2010, 6, 1))
+    make_transaction(account, true, 50, Date.new(2009, 10, 4))
+    make_transaction(account, true, 20, Date.new(2011, 1, 2))
 
     delivery1 = Factory(:delivery, :farm => farm, :date => '2010-01-27')
     delivery2 = Factory(:delivery, :farm => farm, :date => '2010-02-27')
@@ -170,8 +170,8 @@ describe Member do
         
   end
 
-  def make_transaction(subscription, debit, amount, date)
-    Transaction.new(:subscription => subscription, :amount => amount, :debit => debit, :date => date).save! 
+  def make_transaction(account, debit, amount, date)
+    Transaction.new(:account => account, :amount => amount, :debit => debit, :date => date).save!
 
   end
 end

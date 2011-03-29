@@ -1,8 +1,8 @@
 Given /^the member "([^\"]*)" is pending$/ do |last_name|
   member = Member.find_by_last_name(last_name)
-  subscription = member.subscription_for_farm(@farm)
-  subscription.pending = true
-  subscription.save!
+  account = member.account_for_farm(@farm)
+  account.pending = true
+  account.save!
 end
 
 Given /^the member "([^\"]*)" has the email address "([^\"]*)"$/ do |name, email|
@@ -16,8 +16,8 @@ end
 
 
 Given /^I have a balance of "([^\"]*)"$/ do |balance|
-  subscription = @user.member.subscription_for_farm(@farm)
+  account = @user.member.account_for_farm(@farm)
   transaction = Transaction.new(:amount => balance)
-  subscription.transactions << transaction
+  account.transactions << transaction
 
 end

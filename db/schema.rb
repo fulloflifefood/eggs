@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110308065052) do
+ActiveRecord::Schema.define(:version => 20110329021234) do
+
+  create_table "accounts", :force => true do |t|
+    t.integer   "member_id"
+    t.integer   "farm_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "deposit_type",        :default => "unknown (old system)"
+    t.boolean   "deposit_received",    :default => true
+    t.boolean   "joined_mailing_list", :default => true
+    t.boolean   "pending",             :default => false
+    t.string    "referral"
+    t.text      "private_notes"
+  end
+
+  add_index "accounts", ["farm_id"], :name => "index_accounts_on_farm_id"
+  add_index "accounts", ["member_id"], :name => "index_accounts_on_member_id"
 
   create_table "backup", :force => true do |t|
     t.string    "storage"
@@ -253,39 +269,23 @@ ActiveRecord::Schema.define(:version => 20110308065052) do
   add_index "stock_items", ["delivery_id"], :name => "index_stock_items_on_delivery_id"
   add_index "stock_items", ["product_id"], :name => "index_stock_items_on_product_id"
 
-  create_table "subscriptions", :force => true do |t|
-    t.integer   "member_id"
-    t.integer   "farm_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "deposit_type",        :default => "unknown (old system)"
-    t.boolean   "deposit_received",    :default => true
-    t.boolean   "joined_mailing_list", :default => true
-    t.boolean   "pending",             :default => false
-    t.string    "referral"
-    t.text      "private_notes"
-  end
-
-  add_index "subscriptions", ["farm_id"], :name => "index_subscriptions_on_farm_id"
-  add_index "subscriptions", ["member_id"], :name => "index_subscriptions_on_member_id"
-
   create_table "transactions", :force => true do |t|
-    t.date      "date"
-    t.float     "amount"
-    t.string    "description"
-    t.integer   "member_id"
-    t.integer   "order_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.boolean   "debit"
-    t.float     "balance"
-    t.integer   "subscription_id"
-    t.string    "paypal_transaction_id"
+    t.date     "date"
+    t.float    "amount"
+    t.string   "description"
+    t.integer  "member_id"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "debit"
+    t.float    "balance"
+    t.integer  "account_id"
+    t.string   "paypal_transaction_id"
   end
 
+  add_index "transactions", ["account_id"], :name => "index_transactions_on_account_id"
   add_index "transactions", ["order_id"], :name => "index_transactions_on_order_id"
   add_index "transactions", ["paypal_transaction_id"], :name => "index_transactions_on_paypal_transaction_id"
-  add_index "transactions", ["subscription_id"], :name => "index_transactions_on_subscription_id"
 
   create_table "users", :force => true do |t|
     t.string    "phone_number"

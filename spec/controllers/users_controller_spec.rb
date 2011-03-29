@@ -8,7 +8,7 @@ describe UsersController do
   it "should let a member view their own page" do
     user = Factory(:member_user)
     farm = Factory(:farm)
-    Factory(:subscription, :farm => farm, :member => user.member)
+    Factory(:account, :farm => farm, :member => user.member)
     UserSession.create user
     get :show, :id => user.member.id, :farm_id => farm.id
     response.should be_success
@@ -44,17 +44,17 @@ describe UsersController do
     end
   end
 
-  it "should assign a subscription when rendering home" do
+  it "should assign a account when rendering home" do
     farm = Factory(:farm)
     member = Factory(:member)
     user = Factory(:member_user, :member => member)
-    subscription = Factory(:subscription, :member => member, :farm => farm)
+    account = Factory(:account, :member => member, :farm => farm)
 
     UserSession.create user
     get :show, :farm_id => farm.id, :id => user.id
 
     response.should  render_template('users/home')
-    assigns(:subscription).should == subscription
+    assigns(:account).should == account
     
   end
 
@@ -106,7 +106,7 @@ describe UsersController do
 
     user = Factory(:member_user)
     farm = Factory(:farm)
-    Factory(:subscription, :farm => farm, :member => user.member)
+    Factory(:account, :farm => farm, :member => user.member)
     UserSession.create user
 
     delivery = Factory(:delivery, :status => 'notyetopen',

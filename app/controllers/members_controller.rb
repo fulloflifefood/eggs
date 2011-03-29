@@ -23,7 +23,7 @@ class MembersController < ApplicationController
   # GET /members/1.xml
   def show
     @member = Member.find(params[:id])
-    @subscription = Subscription.find_by_member_id_and_farm_id(@member.id,@farm.id)
+    @account = Account.find_by_member_id_and_farm_id(@member.id,@farm.id)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -48,7 +48,7 @@ class MembersController < ApplicationController
   # GET /members/1/edit
   def edit
     @member = Member.find(params[:id])
-    @subscription = @member.subscription_for_farm(@farm)
+    @account = @member.account_for_farm(@farm)
   end
 
   # POST /members
@@ -59,12 +59,12 @@ class MembersController < ApplicationController
     respond_to do |format|
       ActiveRecord::Base.transaction do
         if @member.save
-          @subscription = Subscription.create!(:farm => @farm, :member => @member,
+          @account = Account.create!(:farm => @farm, :member => @member,
                                :referral => params[:referral],
                                :deposit_type => params[:deposit_type])
 
           if !@farm.require_mailinglist && !@farm.require_deposit
-            @subscription.update_attribute(:pending, false)
+            @account.update_attribute(:pending, false)
           end
 
           @user = User.new
@@ -95,7 +95,7 @@ class MembersController < ApplicationController
   # PUT /members/1.xml
   def update
     @member = Member.find(params[:id])
-    @subscription = @member.subscription_for_farm(@farm)
+    @account = @member.account_for_farm(@farm)
 
     pending = params[:pending] || false
     deposit_received = params[:deposit_received] || false
@@ -105,7 +105,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
-        @subscription.update_attributes!(:pending => pending,
+        @account.update_attributes!(:pending => pending,
                                         :deposit_received => deposit_received,
                                         :joined_mailing_list => joined_mailing_list,
                                         :private_notes => private_notes)

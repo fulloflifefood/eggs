@@ -12,7 +12,7 @@
 #  updated_at      :datetime
 #  debit           :boolean(1)
 #  balance         :float
-#  subscription_id :integer(4)
+#  account_id :integer(4)
 #
 
 require 'spec_helper'
@@ -23,7 +23,7 @@ describe Transaction do
       :date => Date.today,
       :amount => 1.5,
       :description => "value for description",
-      :subscription_id => Factory(:subscription).id,
+      :account_id => Factory(:account).id,
       :balance => 10,
       :debit => true
     }
@@ -34,11 +34,11 @@ describe Transaction do
   end
 
   it "should calculate a new balance based on the previous" do
-    subscription = Factory(:subscription)
-    Factory(:transaction, :subscription => subscription, :amount => 100, :debit => false, :balance => 100)
-    Factory(:transaction, :subscription => subscription, :amount => 40, :debit => true)
-    subscription.transactions.reload
-    subscription.current_balance.should == 60;
+    account = Factory(:account)
+    Factory(:transaction, :account => account, :amount => 100, :debit => false, :balance => 100)
+    Factory(:transaction, :account => account, :amount => 40, :debit => true)
+    account.transactions.reload
+    account.current_balance.should == 60;
   end
 
 end
