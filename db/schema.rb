@@ -286,6 +286,13 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
   add_index "stock_items", ["delivery_id"], :name => "index_stock_items_on_delivery_id"
   add_index "stock_items", ["product_id"], :name => "index_stock_items_on_product_id"
 
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "transactions", :force => true do |t|
     t.date     "date"
     t.float    "amount"
