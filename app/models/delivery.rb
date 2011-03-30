@@ -108,13 +108,13 @@ class Delivery < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       orders.each do |order|
         account = Account.find_by_farm_id_and_member_id(farm.id, order.member.id)
-        transaction = Transaction.new(:account_id => account.id,
+        account_transaction = AccountTransaction.new(:account_id => account.id,
                                       :amount => order.finalized_total,
                                       :debit => true,
                                       :date => Date.today,
                                       :order_id => order.id,
                                       :description => "Automatic debit for #{order.delivery.pretty_date} order pickup")
-        transaction.save!
+        account_transaction.save!
       end
       self.update_attribute(:deductions_complete, true)
     end

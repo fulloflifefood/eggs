@@ -13,19 +13,19 @@
       <th>Order</th>
     </tr>
 
-  <% @transactions.each do |transaction| %>
+  <% @account_transactions.each do |account_transaction| %>
     <tr>
-      <td><%=h transaction.date %></td>
-      <td><% if transaction.debit == true%>
-        <span ><%=h number_to_currency transaction.amount %></span>
+      <td><%=h account_transaction.date %></td>
+      <td><% if account_transaction.debit == true%>
+        <span ><%=h number_to_currency account_transaction.amount %></span>
       <% end %></td>
-      <td><% if transaction.debit == false%>
-        <span style="color: green"><%=h number_to_currency transaction.amount %></span>
+      <td><% if account_transaction.debit == false%>
+        <span style="color: green"><%=h number_to_currency account_transaction.amount %></span>
       <% end %></td>
-      <td><b><%= number_to_currency transaction.balance %></b></td>
-      <td><%=h transaction.description %></td>
-      <td><% if transaction.order %>
-            <%= link_to transaction.order_id, order_path(transaction.order, :farm_id => @farm.id) %>
+      <td><b><%= number_to_currency account_transaction.balance %></b></td>
+      <td><%=h account_transaction.description %></td>
+      <td><% if account_transaction.order %>
+            <%= link_to account_transaction.order_id, order_path(account_transaction.order, :farm_id => @farm.id) %>
           <% end %>
       </td>
     </tr>
@@ -35,7 +35,7 @@
 
   <% if current_user.has_role?(:admin) %>
     <ul class="menu">
-    <li><%= link_to 'Record a Transaction', new_transaction_path(:farm_id => @farm.id, :member_id => @member.id) %></li>
+    <li><%= link_to 'Record an AccountTransaction', new_account_transaction_path(:farm_id => @farm.id, :member_id => @member.id) %></li>
     </ul>
   <% end %>
 

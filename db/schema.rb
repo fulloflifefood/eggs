@@ -19,6 +19,24 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
     t.datetime "updated_at"
   end
 
+  create_table "account_transactions", :force => true do |t|
+    t.date     "date"
+    t.float    "amount"
+    t.string   "description"
+    t.integer  "member_id"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "debit"
+    t.float    "balance"
+    t.integer  "account_id"
+    t.string   "paypal_transaction_id"
+  end
+
+  add_index "account_transactions", ["account_id"], :name => "index_account_transactions_on_account_id"
+  add_index "account_transactions", ["order_id"], :name => "index_account_transactions_on_order_id"
+  add_index "account_transactions", ["paypal_transaction_id"], :name => "index_account_transactions_on_paypal_transaction_id"
+
   create_table "accounts", :force => true do |t|
     t.integer  "member_id"
     t.integer  "farm_id"
@@ -293,24 +311,6 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "transactions", :force => true do |t|
-    t.date     "date"
-    t.float    "amount"
-    t.string   "description"
-    t.integer  "member_id"
-    t.integer  "order_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "debit"
-    t.float    "balance"
-    t.integer  "account_id"
-    t.string   "paypal_transaction_id"
-  end
-
-  add_index "transactions", ["account_id"], :name => "index_transactions_on_account_id"
-  add_index "transactions", ["order_id"], :name => "index_transactions_on_order_id"
-  add_index "transactions", ["paypal_transaction_id"], :name => "index_transactions_on_paypal_transaction_id"
 
   create_table "users", :force => true do |t|
     t.string   "phone_number"

@@ -1,4 +1,4 @@
-class TransactionsController < ApplicationController
+class AccountTransactionsController < ApplicationController
 
   include ActiveMerchant::Billing::Integrations
 
@@ -14,89 +14,89 @@ class TransactionsController < ApplicationController
   def index
     @member = Member.find(params[:member_id])
     @account = Account.find_by_member_id_and_farm_id(params[:member_id], @farm.id)
-    @transactions = @account.transactions
+    @account_transactions = @account.account_transactions
 
     balance_snippet = Snippet.find_by_identifier_and_farm_id('balance_details', @farm.id)
     @balance_template = Liquid::Template.parse(balance_snippet.body) if balance_snippet
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @transactions }
+      format.xml  { render :xml => @account_transactions }
     end
   end
 
-  # GET /transactions/1
-  # GET /transactions/1.xml
+  # GET /account_transactions/1
+  # GET /account_transactions/1.xml
   def show
-    @transaction = Transaction.find(params[:id])
+    @account_transaction = AccountTransaction.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @transaction }
+      format.xml  { render :xml => @account_transaction }
     end
   end
 
-  # GET /transactions/new
-  # GET /transactions/new.xml
+  # GET /account_transactions/new
+  # GET /account_transactions/new.xml
   def new
-    @transaction = Transaction.new
+    @account_transaction = AccountTransaction.new
     @account = Account.find_by_member_id_and_farm_id(params[:member_id], @farm.id)
     @member = @account.member
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @transaction }
+      format.xml  { render :xml => @account_transaction }
     end
   end
 
-  # GET /transactions/1/edit
+  # GET /account_transactions/1/edit
   def edit
-    @transaction = Transaction.find(params[:id])
+    @account_transaction = AccountTransaction.find(params[:id])
   end
 
-  # POST /transactions
-  # POST /transactions.xml
+  # POST /account_transactions
+  # POST /account_transactions.xml
   def create
-    @transaction = Transaction.new(params[:transaction])
+    @account_transaction = AccountTransaction.new(params[:account_transaction])
 
     respond_to do |format|
-      if @transaction.save
-        flash[:notice] = 'Transaction was successfully created.'
-        @transaction.deliver_credit_notification! if !@transaction.debit
+      if @account_transaction.save
+        flash[:notice] = 'AccountTransaction was successfully created.'
+        @account_transaction.deliver_credit_notification! if !@account_transaction.debit
         format.html { redirect_to :action => "index", :member_id => params[:member_id], :farm_id => params[:farm_id] }
-        format.xml  { render :xml => @transaction, :status => :created, :location => @transaction }
+        format.xml  { render :xml => @account_transaction, :status => :created, :location => @account_transaction }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @transaction.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @account_transaction.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /transactions/1
-  # PUT /transactions/1.xml
+  # PUT /account_transactions/1
+  # PUT /account_transactions/1.xml
   def update
-    @transaction = Transaction.find(params[:id])
+    @account_transaction = AccountTransaction.find(params[:id])
 
     respond_to do |format|
-      if @transaction.update_attributes(params[:transaction])
-        flash[:notice] = 'Transaction was successfully updated.'
-        format.html { redirect_to(@transaction) }
+      if @account_transaction.update_attributes(params[:account_transaction])
+        flash[:notice] = 'AccountTransaction was successfully updated.'
+        format.html { redirect_to(@account_transaction) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @transaction.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @account_transaction.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /transactions/1
-  # DELETE /transactions/1.xml
+  # DELETE /account_transactions/1
+  # DELETE /account_transactions/1.xml
   def destroy
-    @transaction = Transaction.find(params[:id])
-    @transaction.destroy
+    @account_transaction = AccountTransaction.find(params[:id])
+    @account_transaction.destroy
 
     respond_to do |format|
-      format.html { redirect_to(transactions_url) }
+      format.html { redirect_to(account_transactions_url) }
       format.xml  { head :ok }
     end
   end
@@ -106,9 +106,9 @@ class TransactionsController < ApplicationController
     @farm = Farm.find_by_paypal_address(params[:business])
 
 
-    # we must make sure this transaction id is not already completed
-    if !Transaction.count("*", :conditions => ["paypal_transaction_id = ?", notify.transaction_id]).zero?
-      Notifier.admin_notification({:subject => 'Duplicate Transaction Attempt',
+    # we must make sure this account_transaction id is not already completed
+    if !AccountTransaction.count("*", :conditions => ["paypal_transaction_id = ?", notify.transaction_id]).zero?
+      Notifier.admin_notification({:subject => 'Duplicate AccountTransaction Attempt',
                                           :body => <<EOS 
 This PayPal payment has previously been entered and is being ignored.
 Probably nothing to worry about - I'm just sending a notification for everything right now.
@@ -158,14 +158,14 @@ EOS
     if notify.acknowledge
       begin
         if notify.complete?
-          transaction = account.transactions.create(:date => Date.today,
+          account_transaction = account.account_transactions.create(:date => Date.today,
                                            :amount => notify.amount,
                                            :paypal_transaction_id => notify.transaction_id,
                                            :debit => false,
                                            :description => "Paypal payment #{notify.transaction_id}"
                                            )
 
-          transaction.deliver_credit_notification!
+          account_transaction.deliver_credit_notification!
         else
            #Reason to be suspicious
             Notifier.admin_notification({:subject => 'Unusual PayPal notification ',
@@ -185,7 +185,7 @@ EOS
       ensure
         #make sure we logged everything we must
       end
-    else #transaction was not acknowledged
+    else #account_transaction was not acknowledged
 Notifier.admin_notification({:subject => 'Suspicious Paypal Notification',
               :body => <<EOS
 This PayPal notification doesn't seem to be verified by PayPal and has not been entered.

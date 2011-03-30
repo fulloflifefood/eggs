@@ -46,7 +46,7 @@ describe Delivery do
     delivery.orders.first.finalized_total = 24.5
 
     # set initial balance
-    Transaction.create!(:account_id => member.accounts.first, :amount => 100, :debit => false, :date => Date.today)
+    AccountTransaction.create!(:account_id => member.accounts.first, :amount => 100, :debit => false, :date => Date.today)
     
     member.balance_for_farm(delivery.farm).should == 100
     delivery.perform_deductions!.should == true

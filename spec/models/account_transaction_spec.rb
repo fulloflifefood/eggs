@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: transactions
+# Table name: account_transactions
 #
 #  id              :integer(4)      not null, primary key
 #  date            :date
@@ -17,7 +17,7 @@
 
 require 'spec_helper'
 
-describe Transaction do
+describe AccountTransaction do
   before(:each) do
     @valid_attributes = {
       :date => Date.today,
@@ -30,14 +30,14 @@ describe Transaction do
   end
 
   it "should create a new instance given valid attributes" do
-    Transaction.create!(@valid_attributes)
+    AccountTransaction.create!(@valid_attributes)
   end
 
   it "should calculate a new balance based on the previous" do
     account = Factory(:account)
-    Factory(:transaction, :account => account, :amount => 100, :debit => false, :balance => 100)
-    Factory(:transaction, :account => account, :amount => 40, :debit => true)
-    account.transactions.reload
+    Factory(:account_transaction, :account => account, :amount => 100, :debit => false, :balance => 100)
+    Factory(:account_transaction, :account => account, :amount => 40, :debit => true)
+    account.account_transactions.reload
     account.current_balance.should == 60;
   end
 

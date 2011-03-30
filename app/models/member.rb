@@ -80,9 +80,9 @@ class Member < ActiveRecord::Base
     end
 
     account = self.account_for_farm(farm)
-    transactions = Transaction.find_all_by_account_id_and_debit(account.id, false, :conditions => "date #{(start_date..end_date).to_s(:db)}")
+    account_transactions = AccountTransaction.find_all_by_account_id_and_debit(account.id, false, :conditions => "date #{(start_date..end_date).to_s(:db)}")
 
-    deposited = transactions.inject(0) {|sum, transaction| sum += transaction.amount}
+    deposited = account_transactions.inject(0) {|sum, account_transaction| sum += account_transaction.amount}
 
 
     history = {

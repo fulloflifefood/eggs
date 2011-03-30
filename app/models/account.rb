@@ -12,7 +12,7 @@
 class Account < ActiveRecord::Base
   belongs_to :farm
   belongs_to :member
-  has_many :transactions, :order => 'created_at ASC'
+  has_many :account_transactions, :order => 'created_at ASC'
 
   has_many :account_location_tags
   has_many :location_tags, :through => :account_location_tags
@@ -27,23 +27,23 @@ class Account < ActiveRecord::Base
   end
 
   def current_balance
-    last_transaction = self.transactions.last
+    last_transaction = self.account_transactions.last
     last_transaction ? last_transaction.balance : 0
   end
 
   def calculate_balance
-    self.transactions.all.inject(0) do |total, transaction|
-      total + (transaction.debit? ? transaction.amount * -1 : transaction.amount)
+    self.account_transactions.all.inject(0) do |total, account_transaction|
+      total + (account_transaction.debit? ? account_transaction.amount * -1 : account_transaction.amount)
     end
   end
 
   # to be executed only in the case of invalid history for some reason,
-  # such as a transaction deleted from database directly
+  # such as a account_transaction deleted from database directly
   def recalculate_balance_history!
-    self.transactions.each_with_index do |transaction, i|
-      previous_transaction = i > 0 ? self.transactions.at(i-1) : nil
-      transaction.calculate_balance(previous_transaction)
-      transaction.save!
+    self.account_transactions.each_with_index do |account_transaction, i|
+      previous_transaction = i > 0 ? self.account_transactions.at(i-1) : nil
+      account_transaction.calculate_balance(previous_transaction)
+      account_transaction.save!
     end
     if Rails.env != "test"
       puts "-- recalculated balance history for #{self.member.last_name}"

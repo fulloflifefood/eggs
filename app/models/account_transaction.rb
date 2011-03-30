@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: transactions
+# Table name: account_transactions
 #
 #  id              :integer(4)      not null, primary key
 #  date            :date
@@ -15,14 +15,14 @@
 #  account_id :integer(4)
 #
 
-class Transaction < ActiveRecord::Base
+class AccountTransaction < ActiveRecord::Base
   belongs_to :account
   belongs_to :order
 
   before_create :zero_nil_amount
 
   before_create do
-    calculate_balance self.account.transactions.last
+    calculate_balance self.account.account_transactions.last
   end
 
   liquid_methods :amount, :description, :paypal_transaction_id, :debit, :balance,
@@ -45,8 +45,8 @@ class Transaction < ActiveRecord::Base
   end
 
   def deliver_credit_notification!
-    template = EmailTemplate.find_by_identifier_and_farm_id("transaction_notification", self.account.farm.id)
-    template.deliver_to(self.account.member.email_address, :transaction => self) if template
+    template = EmailTemplate.find_by_identifier_and_farm_id("account_transaction_notification", self.account.farm.id)
+    template.deliver_to(self.account.member.email_address, :account_transaction => self) if template
   end
 
 end

@@ -9,8 +9,8 @@ Eggs::Application.routes.draw do
   match 'feedbacks' => 'feedbacks#create', :as => :feedback
   match 'feedbacks/new' => 'feedbacks#new', :as => :new_feedback
   resources :locations
-  resources :transactions
-  match 'ipn' => 'transactions#ipn', :as => :ipn
+  resources :account_transactions
+  match 'ipn' => 'account_transactions#ipn', :as => :ipn
   resources :password_resets
   resources :activation_resets
   resources :members

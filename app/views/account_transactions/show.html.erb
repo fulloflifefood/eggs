@@ -1,0 +1,28 @@
+<p>
+  <b>Date:</b>
+  <%=h @account_transaction.date %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%=h @account_transaction.amount %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @account_transaction.description %>
+</p>
+
+<p>
+  <b>Member:</b>
+  <%=h @account_transaction.member_id %>
+</p>
+
+<p>
+  <b>Order:</b>
+  <%=h @account_transaction.order_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_account_transaction_path(@account_transaction) %> |
+<%= link_to 'Back', account_transactions_path %>

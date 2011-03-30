@@ -1,5 +1,5 @@
 <div id="" class="grid_12 ">
-  <h2 id="page-heading">New transaction for <%= "#{@member.first_name} #{@member.last_name}" %></h2>
+  <h2 id="page-heading">New account_transaction for <%= "#{@member.first_name} #{@member.last_name}" %></h2>
   <p style="color: green"><%= flash[:notice] %></p>
 
   <h5>Current Balance: <%= number_to_currency @account.current_balance %></h5>
@@ -7,7 +7,7 @@
     <hr/>
     <h4>Quick credit for outstanding balance:</h4>
 
-    <%= form_for(@transaction) do |f| %>
+    <%= form_for(@account_transaction) do |f| %>
       <p>
       Credit Amount: <b><%= number_to_currency -@account.current_balance %> </b><br/>
       Description: <%= f.text_field :description, :size => 50, :value => "check/cash for exact amount at pickup" %><br/>
@@ -26,8 +26,8 @@
 
 
   <hr/>  
-  <h4>Custom Transaction:</h4>
-<%= form_for(@transaction) do |f| %>
+  <h4>Custom AccountTransaction:</h4>
+<%= form_for(@account_transaction) do |f| %>
   <%= f.error_messages %>
   <%= hidden_field_tag :farm_id, @farm.id %>
   <%= hidden_field_tag :member_id, @member.id %>
@@ -35,7 +35,7 @@
 
   <%= f.hidden_field :date, :value => Date.today %>
   <p>
-    New Transaction Date: <%= Date.today %>
+    New AccountTransaction Date: <%= Date.today %>
   </p>
   <p>
     <%= f.label :amount %><br />
@@ -56,5 +56,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', transactions_path(:farm_id => @farm.id, :member_id => @member.id) %>
+<%= link_to 'Back', account_transactions_path(:farm_id => @farm.id, :member_id => @member.id) %>
 </div>
