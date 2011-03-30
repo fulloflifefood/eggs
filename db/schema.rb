@@ -229,10 +229,7 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
     t.integer  "default_quantity",   :default => 100
     t.integer  "default_per_member", :default => 4
     t.integer  "position"
-<<<<<<< HEAD
-=======
     t.boolean  "subscribable",       :default => false
->>>>>>> Added subscribable flag to Product
   end
 
   add_index "products", ["farm_id"], :name => "index_products_on_farm_id"

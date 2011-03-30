@@ -23,15 +23,17 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
+      when /the farm "(.*)"$/i
+        farm_path(Farm.find_by_name($1))
 
-    else
-      begin
-        path_components =
-            if page_name =~ /the *(.*) page/
-              $1.split(/\s+/)
-            else
-              page_name.split(/\s+/)
-            end
+      else
+        begin
+          path_components =
+              if page_name =~ /the (.*) page/
+                $1.split(/\s+/)\
+              else
+                page_name.split(/\s+/)
+              end
         self.send(path_components.push('path').join('_').to_sym)
       rescue NoMethodError, ArgumentError
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

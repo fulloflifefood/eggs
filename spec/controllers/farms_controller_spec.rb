@@ -63,4 +63,18 @@ describe FarmsController do
 
   end
 
+  it "should set an array of subscribable products" do
+    farm = Factory(:farm)
+    farm.products << Factory(:product, :name => "Eggs", :subscribable => true, :farm => farm)
+    farm.products << Factory(:product, :name => "Veggie Box", :subscribable => true, :farm => farm)
+    farm.products << Factory(:product, :name => "Chickens", :subscribable => false, :farm => farm)
+    product_to_exclude = Factory(:product, :name => "Beef", :subscribable => true)
+
+    get :show, :id => farm.id
+    assigns(:subscribable_products).size.should == 2
+
+    assigns(:subscribable_products).include?(product_to_exclude).should == false
+
+  end
+
 end

@@ -1,0 +1,14 @@
+<div class="grid_12">
+
+
+  <p style="color: green"><%= flash[:notice] %></p>
+
+  <h2 id="page-heading"><%= "#{@product.name} Subscribers:" %></h2>
+
+  <ul>
+    <% @subscriptions.each do |subscription| %>
+        <li><%= subscription.account.member.last_name %></li>
+    <% end %>
+  </ul>
+
+</div>
