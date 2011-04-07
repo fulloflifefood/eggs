@@ -305,6 +305,20 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
   add_index "stock_items", ["delivery_id"], :name => "index_stock_items_on_delivery_id"
   add_index "stock_items", ["product_id"], :name => "index_stock_items_on_product_id"
 
+  create_table "subscription_transactions", :force => true do |t|
+    t.float    "amount"
+    t.string   "description"
+    t.integer  "order_id"
+    t.boolean  "debit",           :default => false
+    t.float    "balance"
+    t.integer  "subscription_id"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscription_transactions", ["subscription_id"], :name => "index_subscription_transactions_on_subscription_id"
+
   create_table "subscriptions", :force => true do |t|
     t.integer  "product_id"
     t.integer  "account_id"

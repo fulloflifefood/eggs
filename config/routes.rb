@@ -1,7 +1,8 @@
 Eggs::Application.routes.draw do
   resources :location_tags
-  get "subscriptions/index"
+  resources :subscription_transactions
 
+  get "subscriptions/index"
   get "subscriptions/show"
 
   resources :email_templates

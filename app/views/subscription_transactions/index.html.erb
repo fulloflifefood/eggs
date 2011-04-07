@@ -1,0 +1,30 @@
+<div class="grid_8">
+
+<h1>Transaction History for: <%= @subscription.account.member.last_name %></h1>
+
+<h3>Current <%= @subscription.product.name %> Balance: <%= @subscription.current_balance %></h3>
+
+<table>
+  <tr>
+    <th>Amount</th>
+    <th>Description</th>
+    <th>Order</th>
+    <th>Debit</th>
+    <th>Balance</th>
+  </tr>
+
+<% @subscription_transactions.each do |subscription_transaction| %>
+  <tr>
+    <td><%= subscription_transaction.debit? ? "-" : "+"%><%= subscription_transaction.amount.to_i %></td>
+    <td><%= subscription_transaction.description %></td>
+    <td><%= subscription_transaction.order_id %></td>
+    <td><%= subscription_transaction.debit %></td>
+    <td><%= subscription_transaction.balance.to_i %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Subscription transaction', new_subscription_transaction_path %>
+</div>
