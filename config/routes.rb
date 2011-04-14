@@ -12,6 +12,12 @@ Eggs::Application.routes.draw do
   resources :locations
   resources :account_transactions
   match 'ipn' => 'account_transactions#ipn', :as => :ipn
+  resources :subscription_transactions do
+    collection do
+      get :new_many
+      get :create_many
+    end
+  end
   resources :password_resets
   resources :activation_resets
   resources :members

@@ -30,6 +30,17 @@ class SubscriptionTransactionsController < ApplicationController
     end
   end
 
+  def new_many
+
+    @subscriptions = Subscription.find_all_by_product_id(params[:product_id])
+
+    @subscription_transactions = Array.new
+    @subscriptions.each do |subscription|
+      @subscription_transactions << SubscriptionTransaction.new(:subscription_id => subscription.id, :debit => true)
+    end
+
+  end
+
 
   # POST /subscription_transactions
   # POST /subscription_transactions.xml
@@ -45,6 +56,11 @@ class SubscriptionTransactionsController < ApplicationController
         format.xml  { render :xml => @subscription_transaction.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def create_many
+    raise
+    
   end
 
   # PUT /subscription_transactions/1

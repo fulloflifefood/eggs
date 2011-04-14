@@ -1,0 +1,34 @@
+<div class="grid_12">
+
+   <h2>Enter Manual Pickups Below:</h2>
+
+   <div class="grid_4">
+   <%= form_tag(:controller => "subscription_transactions", :action => "create_many")  do %>
+     <table>
+         <thead>
+            <th>Last Name</th>
+            <th>Debit Amount (Quantity)</th>
+         </thead>
+         <tbody>
+            <% @subscription_transactions.each_with_index do |subscription_transaction, i| %>
+              <tr>
+                <%= fields_for "subscription_transactions[]", subscription_transaction do |builder| %>
+                      <td><%= subscription_transaction.subscription.account.member.last_name %></td>
+
+                      <td><%= builder.text_field :amount, :size => 5 %></td>
+
+                      <%= builder.hidden_field :debit, :value => subscription_transaction.debit? %>
+                      <%= builder.hidden_field :subscription_id, :value => subscription_transaction.subscription.id %>
+                      <%= builder.hidden_field :description, :value => "Some Description..." %>
+                      <%= builder.hidden_field :date, :value => Date.today %>
+                <% end %>
+              </tr>
+            <% end %>
+         </tbody>
+     </table>
+     
+    <%= submit_tag("Submit") %>
+   <% end %>
+   </div>
+
+</div>
