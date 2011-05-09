@@ -69,6 +69,15 @@ describe ReminderManager do
 
   end
 
-  
+  it "can delete reminders for a delivery" do
+    delivery = @farm.deliveries.first
+    @reminder_manager.schedule_reminders_for_delivery(delivery)
+    DeliveryOrderReminder.count.should == 2
+
+    @reminder_manager.delete_reminders_for_delivery(delivery)
+    DeliveryOrderReminder.count.should == 0
+
+  end
+
 
 end

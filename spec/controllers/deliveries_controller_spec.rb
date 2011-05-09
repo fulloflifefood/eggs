@@ -89,4 +89,26 @@ describe DeliveriesController do
 
   end
 
+  it "should delete reminders when deleting a delivery" do
+
+
+    farm = Factory(:farm, :reminders_enabled => true)
+    delivery = Factory(:delivery, :status => 'open', :farm => farm)
+
+    Factory.create(:email_template, :identifier => "order_reminder", :farm => farm)
+    Factory.create(:email_template, :identifier => "order_reminder_last_call", :farm => farm)
+
+    reminder_manager = ReminderManager.new
+    reminder_manager.schedule_reminders_for_delivery(delivery)
+
+    reminders = DeliveryOrderReminder.find_all_by_delivery_id(delivery.id)
+    reminders.size.should == 2
+
+    get :destroy, :id => delivery.id, :farm_id => farm.id
+
+    reminders = DeliveryOrderReminder.find_all_by_delivery_id(delivery.id)
+    reminders.size.should == 0
+
+  end
+
 end

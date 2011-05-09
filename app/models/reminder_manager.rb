@@ -23,6 +23,13 @@ class ReminderManager
             
   end
 
+  def delete_reminders_for_delivery(delivery)
+    reminders = DeliveryOrderReminder.find_all_by_delivery_id(delivery.id)
+    reminders.each do |reminder|
+      reminder.delete
+    end
+  end
+
   def get_ready_reminders
     # ready means deliver_at time is between created on and now
 

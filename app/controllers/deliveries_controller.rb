@@ -224,6 +224,8 @@ class DeliveriesController < ApplicationController
     @delivery = Delivery.find(params[:id])
     @delivery.destroy
 
+    ReminderManager.new.delete_reminders_for_delivery(@delivery)
+
     respond_to do |format|
       format.html { redirect_to(@farm) }
       format.xml  { head :ok }
