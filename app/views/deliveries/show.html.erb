@@ -8,14 +8,19 @@
       "bInfo": false,
       "bAutoWidth": false } );
 
+    $("#stock-items-list tr:not(.hed)").mouseover(function() {
+        $(this).css('cursor', 'move');
+    });
+
     $("#stock-items-list").sortable({
         items: 'tr:not(.hed)',
-        update: function(){
+        update: function(event, ui){
             $.ajax({
                 type: 'post',
                 data: $('#stock-items-list').sortable('serialize') + '&id=<%=@delivery.id-%>&farm_id=<%=@farm.id%>',
                 dataType: 'script',
                 complete: function(request){
+                    $(ui.item).children().effect('highlight');
                   },
                 url: '/deliveries/reorder_stock_items'
             })
