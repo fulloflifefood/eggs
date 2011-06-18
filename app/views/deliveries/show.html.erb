@@ -1,12 +1,27 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
     $('#orderlist').dataTable( {
-  "bPaginate": false,
-  "bLengthChange": false,
-  "bFilter": true,
-  "bSort": false,
-  "bInfo": false,
-  "bAutoWidth": false } );
+      "bPaginate": false,
+      "bLengthChange": false,
+      "bFilter": true,
+      "bSort": false,
+      "bInfo": false,
+      "bAutoWidth": false } );
+
+    $("#stock-items-list").sortable({
+        items: 'tr:not(.hed)',
+        update: function(){
+            $.ajax({
+                type: 'post',
+                data: $('#stock-items-list').sortable('serialize') + '&id=<%=@delivery.id-%>&farm_id=<%=@farm.id%>',
+                dataType: 'script',
+                complete: function(request){
+                  },
+                url: '/deliveries/reorder_stock_items'
+            })
+        }
+        
+    });
   });
 </script>
 
@@ -60,7 +75,7 @@
 
 
     <h4>Stock Items:</h4>
-    <table class="simple">
+    <table class="simple" id="stock-items-list">
       <tr class="hed">
         <th>Name</th>
         <th>Ordered</th>
@@ -68,11 +83,11 @@
         <th>Remaining</th>
       </tr>
         <% @delivery.stock_items.with_nonzero_quantity.each do |s|%>
-          <tr <%= "class='warning'" if s.quantity_remaining < 0 %>>
+          <tr id="stock_item_<%= s.id %>" <%= "class='warning'" if s.quantity_remaining < 0 %>>
               <td><%= s.product_name %></td>
               <td><%= s.quantity_ordered %></td>
               <td><%= s.quantity_available %></td>
-              <td ><%= s.quantity_remaining %></td>
+              <td><%= s.quantity_remaining %></td>
           </tr>
         <% end %>
       </table>

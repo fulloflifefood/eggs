@@ -231,4 +231,16 @@ class DeliveriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def reorder_stock_items
+    stock_item_ids = params['stock_item']
+    position = 0
+
+    stock_item_ids.each do |stock_item_id|
+      stock_item = StockItem.find(stock_item_id)
+      stock_item.insert_at(position)
+      position += 1
+    end
+    render :nothing => true
+  end
 end
