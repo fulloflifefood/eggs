@@ -101,6 +101,7 @@ class MembersController < ApplicationController
     deposit_received = params[:deposit_received] || false
     joined_mailing_list = params[:joined_mailing_list] || false
     private_notes = params[:private_notes]
+    is_inactive = params[:is_inactive]
 
 
     respond_to do |format|
@@ -108,7 +109,8 @@ class MembersController < ApplicationController
         @account.update_attributes!(:pending => pending,
                                         :deposit_received => deposit_received,
                                         :joined_mailing_list => joined_mailing_list,
-                                        :private_notes => private_notes)
+                                        :private_notes => private_notes,
+                                        :is_inactive => is_inactive)
         flash[:notice] = 'Member was successfully updated.'
         format.html { redirect_to :action => "show", :id => @member.id, :farm_id => @farm.id }
         format.xml  { head :ok }

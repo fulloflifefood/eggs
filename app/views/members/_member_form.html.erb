@@ -84,6 +84,11 @@
     </li>
 
     <li>
+      <label>Currently Inactive? (will not receive reminder emails)</label>
+      <div><%= check_box_tag :is_inactive, true, @account.is_inactive %></div>
+    </li>
+
+    <li>
       <label>Joined on:</label>
       <div><%= f.date_select :joined_on %></div>
     </li>

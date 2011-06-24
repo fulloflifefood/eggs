@@ -63,6 +63,10 @@
         <td><%= @account.pending %></td>
       </tr>
       <tr>
+        <th>Inactive?</th>
+        <td><%= @account.is_inactive? %></td>
+      </tr>
+      <tr>
         <th>Referred by?</th>
         <td><%= @account.referral %></td>
       </tr>

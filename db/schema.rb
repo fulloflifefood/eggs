@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110329021234) do
+ActiveRecord::Schema.define(:version => 20110624005201) do
 
   create_table "accounts", :force => true do |t|
     t.integer   "member_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20110329021234) do
     t.boolean   "pending",             :default => false
     t.string    "referral"
     t.text      "private_notes"
+    t.boolean   "is_inactive",         :default => false
   end
 
   add_index "accounts", ["farm_id"], :name => "index_accounts_on_farm_id"
@@ -134,17 +135,18 @@ ActiveRecord::Schema.define(:version => 20110329021234) do
   add_index "locations", ["farm_id"], :name => "index_locations_on_farm_id"
 
   create_table "members", :force => true do |t|
-    t.string    "first_name"
-    t.string    "last_name"
-    t.string    "email_address"
-    t.string    "phone_number"
-    t.string    "neighborhood"
-    t.date      "joined_on"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "address"
-    t.string    "alternate_email"
-    t.text      "notes"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email_address"
+    t.string   "phone_number"
+    t.string   "neighborhood"
+    t.date     "joined_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "address"
+    t.string   "alternate_email"
+    t.text     "notes"
+    t.boolean  "is_inactive",     :default => false
   end
 
   create_table "order_items", :force => true do |t|
@@ -200,18 +202,18 @@ ActiveRecord::Schema.define(:version => 20110329021234) do
   end
 
   create_table "products", :force => true do |t|
-    t.string    "name"
-    t.text      "description"
-    t.float     "price"
-    t.boolean   "estimated"
-    t.integer   "farm_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "price_code"
-    t.string    "category"
-    t.integer   "default_quantity",   :default => 100
-    t.integer   "default_per_member", :default => 4
-    t.integer   "position"
+    t.string   "name"
+    t.text     "description"
+    t.float    "price"
+    t.boolean  "estimated"
+    t.integer  "farm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "price_code"
+    t.string   "category"
+    t.integer  "default_quantity",   :default => 100
+    t.integer  "default_per_member", :default => 4
+    t.integer  "position"
   end
 
   add_index "products", ["farm_id"], :name => "index_products_on_farm_id"

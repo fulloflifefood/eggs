@@ -57,6 +57,16 @@ describe Account do
     account.deposit_received.should == false
   end
 
+    it "can be set to is_inactive" do
+    account = Factory.create(:account)
+    account.is_inactive.should == false
+
+    account.update_attribute("is_inactive", true)
+    account.is_inactive.should == true
+
+
+  end
+
   describe "#calculate_balance" do
     before do
       @account = Factory(:account)

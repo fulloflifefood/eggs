@@ -48,7 +48,7 @@ class ReminderManager
     reminders.each do |reminder|
       template = EmailTemplate.find(reminder.email_template_id)
 
-      members = self.get_members_without_orders(reminder.delivery)
+      members = self.get_email_eligible_members(reminder.delivery)
 
       members.each do |member|
         template.deliver_to(member.email_address, :delivery => reminder.delivery)
@@ -62,7 +62,7 @@ class ReminderManager
     
   end
 
-  def get_members_without_orders(delivery)
+  def get_email_eligible_members(delivery)
 
     members = delivery.farm.members
 
@@ -70,7 +70,7 @@ class ReminderManager
 
 
     members.reject do |member|
-      # reject if this member has an order for that delivery
+      # reject if this member has an order for that delivery or is inactive
       has_order = false
       member.orders.each do |order|
         if(order.delivery == delivery)
@@ -78,7 +78,7 @@ class ReminderManager
           break
         end
       end
-      has_order
+      has_order || member.account_for_farm(delivery.farm).is_inactive?
     end
   end
 

@@ -65,7 +65,19 @@ describe ReminderManager do
 
     member_size = @farm.members.size
 
-    @reminder_manager.get_members_without_orders(delivery).size.should == member_size - 1
+    @reminder_manager.get_email_eligible_members(delivery).size.should == member_size - 1
+
+  end
+
+  it "should filter out members with accounts of is_inactive true" do
+    delivery = @farm.deliveries.first
+    member = @farm.members.first
+
+    member.account_for_farm(@farm).update_attribute("is_inactive", true)
+
+    member_size = @farm.members.size
+
+    @reminder_manager.get_email_eligible_members(delivery).size.should == member_size - 1
 
   end
 
