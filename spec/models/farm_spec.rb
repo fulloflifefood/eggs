@@ -50,4 +50,25 @@ describe Farm do
     f.request_referral.should == true
   end
 
+  it "can have a list of addresses to use for paypal" do
+    farm_sff = Factory(:farm_with_details)
+    farm_cs = Factory(:farm_with_details)
+
+
+    farm_sff.has_paypal_address?(farm_sff.paypal_account).should == true
+
+    farm_sff.update_attribute("paypal_account", "farm_sff@example.com,othersffemail@aol.com")
+    farm_sff.has_paypal_address?("farm_sff@example.com").should == true
+    farm_sff.has_paypal_address?("nunuh@example..com").should == false
+
+    farm_cs.update_attribute("paypal_account", "farm_cs@example.com,new@example.com")
+
+    Farm.find_by_paypal_address("farm_cs@example.com").should == farm_cs
+    Farm.find_by_paypal_address("farm_sff@example.com").should == farm_sff
+    Farm.find_by_paypal_address("othersffemail@aol.com").should == farm_sff
+    Farm.find_by_paypal_address("foo@example.com").should == nil
+
+    
+  end
+
 end

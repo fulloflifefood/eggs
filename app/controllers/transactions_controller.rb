@@ -103,7 +103,7 @@ class TransactionsController < ApplicationController
 
   def ipn
     notify = Paypal::Notification.new(request.raw_post)
-    @farm = Farm.find_by_paypal_account(params[:business])
+    @farm = Farm.find_by_paypal_address(params[:business])
 
 
     # we must make sure this transaction id is not already completed

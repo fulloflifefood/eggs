@@ -26,6 +26,13 @@ class Farm < ActiveRecord::Base
 
   liquid_methods :name, :contact_email, :contact_name, :paypal_link, :subdomain, :address, :mailing_list_subscribe_address
 
+  def self.find_by_paypal_address(address)
+    Farm.all.each do |farm|
+      return farm if farm.has_paypal_address?(address)
+    end
+    return nil
+  end
+
   # TODO: Figure out why this relationship is broken!
   def users
     user_arr = []
@@ -33,6 +40,10 @@ class Farm < ActiveRecord::Base
       user_arr << User.find(s.user.id)
     end
     user_arr
+  end
+
+  def has_paypal_address?(address)
+    return paypal_account.split(",").include?(address)
   end
 
 end
