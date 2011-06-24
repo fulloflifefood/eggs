@@ -37,6 +37,12 @@ class Member < ActiveRecord::Base
     self.update_attribute(:joined_on, Date.today) if !joined_on
   end
 
+  before_save :downcase_email_address
+
+  def downcase_email_address
+     self.email_address = self.email_address.downcase
+  end
+
   def email_address_with_name
     "\"#{first_name} #{last_name}\" <#{email_address}>"
   end

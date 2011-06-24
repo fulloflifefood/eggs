@@ -59,6 +59,11 @@ describe Member do
     second_member.valid?.should == false
   end
 
+  it "ensures email_address is lowercase" do
+    member = Factory.create(:member, :email_address => "HELLO@example.COM")
+    member.email_address.should == "hello@example.com"
+  end
+
   it "has one user" do
     member = Factory.create(:member)
     user = Factory.create(:user, :member => member)

@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
   def update_member_email
     if self.member
-      self.member.email_address = self.email
+      self.member.email_address = self.email.downcase
       self.member.save
     end
   end
@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def signup!(params)
-    self.email = params[:email]
+    self.email = params[:email].downcase
     self.member_id = params[:member_id]
     save_without_session_maintenance(false)
   end

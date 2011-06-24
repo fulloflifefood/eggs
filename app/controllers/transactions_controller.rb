@@ -127,10 +127,10 @@ EOS
     else
 
       if Member.exists?(:email_address => params[:payer_email])
-        member = Member.find_by_email_address(params[:payer_email])
+        member = Member.find_by_email_address(params[:payer_email].downcase)
         account = member.account_for_farm(@farm)
-      elsif Member.exists?(:alternate_email => params[:payer_email])
-        member = Member.find_by_alternate_email(params[:payer_email])
+      elsif Member.exists?(:alternate_email => params[:payer_email].downcase)
+        member = Member.find_by_alternate_email(params[:payer_email].downcase)
         account = member.account_for_farm(@farm)
       else
         Notifier.admin_notification({:subject => 'PayPal payment from unknown member',
@@ -142,6 +142,8 @@ Unable to locate member for Paypal Transaction:
   Payer Name: #{params[:first_name]} #{params[:last_name]}
   Sent to Business: #{params[:business]}
   Amount: $#{notify.amount}
+
+  Memo: #{params[:memo]}
 EOS
 },@farm).deliver
 
