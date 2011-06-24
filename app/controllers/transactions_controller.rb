@@ -139,6 +139,7 @@ Unable to locate member for Paypal Transaction:
 
   Paypal Transaction ID: #{notify.transaction_id}
   Payer Email Address: #{params[:payer_email]}
+  Payer Name: #{params[:first_name]} #{params[:last_name]}
   Sent to Business: #{params[:business]}
   Amount: $#{notify.amount}
 EOS
