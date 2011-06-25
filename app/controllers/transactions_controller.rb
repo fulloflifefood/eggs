@@ -144,6 +144,7 @@ Unable to locate member for Paypal Transaction:
   Amount: $#{notify.amount}
 
   Memo: #{params[:memo]}
+  Custom: #{params[:custom]}
 EOS
 },@farm).deliver
 
