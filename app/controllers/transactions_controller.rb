@@ -126,7 +126,10 @@ EOS
       account = Account.find(notify.item_id)
     else
 
-      if Member.exists?(:email_address => params[:payer_email])
+      if params[:custom] && Account.exists?(:id => params[:custom].to_i)
+        account = Account.find(params[:custom].to_i)
+        member = account.member
+      elsif Member.exists?(:email_address => params[:payer_email])
         member = Member.find_by_email_address(params[:payer_email].downcase)
         account = member.account_for_farm(@farm)
       elsif Member.exists?(:alternate_email => params[:payer_email].downcase)

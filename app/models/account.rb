@@ -14,7 +14,7 @@ class Account < ActiveRecord::Base
   belongs_to :member
   has_many :transactions, :order => 'created_at ASC'
 
-  liquid_methods :member, :farm
+  liquid_methods :member, :farm, :id
 
   after_create do
     self.pending = true

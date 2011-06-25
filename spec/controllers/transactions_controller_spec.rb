@@ -104,6 +104,15 @@ describe TransactionsController do
         
       end
 
+      it "can look up the account by a custom variable" do
+        post :ipn, @ipn_params.merge("acknowledge" => "true",
+                                     "item_number" => nil,
+                                      "custom" => @account.id)
+
+        @account.transactions.count.should == 1
+        @account.current_balance.should == 100
+      end
+
       it "can look up farm by paypal_account" do
         post :ipn, @ipn_params.merge("acknowledge" => "true", "item_number" => nil)
 

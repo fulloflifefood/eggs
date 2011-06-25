@@ -43,7 +43,7 @@ class Order < ActiveRecord::Base
   liquid_methods :member, :delivery, :finalized_total, :location, :notes,
                  :order_items, :estimated_total, :order_items_with_quantity,
                  :member_balance_formatted, :finalized_total_formatted,
-                 :member_balance
+                 :member_balance, :account_id
 
   def self.new_from_delivery(delivery)
     order = Order.new
@@ -76,6 +76,11 @@ class Order < ActiveRecord::Base
 
   def finalized_total_formatted
     number_to_currency finalized_total
+  end
+
+  def account_id
+    account = member.account_for_farm(delivery.farm)
+    account.id
   end
 
   
