@@ -46,4 +46,8 @@ class Farm < ActiveRecord::Base
     return paypal_account.split(",").include?(address)
   end
 
+  def default_paypal_address
+    return paypal_account.split(",").first
+  end
+
 end

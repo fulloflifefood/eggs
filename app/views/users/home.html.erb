@@ -177,14 +177,14 @@
 
         <% if @account.current_balance < 0 %>
         <li><%= link_to "Click to PayPal #{number_to_currency @account.current_balance * -1}",
-            "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=alexis@soulfoodfarm.com&item_name=Soul+Food+Farm+CSA+Payment&amount=#{@account.current_balance.round(2) * -1}&custom=#{@account.id}",
+            "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=#{@farm.default_paypal_address}&item_name=#{@farm.name}+CSA+Payment&amount=#{@account.current_balance.round(2) * -1}&custom=#{@account.id}",
             :target => "_blank"
             %>
         </li>
         <% end %>
         <li>
           <%= link_to 'Top-up your account $100.00 with PayPal',
-              "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=alexis@soulfoodfarm.com&item_name=Soul+Food+Farm+CSA+Payment&amount=100&custom=#{@account.id}",
+              "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=#{@farm.default_paypal_address}&item_name=#{@farm.name}+CSA+Payment&amount=100&custom=#{@account.id}",
               :target => "_blank"
           %>
         </li>
