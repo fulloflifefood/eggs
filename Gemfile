@@ -19,6 +19,7 @@ gem 'easy_dates'
 gem 'dynamic_form'
 gem 'jquery-rails'
 gem 'right_aws'
+gem 'haml'
 
 # See http://stackoverflow.com/questions/3219988/cucumber-features-failing-undefined-method-factory-with-bundler-rails-2-3-5
 # for why this isn't in the group below

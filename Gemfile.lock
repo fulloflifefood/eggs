@@ -97,6 +97,7 @@ GEM
     formatador (0.0.16)
     gherkin (2.3.3)
       json (~> 1.4.6)
+    haml (3.1.1)
     heroku (1.17.17)
       json (~> 1.4.6)
       launchy (~> 0.3.2)
@@ -225,6 +226,7 @@ DEPENDENCIES
   easy_dates
   factory_girl_rails
   fastercsv (= 1.5.1)
+  haml
   heroku
   hoptoad_notifier
   jquery-rails
