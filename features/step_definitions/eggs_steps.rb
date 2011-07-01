@@ -18,5 +18,5 @@ Given /^there is a snippet titled "([^\"]*)"$/ do |title|
 end
 
 Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field|
-  field_with_id(field).element.search(".//option[@selected = 'selected']").inner_html.should =~ /#{value}/
+  find_field(field).text.should =~ /#{value}/
 end

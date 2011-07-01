@@ -18,23 +18,23 @@ Scenario: Viewing Snippet List
   And I should not see "Clark Member Homepage Welcome"
 
 Scenario: Viewing a Snippet
-  When I follow "show"
+  When I follow "Show"
   Then I should see "Member Homepage Welcome"
   When I follow "Snippets List"
   Then I should see "snippets"
 
 Scenario: Editing a Snippet
-  When I follow "edit"
+  When I follow "Edit"
   Then I should see "Editing snippet"
   When I follow "Back"
   Then I should see "snippets"
-  When I follow "edit"
+  When I follow "Edit"
   Then I should see "Editing snippet"
   When I follow "Show"
   Then I should see "Member Homepage Welcome"
 
 Scenario: Updating a Snippet
-  When I follow "edit"
+  When I follow "Edit"
   Then I should see "Editing snippet"
   When I press "Submit"
   Then I should see "Snippet was successfully updated"
