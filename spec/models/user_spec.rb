@@ -51,4 +51,10 @@ describe User do
     user.valid?.should == true
   end
 
+  it "should allow blank passwords on update" do
+    user = Factory(:member_user)
+    updated = user.update_attributes(:password => "", :password_confirmation => "")
+    updated.should == true
+  end
+
 end

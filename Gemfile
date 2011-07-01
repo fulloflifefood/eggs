@@ -3,7 +3,7 @@ source :gemcutter
 gem 'rails', '>=3'
 gem 'sqlite3'
 gem 'hoptoad_notifier'
-gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
+gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 gem 'acl9'
 gem 'backup'
 gem 'money'

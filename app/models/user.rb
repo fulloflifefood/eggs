@@ -24,12 +24,12 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  validates_presence_of :password, :password_confirmation, :on => :update
+  validates_presence_of :password, :password_confirmation, :on => :update, :if => :has_no_credentials? 
 
   acts_as_authorization_subject
   acts_as_authentic do |c |
-    c.validates_length_of_password_field_options = {:on => :update, :minimum => 4, :if => :has_no_credentials?}
-    c.validates_length_of_password_confirmation_field_options = {:on => :update, :minimum => 4, :if => :has_no_credentials?}
+    c.merge_validates_length_of_password_field_options(:on => :update, :minimum => 4)
+    c.merge_validates_length_of_password_confirmation_field_options(:on => :update, :minimum => 4)
   end
 
   liquid_methods :email, :member 
