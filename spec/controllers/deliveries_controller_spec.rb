@@ -27,8 +27,8 @@ describe DeliveriesController do
   it "should create a delivery and pickups" do
     farm = Factory(:farm)
 
-    location1 = Factory(:location, :farm => farm, :name => "Potrero")
-    location2 = Factory(:location, :farm => farm, :name => "Elsewhere")
+    location1 = Factory(:location, :farm => farm, :name => "Potrero", :tag => "SF-Potrero")
+    location2 = Factory(:location, :farm => farm, :name => "Elsewhere", :tag => "Elsewhere")
 
     get :create, :location_ids => [location1.id,location2.id],
           :farm_id => farm.id,

@@ -43,8 +43,8 @@ Given /^there is a "([^\"]*)" delivery "([^\"]*)"$/ do |status, delivery_name|
     Given the farm has the member "Ben Brown"
     Given the farm has the member "Suzy Smith"
     Given the farm has the member "Alice Anderson"
-    Given the farm has a location "Hayes Valley" with host "Billy Baggins"
-    Given the farm has a location "Farm" with host "Suzanne Smith"
+    Given the farm has a location "Hayes Valley" with host "Billy Baggins" and tag "SF - Hayes Valley"
+    Given the farm has a location "Farm" with host "Suzanne Smith" and tag "Farm"
   }
 
   @delivery = Factory.create(:delivery, :name => delivery_name, :status => status, :farm => @farm)

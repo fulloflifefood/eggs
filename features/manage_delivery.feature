@@ -9,7 +9,7 @@ Background:
 
 Scenario: Create A Delivery
   Given I am at Soul Food Farm
-  Given the farm has a location "SF / Potrero" with host "Billy Baggins"
+  Given the farm has a location "SF / Potrero" with host "Billy Baggins" and tag "SF-Potreo"
   Then I should see "Add New Delivery"
   When I follow "Add New Delivery"
   Then I should see "Minimum order total"

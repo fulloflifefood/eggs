@@ -22,6 +22,8 @@ class Location < ActiveRecord::Base
 
   liquid_methods :name, :host_name, :host_phone, :host_email, :address, :notes, :time_window, :map_link
 
+  validates_presence_of :tag
+
   def map_link
     "http://mapof.it/#{address}"
   end

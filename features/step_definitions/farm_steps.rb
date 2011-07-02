@@ -10,9 +10,9 @@ Given /^there is a farm$/ do
   farm
 end
 
-Given /^the farm has a location "([^\"]*)" with host "([^\"]*)"$/ do |location_name, host_name|
+Given /^the farm has a location "([^\"]*)" with host "([^\"]*)" and tag "([^\"]*)"$/ do |location_name, host_name, tag|
   Given 'there is a farm'
-  Factory.create(:location, :name => location_name, :host_name => host_name, :farm => @farm)
+  Factory.create(:location, :name => location_name, :host_name => host_name, :farm => @farm, :tag => tag)
 end
 
 Given /^the farm has the member "([^\"]*)"$/ do |member_name|

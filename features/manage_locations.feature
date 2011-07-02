@@ -8,7 +8,7 @@ Background:
   Given I am logged in as an admin
 
 Scenario: View location Index
-  Given the farm has a location "Soul Food Farm" with host "Alexis"
+  Given the farm has a location "Soul Food Farm" with host "Alexis" and tag "Farm"
   Given I am at Soul Food Farm
   Then I should see "Manage Locations"
   When I follow "Manage Locations"
@@ -19,7 +19,7 @@ Scenario: View location Index
 Scenario: Create a new location
   Given I am at Soul Food Farm
   When I follow "Manage Locations"
-  And I follow "Create New Location"
+  And I follow "Create New location"
   And I fill in the form with a location
   And I press "Create"
   Then I should see "Pickup Locations"

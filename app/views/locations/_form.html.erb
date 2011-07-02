@@ -32,6 +32,12 @@
     <%= f.text_field :label_color %>
   </p>
   <p>
+    <%= f.label :tag %> (Used for region-based reminder emails. Use the same tag
+        for alternate locations.  E.g. "SF-Potrero" should be used for
+        both Molly and Kathryn's houses.)<br/>
+    <%= f.text_field :tag %>
+  </p>
+  <p>
     <%= f.label :notes %> (e.g. "Access is through the side garage door")<br />
     <%= f.text_area :notes, :size => "40x5"%>
   </p>

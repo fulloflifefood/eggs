@@ -71,4 +71,10 @@ describe Farm do
     
   end
 
+  it "can return a list of unique location tags" do
+    farm = Factory(:farm_with_locations)
+
+    farm.get_location_tags.size.should == 5
+  end
+
 end

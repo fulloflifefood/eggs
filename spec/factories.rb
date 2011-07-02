@@ -44,6 +44,7 @@ Factory.define :location do |location|
   location.host_phone "123-234-5959"
   location.host_email "kathryn@example.com"
   location.association :farm
+  location.tag "SF-Potrero"
 end
 
 Factory.define :delivery do |p|
@@ -142,6 +143,18 @@ Factory.define :farm_with_deliveries, :parent => :farm do |farm|
     f.deliveries << Factory(:delivery, :farm => f, :status => "notyetopen")
     f.deliveries << Factory(:delivery, :farm => f, :status => "archived")
     f.deliveries << Factory(:delivery, :farm => f, :status => "finalized")
+  end
+end
+
+Factory.define :farm_with_locations, :parent => :farm do |farm|
+  farm.after_create do |f|
+    f.locations << Factory(:location, :farm => f, :tag => "SF-Potrero")
+    f.locations << Factory(:location, :farm => f, :tag => "Farm")
+    f.locations << Factory(:location, :farm => f, :tag => "SF-Potrero")
+    f.locations << Factory(:location, :farm => f, :tag => "SF-Hayes")
+    f.locations << Factory(:location, :farm => f, :tag => "Emeryville")
+    f.locations << Factory(:location, :farm => f, :tag => "Berkeley")
+    f.locations << Factory(:location, :farm => f, :tag => "Berkeley")
   end
 end
 

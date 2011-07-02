@@ -26,7 +26,8 @@ describe Location do
       :host_email => "kathryn@kathrynaaker.com",
       :address => "123 2rd Street, San Francisco, CA 94110",
       :notes => "Entry is through the side garage door",
-      :time_window => "5-7pm"
+      :time_window => "5-7pm",
+      :tag => "SF-Potrero"
     }
   end
 

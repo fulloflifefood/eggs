@@ -50,4 +50,8 @@ class Farm < ActiveRecord::Base
     return paypal_account.split(",").first
   end
 
+  def get_location_tags
+    locations.collect{|location| location.tag}.uniq
+  end
+
 end
