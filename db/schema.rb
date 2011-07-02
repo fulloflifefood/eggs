@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110624005201) do
+ActiveRecord::Schema.define(:version => 20110701050947) do
 
   create_table "accounts", :force => true do |t|
     t.integer   "member_id"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20110624005201) do
     t.string    "referral"
     t.text      "private_notes"
     t.boolean   "is_inactive",         :default => false
+    t.string    "reminder_locations"
   end
 
   add_index "accounts", ["farm_id"], :name => "index_accounts_on_farm_id"
@@ -98,21 +99,21 @@ ActiveRecord::Schema.define(:version => 20110624005201) do
   add_index "email_templates", ["farm_id"], :name => "index_email_templates_on_farm_id"
 
   create_table "farms", :force => true do |t|
-    t.string    "name"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "key"
-    t.string    "paypal_link"
-    t.string    "contact_email"
-    t.string    "contact_name"
-    t.string    "subdomain",                      :default => "soulfood"
-    t.string    "mailing_list_subscribe_address"
-    t.string    "address"
-    t.boolean   "require_deposit",                :default => true
-    t.boolean   "require_mailinglist",            :default => true
-    t.boolean   "request_referral",               :default => true
-    t.string    "paypal_account"
-    t.boolean   "reminders_enabled",              :default => false
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "key"
+    t.string   "paypal_link"
+    t.string   "contact_email"
+    t.string   "contact_name"
+    t.string   "subdomain",                      :default => "soulfood"
+    t.string   "mailing_list_subscribe_address"
+    t.string   "address"
+    t.boolean  "require_deposit",                :default => true
+    t.boolean  "require_mailinglist",            :default => true
+    t.boolean  "request_referral",               :default => true
+    t.string   "paypal_account"
+    t.boolean  "reminders_enabled",              :default => false
   end
 
   add_index "farms", ["name"], :name => "index_farms_on_name"
@@ -130,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20110624005201) do
     t.timestamp "updated_at"
     t.integer   "farm_id"
     t.string    "label_color", :default => "000000"
+    t.string    "tag"
   end
 
   add_index "locations", ["farm_id"], :name => "index_locations_on_farm_id"
@@ -290,16 +292,16 @@ ActiveRecord::Schema.define(:version => 20110624005201) do
   add_index "transactions", ["paypal_transaction_id"], :name => "index_transactions_on_paypal_transaction_id"
 
   create_table "users", :force => true do |t|
-    t.string    "phone_number"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "crypted_password"
-    t.string    "password_salt"
-    t.string    "persistence_token"
-    t.string    "email"
-    t.integer   "member_id"
-    t.string    "perishable_token"
-    t.boolean   "active",            :default => false, :null => false
+    t.string   "phone_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.string   "email"
+    t.integer  "member_id"
+    t.string   "perishable_token"
+    t.boolean  "active",            :default => false, :null => false
   end
 
   add_index "users", ["member_id"], :name => "index_users_on_member_id"
