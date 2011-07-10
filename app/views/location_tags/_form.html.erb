@@ -1,0 +1,23 @@
+<%= form_for(@location_tag) do |f| %>
+  <%= hidden_field_tag :farm_id, @farm.id %>
+  <%= f.hidden_field :farm_id, :value => @farm.id %>
+  <% if @location_tag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@location_tag.errors.count, "error") %> prohibited this location_tag from being saved:</h2>
+
+      <ul>
+      <% @location_tag.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

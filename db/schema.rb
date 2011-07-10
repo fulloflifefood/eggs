@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110701050947) do
+ActiveRecord::Schema.define(:version => 20110710030820) do
 
   create_table "accounts", :force => true do |t|
     t.integer   "member_id"
@@ -118,6 +118,13 @@ ActiveRecord::Schema.define(:version => 20110701050947) do
 
   add_index "farms", ["name"], :name => "index_farms_on_name"
   add_index "farms", ["subdomain"], :name => "index_farms_on_subdomain"
+
+  create_table "location_tags", :force => true do |t|
+    t.string   "name"
+    t.integer  "farm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "locations", :force => true do |t|
     t.string    "name"

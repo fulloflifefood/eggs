@@ -19,6 +19,7 @@ class Farm < ActiveRecord::Base
   has_many :accounts
   has_many :members, :through => :accounts, :order => 'last_name, first_name', :include => [:user,:accounts], :readonly => false
   has_many :locations
+  has_many :location_tags
   has_many :email_templates
   has_many :product_questions
 

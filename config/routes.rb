@@ -1,4 +1,6 @@
 Eggs::Application.routes.draw do
+  resources :location_tags
+
   resources :email_templates
   resources :snippets
   match 'feedbacks' => 'feedbacks#create', :as => :feedback
