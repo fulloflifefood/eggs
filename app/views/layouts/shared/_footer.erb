@@ -6,3 +6,7 @@
     <p>EggBasket (BETA) by <%= mail_to "kathryn@kathrynaaker.com", "Kathryn Aaker"%> - hosted on Heroku</p>
   </div>
 </div>
+
+<% if File.exists? Rails.root + "public/javascripts/controllers/#{controller.controller_name}.js" %>
+    <%= javascript_include_tag "/javascripts/controllers/#{controller.controller_name}.js"%>
+<% end %>

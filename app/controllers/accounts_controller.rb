@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
 
   access_control do
     allow :admin
-    deny  :member
+    allow :member, :to => [:edit_reminder_locations]
   end  
 
   def index
@@ -88,4 +88,20 @@ class AccountsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def edit_reminder_locations
+    @account = Account.find(params[:id])
+    location_tag_ids = params[:location_tags]
+
+    location_tags = location_tag_ids.collect{|tag_id| LocationTag.find(tag_id)}
+    @account.location_tags.clear
+
+    if @account.location_tags << location_tags
+      render :text => "success"
+    else
+      render :text => "error"
+    end
+    
+  end
+
 end

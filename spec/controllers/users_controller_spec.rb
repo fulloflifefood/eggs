@@ -5,14 +5,54 @@ describe UsersController do
     activate_authlogic
   end
 
-  it "should let a member view their own page" do
-    user = Factory(:member_user)
-    farm = Factory(:farm)
-    Factory(:account, :farm => farm, :member => user.member)
-    UserSession.create user
-    get :show, :id => user.member.id, :farm_id => farm.id
-    response.should be_success
-    response.should render_template('home')
+  describe "show" do
+    before(:each) do
+      @farm = Factory(:farm_with_locations)
+      @member = Factory(:member)
+      @user = Factory(:member_user, :member => @member)
+      @account = Factory(:account, :member => @member, :farm => @farm)
+      UserSession.create @user
+    end
+
+    it "should let a member view their own page" do
+      get :show, :id => @member.id, :farm_id => @farm.id
+
+      response.should be_success
+      response.should render_template('home')
+    end
+
+    it "should assign a account when rendering home" do
+
+      get :show, :farm_id => @farm.id, :id => @user.id
+
+      response.should  render_template('users/home')
+      assigns(:account).should == @account
+
+    end
+
+
+    it "should assign location_tags" do
+      @account.location_tags << [@farm.location_tags.all[0], @farm.location_tags.all[1]]
+
+      get :show, :farm_id => @farm.id, :id => @user.id
+      assigns(:location_tags).size.should == 5
+      assigns(:account_location_tags).size.should == 2
+
+    end
+
+
+    it "should trigger a delivery status update" do
+
+      delivery = Factory(:delivery, :status => 'notyetopen',
+                         :opening_at => Time.current - 10.minutes, :farm => @farm,
+                         :status_override => false)
+
+      get :show, :id => @member.id, :farm_id => @farm.id
+
+      delivery.reload
+      delivery.status.should == 'open'
+
+    end
   end
 
   it "should deny a non-admin member from seeing the index of users" do
@@ -44,24 +84,11 @@ describe UsersController do
     end
   end
 
-  it "should assign a account when rendering home" do
-    farm = Factory(:farm)
-    member = Factory(:member)
-    user = Factory(:member_user, :member => member)
-    account = Factory(:account, :member => member, :farm => farm)
-
-    UserSession.create user
-    get :show, :farm_id => farm.id, :id => user.id
-
-    response.should  render_template('users/home')
-    assigns(:account).should == account
-    
-  end
-
   it "should let members only edit their own user profile" do
     member = Factory(:member_user)
+    farm = Factory(:farm)
     UserSession.create member
-    get :edit, :id => member.id
+    get :edit, :id => member.id, :farm_id => farm.id
     assigns(:user).should == member
 
     get :edit, :id => 34
@@ -102,22 +129,6 @@ describe UsersController do
     
   end
 
-  it "should trigger a delivery status update" do
 
-    user = Factory(:member_user)
-    farm = Factory(:farm)
-    Factory(:account, :farm => farm, :member => user.member)
-    UserSession.create user
-
-    delivery = Factory(:delivery, :status => 'notyetopen',
-                       :opening_at => Time.current - 10.minutes, :farm => farm,
-                       :status_override => false)
-
-    get :show, :id => user.member.id, :farm_id => farm.id
-
-    delivery.reload
-    delivery.status.should == 'open'
-
-  end
 
 end

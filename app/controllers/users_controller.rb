@@ -32,6 +32,8 @@ class UsersController < ApplicationController
       @finalized_orders = orders.select {|order|order.delivery.status == "finalized"}
       @inprogress_orders = orders.select {|order|order.delivery.status == "inprogress"}
       @archived_orders = orders.select {|order|order.delivery.status == "archived"}
+      @location_tags = @farm.location_tags
+      @account_location_tags = @account.location_tags
 
       member_home = Snippet.find_by_identifier_and_farm_id("welcome_home", @farm.id)
       @member_home_template = Liquid::Template.parse(member_home.body) if member_home
