@@ -32,6 +32,7 @@ describe UsersController do
 
 
     it "should assign location_tags" do
+      @account.location_tags.clear
       @account.location_tags << [@farm.location_tags.all[0], @farm.location_tags.all[1]]
 
       get :show, :farm_id => @farm.id, :id => @user.id

@@ -14,7 +14,8 @@ require 'spec_helper'
 describe Account do
   before(:each) do
     @valid_attributes = {
-
+      :farm => Factory(:farm),
+      :member => Factory(:member)
     }
   end
 
@@ -139,6 +140,16 @@ describe Account do
 
     end
     
+  end
+
+  describe "account_observer" do
+    it "should add location_tags to all new accounts" do
+      farm = Factory(:farm_with_locations)
+      account = Factory(:account, :farm => farm)
+
+      account.location_tags.size.should == farm.location_tags.size
+      account.location_tags.size.should_not == 0
+    end
   end
 
 end
