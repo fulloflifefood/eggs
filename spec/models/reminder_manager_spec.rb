@@ -4,11 +4,23 @@ describe ReminderManager do
 
   before(:each) do
 
+    @potrero_tag = Factory(:location_tag, :name => "SF-Potrero")
+    @farm_tag = Factory(:location_tag, :name => "Farm")
+
     @farm = Factory(:farm_with_members, :reminders_enabled => true)
     3.times do
-      @farm.deliveries << Factory(:delivery, :farm => @farm, :status => "open",
+      delivery = Factory(:delivery, :farm => @farm, :status => "open",
                                   :date => Time.current.to_date + 13.days,
                                   :created_at => Time.current - 20.days)
+
+      delivery.locations << Factory.create(:location, :location_tag => @potrero_tag)
+      delivery.locations << Factory.create(:location, :location_tag => @farm_tag)
+
+      @farm.deliveries << delivery
+    end
+
+    @farm.members.each do |member|
+      member.account_for_farm(@farm).location_tags << [@potrero_tag, @farm_tag]
     end
     
     @reminder_manager = ReminderManager.new
@@ -79,6 +91,22 @@ describe ReminderManager do
 
     @reminder_manager.get_email_eligible_members(delivery).size.should == member_size - 1
 
+  end
+
+  it "should filter out members if they don't have that location tag in their reminder locations" do
+
+    delivery = @farm.deliveries.first
+
+    account1 = @farm.members.all[0].account_for_farm(@farm)
+    account2 = @farm.members.all[1].account_for_farm(@farm)
+    account2.location_tags.clear
+
+    account1.location_tags.size.should == 2
+    account2.location_tags.size.should == 0
+
+    member_size = @farm.members.size
+
+    @reminder_manager.get_email_eligible_members(delivery).size.should == member_size - 1 
   end
 
   it "can delete reminders for a delivery" do

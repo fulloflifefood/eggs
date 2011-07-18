@@ -72,6 +72,16 @@ describe Member do
 
   end
 
+  it "can return whether or not it has an order for a specific delivery" do
+    member = Factory(:member_with_orders_from_2_farms)
+    delivery = member.orders.last.delivery
+
+    member.has_order_for_delivery?(delivery).should == true
+    member.has_order_for_delivery?(Factory(:delivery)).should == false
+
+
+  end
+
   it "assigns the joined_on date to today if not already specified" do
     member = Factory.build(:member)
     member.save!

@@ -71,14 +71,13 @@ class ReminderManager
 
     members.reject do |member|
       # reject if this member has an order for that delivery or is inactive
-      has_order = false
-      member.orders.each do |order|
-        if(order.delivery == delivery)
-          has_order = true
-          break
-        end
-      end
-      has_order || member.account_for_farm(delivery.farm).is_inactive?
+
+      has_order = member.has_order_for_delivery?(delivery)
+      account = member.account_for_farm(delivery.farm)
+
+      inactive_or_ignore = account.is_inactive? || !account.has_location_tags?(delivery.location_tags)
+
+      has_order || inactive_or_ignore
     end
   end
 
