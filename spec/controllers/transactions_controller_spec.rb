@@ -56,7 +56,6 @@ describe TransactionsController do
           "mc_fee" => "5.52",
           "shipping" => "0.00",
           "mc_gross" => "100.00",
-          "custom" => @account.farm.id,
           "charset" => "windows-1252",
           "notify_version" => "2.4"
         }
