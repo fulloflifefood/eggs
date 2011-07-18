@@ -27,7 +27,7 @@ module Eggs
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
     config.active_record.observers =  :product_observer,
                                       :order_observer,
-                                      :location_observer,
+                                      :location_tag_observer,
                                       :account_observer
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
