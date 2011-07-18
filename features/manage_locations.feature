@@ -26,3 +26,11 @@ Scenario: Create a new location
   And I press "Create"
   Then I should see "Pickup Locations"
 
+Scenario: Add a new location_tag
+  Given I am at Soul Food Farm
+  When I follow "Location Tags"
+  And I follow "New Location Tag"
+  And I fill in "location_tag_name" with "SF-HayesValley"
+  And I press "Create"
+  Then I should see "Location Tags"
+  And I should see "Location tag was successfully created"

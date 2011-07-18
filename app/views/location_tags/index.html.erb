@@ -12,14 +12,12 @@
   <tr>
     <th>Name</th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @location_tags.each do |location_tag| %>
   <tr>
     <td><%= location_tag.name %></td>
     <td><%= link_to 'Edit', edit_location_tag_path(location_tag, :farm_id => @farm.id) %></td>
-    <td><%= link_to 'Destroy', location_tag, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
