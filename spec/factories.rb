@@ -27,13 +27,18 @@ Factory.define :roles_user do |r|
 end
 
 Factory.define :farm do |f|
-  f.name 'Soul Food Farm'
+  f.name 'Default Farm'
   f.sequence(:paypal_account) {|n| "testfarm#{n}@example.com" }
 end
 
-Factory.define :account do |s|
-  s.association :farm
-  s.association :member
+Factory.define :account do |account|
+  account.association :farm
+  account.association :member
+end
+
+Factory.define :location_tag do |location_tag|
+  location_tag.association :farm
+  location_tag.name "SF-Potrero"
 end
 
 Factory.define :location do |location|
@@ -44,17 +49,16 @@ Factory.define :location do |location|
   location.host_phone "123-234-5959"
   location.host_email "kathryn@example.com"
   location.association :farm
-  location.tag "SF-Potrero"
 end
 
-Factory.define :delivery do |p|
-  p.name 'Emeryville'
-  p.association :farm
-  p.date '2010-01-27'
-  p.status 'inprogress'
-  p.opening_at '2010-01-08 00:01:00'
-  p.closing_at '2010-01-23 00:01:00'
-  p.status_override true
+Factory.define :delivery do |delivery|
+  delivery.name 'Emeryville'
+  delivery.association :farm
+  delivery.date '2010-01-27'
+  delivery.status 'inprogress'
+  delivery.opening_at '2010-01-08 00:01:00'
+  delivery.closing_at '2010-01-23 00:01:00'
+  delivery.status_override true
 end
 
 Factory.define :order do |o|
@@ -148,13 +152,19 @@ end
 
 Factory.define :farm_with_locations, :parent => :farm do |farm|
   farm.after_create do |f|
-    f.locations << Factory(:location, :farm => f, :tag => "SF-Potrero")
-    f.locations << Factory(:location, :farm => f, :tag => "Farm")
-    f.locations << Factory(:location, :farm => f, :tag => "SF-Potrero")
-    f.locations << Factory(:location, :farm => f, :tag => "SF-Hayes")
-    f.locations << Factory(:location, :farm => f, :tag => "Emeryville")
-    f.locations << Factory(:location, :farm => f, :tag => "Berkeley")
-    f.locations << Factory(:location, :farm => f, :tag => "Berkeley")
+    tag_potrero     = Factory(:location_tag, :farm => f, :name => "SF-Potrero")
+    tag_farm        = Factory(:location_tag, :farm => f, :name => "Farm")
+    tag_hayes       = Factory(:location_tag, :farm => f, :name => "SF-HayesValley")
+    tag_emeryville  = Factory(:location_tag, :farm => f, :name => "Emeryville")
+    tag_berkeley    = Factory(:location_tag, :farm => f, :name => "Berkeley")
+
+    f.locations << Factory(:location, :farm => f, :location_tag => tag_potrero)
+    f.locations << Factory(:location, :farm => f, :location_tag => tag_farm)
+    f.locations << Factory(:location, :farm => f, :location_tag => tag_potrero)
+    f.locations << Factory(:location, :farm => f, :location_tag => tag_hayes)
+    f.locations << Factory(:location, :farm => f, :location_tag => tag_emeryville)
+    f.locations << Factory(:location, :farm => f, :location_tag => tag_berkeley)
+    f.locations << Factory(:location, :farm => f, :location_tag => tag_berkeley)
   end
 end
 

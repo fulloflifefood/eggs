@@ -56,6 +56,10 @@ class Member < ActiveRecord::Base
     accounts.detect{|account|account.farm_id == farm.id}
   end
 
+  def has_order_for_delivery?(delivery)
+    self.orders.detect {|order| order.delivery == delivery} == nil ? false : true
+  end
+
   def export_history(farm, start_date, end_date)
 
     orders = Order.find_all_by_member_id(self.id)

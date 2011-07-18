@@ -17,8 +17,8 @@ describe LocationsController do
   it "should filter locations by farm" do
     farm = Factory(:farm)
 
-    Factory(:location, :farm => farm, :name => "Potrero", :tag => "SF-Potrero")
-    Factory(:location, :farm => Factory(:farm), :name => "Elsewhere", :tag => "Elsewhere")
+    Factory(:location, :farm => farm, :name => "Potrero", :location_tag => Factory(:location_tag, :name => "Potrero"))
+    Factory(:location, :farm => Factory(:farm), :name => "Elsewhere", :location_tag => Factory(:location_tag, :name => "Elsewhere"))
 
     get :index, :farm_id => farm.id
     response.should be_success

@@ -65,10 +65,31 @@ describe Account do
     account.is_inactive.should == true
   end
 
-  it "can have a list of locations for reminders" do
-    account = Factory.create(:account)
-    account.update_attribute("reminder_locations", "SF-Potrero,Farm").should == true
+  describe "#location_tags" do
+    before do
+      @account = Factory.create(:account)
+
+      @potrero_tag = Factory(:location_tag, :name => "SF-Potrero")
+      @farm_tag = Factory(:location_tag, :name => "Farm")
+      @berkeley_tag = Factory(:location_tag, :name => "Berkeley")
+    end
+
+    it "can set location tags" do
+      @account.location_tags << @potrero_tag
+      @account.location_tags << @farm_tag
+
+      @account.reload
+      @account.location_tags.size.should == 2
+      @account.location_tags.include?(@farm_tag).should == true
+      @account.location_tags.include?(Factory(:location_tag, :name => "Foo")).should == false
+      @account.has_location_tags?(@farm_tag).should == true
+      @account.has_location_tags?([@farm_tag, @berkeley_tag]).should == true
+      @account.has_location_tags?(@berkeley_tag).should == false
+    end
+
   end
+
+
 
   describe "#calculate_balance" do
     before do

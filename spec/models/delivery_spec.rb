@@ -197,6 +197,18 @@ describe Delivery do
     end
   end
 
+  it "should return array of unique location tags" do
+    farm = Factory(:farm_with_locations)
+
+    delivery = Factory(:delivery, :farm => farm)
+    delivery.locations << farm.locations[0]
+    delivery.locations << farm.locations[1]
+    delivery.locations << farm.locations[2]
+
+    delivery.location_tags.size.should == 2
+    
+  end
+
   it "should be updated with stock_items and update existing orders when new products are created" do
     farm = Factory(:farm)
     farm.deliveries << setup_delivery_with_orders(farm, "open")

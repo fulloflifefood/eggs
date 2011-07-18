@@ -32,10 +32,10 @@
     <%= f.text_field :label_color %>
   </p>
   <p>
-    <%= f.label :tag %> (Used for region-based reminder emails. Use the same tag
+    <%= f.label :location_tag %> (Used for region-based reminder emails. Use the same tag
         for alternate locations.  E.g. "SF-Potrero" should be used for
         both Molly and Kathryn's houses.)<br/>
-    <%= f.text_field :tag %>
+    <%= f.select :location_tag_id, @farm.location_tags.map{|t| [t.name,t.id]} %>
   </p>
   <p>
     <%= f.label :notes %> (e.g. "Access is through the side garage door")<br />

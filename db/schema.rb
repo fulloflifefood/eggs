@@ -10,21 +10,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110710030820) do
+ActiveRecord::Schema.define(:version => 20110715223553) do
+
+  create_table "account_location_tags", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "location_tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "accounts", :force => true do |t|
-    t.integer   "member_id"
-    t.integer   "farm_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "deposit_type",        :default => "unknown (old system)"
-    t.boolean   "deposit_received",    :default => true
-    t.boolean   "joined_mailing_list", :default => true
-    t.boolean   "pending",             :default => false
-    t.string    "referral"
-    t.text      "private_notes"
-    t.boolean   "is_inactive",         :default => false
-    t.string    "reminder_locations"
+    t.integer  "member_id"
+    t.integer  "farm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "deposit_type",        :default => "unknown (old system)"
+    t.boolean  "deposit_received",    :default => true
+    t.boolean  "joined_mailing_list", :default => true
+    t.boolean  "pending",             :default => false
+    t.string   "referral"
+    t.text     "private_notes"
+    t.boolean  "is_inactive",         :default => false
   end
 
   add_index "accounts", ["farm_id"], :name => "index_accounts_on_farm_id"
@@ -127,18 +133,18 @@ ActiveRecord::Schema.define(:version => 20110710030820) do
   end
 
   create_table "locations", :force => true do |t|
-    t.string    "name"
-    t.string    "host_name"
-    t.string    "host_phone"
-    t.string    "host_email"
-    t.string    "address"
-    t.text      "notes"
-    t.string    "time_window"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.integer   "farm_id"
-    t.string    "label_color", :default => "000000"
-    t.string    "tag"
+    t.string   "name"
+    t.string   "host_name"
+    t.string   "host_phone"
+    t.string   "host_email"
+    t.string   "address"
+    t.text     "notes"
+    t.string   "time_window"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "farm_id"
+    t.string   "label_color",     :default => "000000"
+    t.integer  "location_tag_id"
   end
 
   add_index "locations", ["farm_id"], :name => "index_locations_on_farm_id"

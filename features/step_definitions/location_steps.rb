@@ -5,5 +5,4 @@ And /^I fill in the form with a location$/ do
   fill_in('Host email', :with => "billy@example.com")
   fill_in('Address', :with => "123 1st Street, SF, CA 94110")
   fill_in('location_time_window', :with => '5-7pm')
-  fill_in('location_tag', :with => "SF-Potrero")
 end

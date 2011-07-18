@@ -133,4 +133,9 @@ class Delivery < ActiveRecord::Base
     return stock_item
   end
 
+  def location_tags
+    location_tags = locations.collect {|location| location.location_tag}
+    return location_tags.uniq
+  end
+
 end

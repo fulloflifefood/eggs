@@ -14,6 +14,9 @@ class Account < ActiveRecord::Base
   belongs_to :member
   has_many :transactions, :order => 'created_at ASC'
 
+  has_many :account_location_tags
+  has_many :location_tags, :through => :account_location_tags
+
   liquid_methods :member, :farm, :id
 
   after_create do
@@ -63,6 +66,14 @@ class Account < ActiveRecord::Base
       puts " "
     end
     return nil
+  end
+
+  def has_location_tags?(location_tag_list)
+    location_tag_list = [location_tag_list] if location_tag_list.class != Array
+    location_tag_list.each do |location_tag|
+      return true if location_tags.include?(location_tag)
+    end
+    false
   end
 
 end
