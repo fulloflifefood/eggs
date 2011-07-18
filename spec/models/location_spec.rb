@@ -18,20 +18,21 @@
 require 'spec_helper'
 
 describe Location do
-  before(:each) do
-    @valid_attributes = {
-      :name => "SF / Potrero",
-      :host_name => "Kathryn Aaker",
-      :host_phone => "123-345-1383",
-      :host_email => "kathryn@kathrynaaker.com",
-      :address => "123 2rd Street, San Francisco, CA 94110",
-      :notes => "Entry is through the side garage door",
-      :time_window => "5-7pm",
-      :tag => "SF-Potrero"
-    }
+
+  it "should update member reminder location tags with observer after create" do
+    farm = Factory(:farm_with_members)
+    potrero_tag = Factory(:location_tag, :name => "SF-Potrero")
+    farm_tag = Factory(:location_tag, :name => "Farm")
+    Factory(:location, :farm => farm, :location_tag => potrero_tag)
+
+    farm.members.each do |member|
+      member.account_for_farm(farm).location_tags.include?(potrero_tag).should == true
+      member.account_for_farm(farm).location_tags.include?(farm_tag).should == false
+    end
+
+    Factory(:location, :farm => farm, :location_tag => potrero_tag)
+    farm.members.first.account_for_farm(farm).location_tags.size.should == 1
+    
   end
 
-  it "should create a new instance given valid attributes" do
-    Location.create!(@valid_attributes)
-  end
 end
