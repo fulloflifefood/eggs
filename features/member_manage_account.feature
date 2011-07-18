@@ -24,3 +24,23 @@ Scenario: See a negative account balance
   Then I should see "Mission / Potrero"
   Then I should see "-$12.00"
   And I should not see "Credit:"
+
+Scenario: Update member name with password change
+  When I follow "user_settings"
+  Then I should see "Member Info"
+  When I fill in the following:
+    | user_member_attributes_first_name       | Susan       |
+    | user_member_attributes_last_name        | Smith       |
+    | user_password                           | eggbasket!  |
+    | user_password_confirmation              | eggbasket!  |
+  And I press "Update"
+  Then I should see "Thanks for updating your information!"
+
+Scenario: Update member name without password change
+  When I follow "user_settings"
+  Then I should see "Member Info"
+  When I fill in the following:
+    | user_member_attributes_first_name       | Susan       |
+    | user_member_attributes_last_name        | Smith       |
+  And I press "Update"
+  Then I should see "Thanks for updating your information!"
