@@ -3,13 +3,13 @@ Feature: Manage deliveries
   I want to create and manage deliveries
 
 Background:
-  Given there is a farm
+  Given there is a farm "Soul Food Farm"
   Given I am logged in as an admin
   When I follow "Soul Food Farm"
 
 Scenario: Create A Delivery
   Given I am at Soul Food Farm
-  Given the farm has a location "SF / Potrero" with host "Billy Baggins" and tag "SF-Potreo"
+  Given the farm has a location "SF / Potrero" with host "Billy Baggins" and tag "SF-Potrero"
   Then I should see "Add New Delivery"
   When I follow "Add New Delivery"
   Then I should see "Minimum order total"

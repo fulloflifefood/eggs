@@ -3,7 +3,7 @@ Feature: Login and Logout
   I need to be able to only view data when logged in
 
 Scenario: Logging in and out
-  Given there is a farm
+  Given there is a farm "Soul Food Farm"
   Given I am the registered admin user jennyjones@kathrynaaker.com
   And I am on login
   When I login with valid credentials

@@ -4,6 +4,7 @@ Feature: Manage Orders
   I should be able to submit an order for a farm's member
 
 Background:
+  Given there is a farm "Soul Food Farm"
   Given I am the registered admin user jennyjones@kathrynaaker.com
   Given there is a "open" delivery "Emeryville"
   And I am on login

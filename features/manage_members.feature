@@ -3,7 +3,7 @@ Feature: Manage Members
   I want to be able to veiw and manage members
 
 Background:
-  Given there is a farm
+  Given there is a farm "Soul Food Farm"
   Given I am the registered admin user jennyjones@kathrynaaker.com
   And I am on login
   When I login with valid credentials
