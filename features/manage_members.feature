@@ -9,13 +9,13 @@ Background:
   When I login with valid credentials
   Then I should see "Farms"
   When I follow "Soul Food Farm"
-  Then I should see "Manage Members"
+  Then I should see "Members" within "#manage_farm_links"
 
 Scenario: View list of members
   Given the farm has the member "Billy Bobbins"
   Given the farm has the member "Suzy Smith"
   Given the member "Bobbins" is pending
-  When I follow "Manage Members"
+  When I follow "Members" within "#manage_farm_links"
   Then I should see "Bobbins (pending)"
   And I should see "Soul Food Farm"
   And I should see "Smith"
@@ -23,7 +23,7 @@ Scenario: View list of members
 
 Scenario: Add transaction for member through details page
   Given the farm has the member "Suzy Smith"
-  When I follow "Manage Members"
+  When I follow "Members" within "#manage_farm_links"
   Then I should see "Smith"
   When I follow "Smith"
   Then I should see "Add Transaction"
@@ -33,7 +33,7 @@ Scenario: Add transaction for member through details page
 
 Scenario: View and change a member's joined_on date
   Given the farm has the member "Suzy Smith"
-  When I follow "Manage Members"
+  When I follow "Members" within "#manage_farm_links"
   Then I should see "Smith"
   When I follow "Smith"
   Then I should see "March 22, 2010"
@@ -49,7 +49,7 @@ Scenario: View and change a member's joined_on date
 
 Scenario: Add a manager-only note for a member
   Given the farm has the member "Suzy Smith"
-  When I follow "Manage Members"
+  When I follow "Members" within "#manage_farm_links"
   When I follow "Smith"
   Then I should see "Member Details:"
   And I should see "Private Member notes:"

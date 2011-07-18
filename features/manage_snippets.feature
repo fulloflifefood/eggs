@@ -8,8 +8,8 @@ Background:
   Given I am logged in as an admin
   Given I am on home
   When I follow "Soul Food Farm"
-  Then I should see "Manage Snippets"
-  When I follow "Manage Snippets"
+  Then I should see "Snippets" within "#manage_farm_links"
+  When I follow "Snippets" within "#manage_farm_links"
   Then I should see "snippets"
 
 Scenario: Viewing Snippet List
