@@ -8,5 +8,11 @@
 </div>
 
 <% if File.exists? Rails.root + "public/javascripts/controllers/#{controller.controller_name}.js" %>
-    <%= javascript_include_tag "/javascripts/controllers/#{controller.controller_name}.js"%>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        if(typeof window["<%=controller.controller_name%>"] != "undefined"){
+            window["<%=controller.controller_name%>"].init();
+        }
+      });
+    </script>
 <% end %>

@@ -42,6 +42,9 @@
   <!-- page-specific javascript -->
   <%= yield(:script) %>
 
+  <% if File.exists? Rails.root + "public/javascripts/controllers/#{controller.controller_name}.js" %>
+    <%= javascript_include_tag "/javascripts/controllers/#{controller.controller_name}.js"%>
+  <% end %>
 
   <%= feedback_includes %>
 

@@ -1,0 +1,130 @@
+<body>
+
+  <div class="container_12">
+
+    <div class="grid_12">
+  <h1 id="branding">EggBasket - Soul Food Farm</h1>
+</div>
+<div class="clear"></div>
+
+<div class="grid_12">
+  <ul class="nav main">
+        <li><a href="/users/1181095813?farm_id=1213367748">Home</a></li>
+          <li><a href="/essential_info?farm_id=1213367748">Essential Info</a></li>
+
+    <li class="secondary">
+        <a href="/logout">Log out</a>
+    </li>
+      <li class="secondary">
+        <a href="/users/1181095813/edit?farm_id=1213367748" id="user_settings">Kathryn Aaker</a>
+      </li>
+
+      <li class="secondary">
+        <a href="#">Switch Farms</a>
+        <ul>
+            <li><a href="/users/1181095813?farm_id=321305737">Clark Summit Farm</a></li>
+            <li><a href="/users/1181095813?farm_id=1213367748">Soul Food Farm</a></li>
+        </ul>
+      </li>
+  </ul>
+</div>
+
+    <div class="clear"></div>
+
+
+<div class='grid_12'>
+<h2 id='page-heading'>Welcome, Kathryn Aaker!</h2>
+</div>
+<div class='grid_8'>
+<p style='color:green'></p>
+
+<h5>Welcome to the Soul Food Farm CSA system!</h5>
+<hr/>
+
+<h4>You can place orders for these upcoming pickups:</h4>
+<table>
+<tr>
+<td>27 JUL</td>
+<td><a href="/orders/new?delivery_id=1980972760&amp;farm_id=1213367748">SF Hayes</a></td>
+<td>Open</td>
+<td><a href="/orders/new?delivery_id=1980972760&amp;farm_id=1213367748">new order</a></td>
+</tr>
+<tr>
+<td>03 AUG</td>
+<td><a href="/orders/new?delivery_id=1980972761&amp;farm_id=1213367748">Emeryville/Lafayette/Farm</a></td>
+<td>Open</td>
+<td><a href="/orders/new?delivery_id=1980972761&amp;farm_id=1213367748">new order</a></td>
+</tr>
+</table>
+<h4>Past orders:</h4>
+<table>
+<tr>
+<td>13 JUL</td>
+<td>SF Potrero</td>
+<td><a href="/orders/1736124999?farm_id=1213367748">view archived order</a></td>
+</tr>
+
+</table>
+</div>
+<div class='grid_4'>
+<div class='box'>
+<div class='block'>
+<h5>Your Account Balance:</h5>
+<h4 style='color:red'>-$100.50</h4>
+<ul class='menu'>
+<li><a href="/transactions?farm_id=1213367748&amp;member_id=1181095994">Balance History</a></li>
+<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=alexis@soulfoodfarm.com&amp;item_name=Soul Food Farm+CSA+Payment&amp;amount=100.5&amp;custom=1184707154" target="_blank">Click to PayPal $100.50</a></li>
+<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=alexis@soulfoodfarm.com&amp;item_name=Soul Food Farm+CSA+Payment&amp;amount=100&amp;custom=1184707154" target="_blank">Top-up your account $100.00 with PayPal</a></li>
+<li>
+<a id='manage_reminders'>Manage email reminders</a>
+</li>
+<div class='sidebar_block' id='reminder_manager' style='display:none'>
+<p>
+<strong>Please send me reminders for the following locations:</strong>
+</p>
+<form action='/accounts/edit_reminder_locations/1184707154?farm_id=1213367748'><input checked id='location_2' name='location_tags[]' type='checkbox' value='2'><label for='location_2'>SF-Potrero</label>
+<br><input checked id='location_3' name='location_tags[]' type='checkbox' value='3'><label for='location_3'>SF-HayesValley</label>
+<br><input id='location_4' name='location_tags[]' type='checkbox' value='4'><label for='location_4'>Lafayettte</label>
+<br><input checked id='location_5' name='location_tags[]' type='checkbox' value='5'><label for='location_5'>Emeryville</label>
+<br><input checked id='location_6' name='location_tags[]' type='checkbox' value='6'><label for='location_6'>Berkeley</label>
+<br><input id='location_1' name='location_tags[]' type='checkbox' value='1'><label for='location_1'>Farm-Vacaville</label>
+<br>
+<br>
+<span id='form_output'></span>
+<a class='button green' id='reminder_submit_btn'>Update</a>
+<a class='button gray' id='reminder_cancel_btn'>Cancel</a>
+<br>
+<br>
+</form>
+</div>
+</ul>
+</div>
+</div>
+</div>
+
+
+    <div class="clear"></div>
+    <div class="grid_12">&nbsp;</div>
+
+    <div class="grid_12" id="site_info">
+  <div class="box">
+      <p><a href="mailto:csa@soulfoodfarm.com">Contact the Soul Food Farm CSA</a></p>
+    <p>EggBasket (BETA) by <a href="mailto:kathryn@kathrynaaker.com">Kathryn Aaker</a> - hosted on Heroku</p>
+  </div>
+</div>
+
+    <script type="text/javascript"> 
+      $(document).ready(function() {
+        if(typeof window["users"] != "undefined"){
+            window["users"].init();
+        }
+      });
+    </script>
+
+
+    <div class="clear"></div>
+
+
+  </div>
+
+</body> 
