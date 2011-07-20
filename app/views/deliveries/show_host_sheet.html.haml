@@ -1,0 +1,60 @@
+%html
+
+  %head
+
+    = stylesheet_link_tag "http://eggbasket.org/stylesheets/lib/fluid960gs/reset.css", :media => "all"
+    = stylesheet_link_tag "http://eggbasket.org/stylesheets/lib/fluid960gs/text.css", :media => "all"
+    = stylesheet_link_tag "http://localhost:3000/stylesheets/pdf_table_styles.css", :media => "all"
+
+    %style
+      @page { size: A4 landscape }
+      @page { border: none }
+      @page { prince-shrink-to-fit: auto }
+
+  %body
+
+  %h3 Host sheet for #{@delivery.name} - #{@delivery.pretty_date}
+  %h4 #{@location.name} - #{@location.host_name}
+
+  #orderlist
+    %table
+      %thead
+        %tr
+          %th Last Name
+          %th First Name
+          %th Email
+          %th.medium_column Phone
+          -#%th Delivery
+          - @delivery.stock_items.with_quantity.each do |item|
+            %th.small_column
+              = item.product_name
+          - @delivery.delivery_questions.visible.each do |question|
+            %th= question.short_code
+          %th.medium_column Notes, questions
+          %th.money_column Finalized Bag Total
+          %th.money_column Updated Balance (amount owed)
+          %th.wide_column How Paid? / Notes
+          %th Last Name
+      %tbody
+        - @delivery.orders.for_location(@location).each_with_index do |order, i|
+          - negative_balance = order.member.balance_for_farm(@farm) < 0
+          %tr{:class => i.even? ? "even" : "odd"}
+            %td{:class => negative_balance ? 'negative_balance' : ''}= order.member.last_name
+            %td{:class => negative_balance ? 'negative_balance' : ''}= order.member.first_name
+            %td= order.member.email_address
+            %td= order.member.phone_number
+            -#%td= order.location.name
+            - order.order_items.with_stock_quantity.each do |item|
+              %td
+                - if item.quantity == 0
+                  = " "
+                - else
+                  %b= item.quantity
+            - order.order_questions.visible.each do |question|
+              %td= question.option_code
+            %td= order.notes
+            %td= number_to_currency (order.finalized_total)
+            %td{:class => negative_balance ? 'negative_balance' : ''}
+              %b= number_to_currency (order.member.balance_for_farm @farm)
+            %td
+            %td{:class => negative_balance ? 'negative_balance' : ''}= order.member.last_name

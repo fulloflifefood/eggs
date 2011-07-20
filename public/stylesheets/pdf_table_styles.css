@@ -1,0 +1,29 @@
+tbody th, tbody td, thead th {
+    border: 1px solid #bbb;
+    padding: 2px;
+}
+
+th.wide_column {
+    width: 150px;
+}
+
+th.small_column {
+    width: 30px;
+}
+
+th.medium_column {
+    width: 90px;
+}
+
+th.money_column {
+    width: 48px;
+}
+
+.negative_balance {
+    color: maroon;
+    font-weight: bold;
+}
+
+tr.even {
+    background-color: #efefef;
+}

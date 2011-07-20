@@ -110,7 +110,23 @@
         <h5><%= pluralize @delivery.locations.size, "Location" %>:</h5>
           <ul>
           <% @delivery.locations.each do |location| %>
-            <li><%= "#{location.name}, #{location.host_name}" %></li>
+            <li><%= "#{location.name}, #{location.host_name}" %><br/>
+              <%= link_to "Host Sheet for #{location.name}",
+                        {:controller => 'deliveries', :action => 'show_host_sheet',
+                        :id => @delivery.id, :farm_id => @farm.id, :location_id => location.id},
+                        :class => "button green", :target => "_blank" %><br/>
+
+            <form method='post' action='http://docraptor.com/docs'>
+                   <div>
+                     <input name='doc[document_type]' value='pdf' type='hidden' />
+                     <input name="doc[document_url]" value="http://eggbasket.org/deliveries/show_host_sheet/<%=@delivery.id%>?farm_id=<%=@farm.id%>&location_id=<%=location.id%>" type="hidden"/>
+                     <input name="user_credentials" value="<%= ENV['DOCRAPTOR_KEY'] %>" type="hidden" />
+                     <input name="doc[test]" value="true" type="hidden"/>
+                     <input name="doc[name]" value="SFF host sheet" type="hidden"/>
+                     <input value='Print Host Sheet' type='submit'/>
+                   </div>
+            </form>
+
           <% end %>
           </ul>
 
@@ -138,7 +154,7 @@
           <li><%= link_to "Export as CSV", delivery_path(@delivery, :csv, :farm_id => @farm.id) %></li>
           <li><%= link_to "Export as TSV", delivery_path(@delivery, :csv, :farm_id => @farm.id, :tabs => true) %></li>
           <li><%= link_to "Export as XLS", delivery_path(@delivery, :xls, :farm_id => @farm.id) %></li>
-          <li><%= link_to "Export Labels", delivery_path(@delivery, :pdf, :farm_id => @farm.id) %></li>
+          <li><%= link_to "Export Labels", delivery_path(@delivery, :pdf, :farm_id => @farm.id), :target => "_blank" %></li>
           <li><%= link_to "Send Email to Members with Orders", :controller => 'deliveries', :action => 'setup_emails', :id => @delivery.id, :farm_id => @farm.id %></li>
           <li><%= link_to 'Delete Delivery', { :id => @delivery.id,
                                          :farm_id => @farm.id},

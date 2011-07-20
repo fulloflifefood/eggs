@@ -4,7 +4,7 @@ class DeliveriesController < ApplicationController
   require "prawn/measurement_extensions"
   prawnto :prawn => { :left_margin => 0.18.in, :right_margin => 0.18.in}
 
-  skip_before_filter :authenticate, :only => "public_summary"
+  skip_before_filter :authenticate, :only => [:public_summary, :show_host_sheet]
 
   access_control do
     allow :admin
@@ -65,6 +65,16 @@ class DeliveriesController < ApplicationController
     @delivery = Delivery.find(params[:id])
     render :layout => "delivery_fluid"
   end
+
+  def show_host_sheet
+    @delivery = Delivery.find(params[:id])
+    @location = Location.find(params[:location_id])
+
+    respond_to do |format|
+      format.html{render :layout => false}
+    end
+  end
+
 
   def edit_order_totals
     @delivery = Delivery.find(params[:id])
