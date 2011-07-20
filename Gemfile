@@ -31,6 +31,7 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'database_cleaner'
   gem 'webrat'
+  gem 'jasmine'
 end
 
 group :development do
