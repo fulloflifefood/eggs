@@ -8,7 +8,7 @@ class DeliveriesController < ApplicationController
 
   access_control do
     allow :admin
-    allow all, :to => :show_host_sheet
+    allow all, :to => [:show_host_sheet, :public_summary]
   end
 
   def index
