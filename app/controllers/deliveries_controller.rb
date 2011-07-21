@@ -8,7 +8,7 @@ class DeliveriesController < ApplicationController
 
   access_control do
     allow :admin
-    deny :member
+    allow all, :to => :show_host_sheet
   end
 
   def index
