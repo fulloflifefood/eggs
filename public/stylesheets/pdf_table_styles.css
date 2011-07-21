@@ -2,6 +2,10 @@ body{
     margin: 50px;
 }
 
+table {
+    word-wrap:break-word;
+}
+
 tbody th, tbody td, thead th {
     border: 1px solid #bbb;
     padding: 2px;
