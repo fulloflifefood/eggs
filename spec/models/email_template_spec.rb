@@ -33,4 +33,18 @@ describe EmailTemplate do
       @mail.body.raw_source.should =~ /Welcome/
     end
   end
+
+  describe "money filter" do
+    before do
+      template = Factory(:email_template, :body => "Balance: {{balance_formatted | formatted_currency}}, {{balance_rounded | rounded_currency}}" )
+      template.deliver_to("to@example.com", :balance_formatted => 15.444444, :balance_rounded => 18.333333)
+      @mail = ActionMailer::Base.deliveries.last
+    end
+
+    it "should format money correctly" do
+      @mail.body.raw_source.should == "Balance: $15.44, 18.33"
+
+
+    end
+  end
 end

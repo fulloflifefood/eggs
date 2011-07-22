@@ -1,5 +1,7 @@
 class EmailTemplate < ActiveRecord::Base
 
+  require "liquid_filters"
+
   belongs_to :farm
   ### Validation
   validates_presence_of :subject, :from, :body, :name, :identifier
@@ -70,7 +72,7 @@ class EmailTemplate < ActiveRecord::Base
   # Renders body as Liquid Markup template
   #
   def render_body(options = {})
-    template.render options
+    template.render options, :filters => [LiquidFilters]
   end
 
   def render_subject(options = {})
