@@ -7,8 +7,7 @@ Background:
   Given I am the registered admin user jennyjones@kathrynaaker.com
   And I am on login
   When I login with valid credentials
-  Then I should see "Farms"
-  When I follow "Soul Food Farm"
+  Then I should see "Soul Food Farm"
   Then I should see "Members" within "#manage_farm_links"
 
 Scenario: View list of members

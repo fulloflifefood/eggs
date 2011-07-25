@@ -10,17 +10,15 @@ Background:
   Given I am the registered admin user jennyjones@kathrynaaker.com
   And I am on login
   When I login with valid credentials
-  Then I should see "Farms"  
+  Then I should see "Soul Food Farm"
 
 Scenario: list deliveries
-  When I go to farms
-  And I follow "Soul Food Farm"
+  When I go to the farm "Soul Food Farm"
   Then I should see "Hayes Valley"
   And I should not see "Marin"
   
 Scenario: View delivery Details
-  When I go to farms
-  And I follow "Soul Food Farm"
+  When I go to the farm "Soul Food Farm"
   And I follow "Emeryville"
   Then I should see "Delivery: Emeryville"
   And I should see "Wednesday"

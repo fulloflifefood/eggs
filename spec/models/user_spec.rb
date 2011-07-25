@@ -57,4 +57,18 @@ describe User do
     updated.should == true
   end
 
+  it "can return a list of farms an admin has access to" do
+
+    user = Factory(:user)
+    farm1 = Factory(:farm)
+    farm2 = Factory(:farm)
+    Factory(:farm)
+
+    user.has_role!(:admin, farm1)
+    user.has_role!(:admin, farm2)
+
+    user.farms_by_admin_role.size.should == 2
+
+  end
+
 end

@@ -5,7 +5,6 @@ Feature: Manage deliveries
 Background:
   Given there is a farm "Soul Food Farm"
   Given I am logged in as an admin
-  When I follow "Soul Food Farm"
 
 Scenario: Create A Delivery
   Given I am at Soul Food Farm

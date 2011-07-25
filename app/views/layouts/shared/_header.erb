@@ -31,11 +31,11 @@
         <%= link_to "#{current_user.member.first_name} #{current_user.member.last_name}", edit_user_path(:id => current_user.id, :farm_id => @farm.id), :id=>"user_settings" %>
       </li>
     <% end %>
-    <% if current_user && current_user.has_role?(:admin) %>
+    <% if current_user && current_user.farms_by_admin_role.size > 1 %>
       <li class="secondary">
-        <a href="#">Switch Farms</a>
+        <a href="#">Switch Farms <%= "(admin)" if current_user.member.accounts.size > 0 %></a>
         <ul>
-          <% Farm.all.each do |farm| %>
+          <% current_user.farms_by_admin_role.each do |farm| %>
             <li><%= link_to farm.name, farm %></li>
           <% end %>
         </ul>
@@ -44,7 +44,7 @@
 
     <% if current_user && current_user.has_role?(:member) && current_user.member.farms.size > 1 %>
       <li class="secondary">
-        <a href="#">Switch Farms</a>
+        <a href="#">Switch Farms <%= "(member)" if current_user.member.accounts.size > 0 %></a>
         <ul>
           <% current_user.member.farms.each do |farm| %>
             <li><%= link_to farm.name, user_path(:id => current_user.id, :farm_id => farm.id) %></li>

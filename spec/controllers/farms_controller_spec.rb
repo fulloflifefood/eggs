@@ -12,6 +12,30 @@ describe FarmsController do
     response.should be_success
   end
 
+  it "should only index farms for which the admin belongs" do
+    Factory(:farm, :name => "Soul Food Farm")
+    farm1 = Factory(:farm, :name => "Clark Summit Farm")
+    farm2 = Factory(:farm, :name => "Another Farm")
+
+
+    UserSession.find.user.has_role!(:admin, farm1)
+    UserSession.find.user.has_role!(:admin, farm2)
+    get :index
+
+    assigns(:farms).size.should == 2
+
+  end
+
+  it "should redirect to the farm if only one" do
+    farm = Factory(:farm, :name => "Soul Food Farm")
+    Factory(:farm, :name => "Another Farm")
+
+    UserSession.find.user.has_role!(:admin, farm)
+    get :index
+
+    response.should redirect_to(farm)
+  end
+
   it "should create sets of deliveries when showing a single farm" do
     farm = Factory(:farm_with_deliveries)
 

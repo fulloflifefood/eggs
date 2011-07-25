@@ -12,8 +12,11 @@ module NavigationHelpers
       '/'
 
 
-      when /the delivery "(.*)"$/i
-        delivery_path(Delivery.find_by_name($1), :farm_id => @farm.id)
+    when /the delivery "(.*)"$/i
+      delivery_path(Delivery.find_by_name($1), :farm_id => @farm.id)
+
+    when /the farm "(.*)"$/i
+      farm_path(Farm.find_by_name($1))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

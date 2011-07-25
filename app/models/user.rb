@@ -96,5 +96,8 @@ class User < ActiveRecord::Base
     Notifier.password_reset_instructions(self).deliver
   end
 
+  def farms_by_admin_role
+    Farm.all.select{|farm| self.has_role?(:admin, farm)}
+  end
 
 end

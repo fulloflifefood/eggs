@@ -8,11 +8,14 @@ class FarmsController < ApplicationController
   # GET /farms
   # GET /farms.xml
   def index
-    @farms = Farm.all
+    @farms = Farm.all.select { |farm| current_user.has_role?(:admin, farm)}
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @farms }
+      if(@farms.size == 1)
+        format.html {redirect_to(@farms.first)}
+      else
+        format.html # index.html.erb
+      end
     end
   end
 

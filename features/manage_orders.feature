@@ -9,8 +9,7 @@ Background:
   Given there is a "open" delivery "Emeryville"
   And I am on login
   When I login with valid credentials
-  Then I should see "Farms"
-  When I follow "Soul Food Farm"
+  Then I should see "Soul Food Farm"
   Then I should see "Open (currently accepting orders)"
 
 Scenario: Add a new order as an admin

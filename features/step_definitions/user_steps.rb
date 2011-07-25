@@ -5,9 +5,17 @@ Given /^I am the registered admin user (.+)$/ do |login|
     "password_confirmation"=>"eggsrock"
   }
   @user = User.create!(params)
-  @user.has_role!(:admin)
   @user.active = true
+
+
+  @user.member = Member.create!(:email_address => @user.email,
+                                 :first_name => "Soul Food",
+                                 :last_name => "Farm",
+                                 :phone_number => '1234556323')
+
   @user.save!
+  
+  Farm.all.each{|farm| @user.has_role!(:admin, farm)}
 end
 
 

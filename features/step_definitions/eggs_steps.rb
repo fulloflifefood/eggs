@@ -9,8 +9,7 @@ end
 
 
 And /^I am at Soul Food Farm/ do
-  Given "I am on farms"
-  And 'I follow "Soul Food Farm"'
+  visit path_to('the farm "Soul Food Farm"')
 end
 
 Given /^there is a snippet titled "([^\"]*)"$/ do |title|
