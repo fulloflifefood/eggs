@@ -10,7 +10,11 @@ end
 
 Given /^the member "([^"]*)" has a "([^"]*)" transaction "([^"]*)" for "([^"]*)"$/ do |member_last_name, product_name, transaction_type, amount|
   subscription = find_subscription(member_last_name, product_name)
-  SubscriptionTransaction.create!(:debit => (transaction_type == "debit"), :amount => amount.to_f, :subscription => subscription)
+  SubscriptionTransaction.create!(:debit => (transaction_type == "debit"),
+                                  :amount => amount.to_i,
+                                  :subscription => subscription,
+                                  :date => Date.today,
+                                  :description => "general pickup")
 end
 
 

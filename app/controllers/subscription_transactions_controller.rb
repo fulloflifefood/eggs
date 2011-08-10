@@ -31,8 +31,8 @@ class SubscriptionTransactionsController < ApplicationController
   end
 
   def new_many
-
-    @subscriptions = Subscription.find_all_by_product_id(params[:product_id])
+    @product_id = params[:product_id]
+    @subscriptions = Subscription.find_all_by_product_id(@product_id)
 
     @subscription_transactions = Array.new
     @subscriptions.each do |subscription|
@@ -59,7 +59,47 @@ class SubscriptionTransactionsController < ApplicationController
   end
 
   def create_many
-    raise
+    @subscription_transactions = []
+    params["subscription_transactions"].each do |transaction|
+      @subscription_transactions << SubscriptionTransaction.new(transaction)
+    end
+
+    description = params["description"]
+    date = params["date"]
+    @product_id = params["product_id"]
+    @subscriptions = Subscription.find_all_by_product_id(@product_id)
+    
+
+
+
+    respond_to do |format|
+      total_saved = 0
+      
+      begin
+        ActiveRecord::Base.transaction do
+
+          @subscription_transactions.each do |subscription_transaction|
+            subscription_transaction.description = description
+            subscription_transaction.date = date
+            subscription_transaction.allow_negative_amount(false)
+            puts "not zero: #{subscription_transaction.amount != 0}"
+            puts "amount: #{subscription_transaction.amount}"
+            subscription_transaction.save! if subscription_transaction.amount != 0
+            total_saved = total_saved + 1 if subscription_transaction.valid?
+          end
+
+        end
+
+      rescue ActiveRecord::RecordInvalid => invalid
+        flash[:notice] = invalid.record.errors.full_messages.join("<br/>").html_safe
+        puts invalid.record.errors.full_messages
+        format.html { render :action => "new_many" }
+      else
+        flash[:notice] = "#{total_saved} Subscription Transactions were successfully created."
+        format.html { redirect_to(subscriptions_url(:farm_id => @farm.id, :product_id => @product_id)) }
+      end
+
+    end
     
   end
 

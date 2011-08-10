@@ -49,12 +49,11 @@ Scenario: Viewing list of transactions for a Subscription
 Scenario: Adding transactions for a Subscription
   Given I am on the farm "Soul Food Farm"
   When I follow "Eggs"
-  Then I should see "Record Non-CSA Pickups"
-  When I follow "Record Non-CSA Pickups"
+  Then I should see "Record New (Non-EggBasket) Transactions"
+  When I follow "Record New (Non-EggBasket) Transactions"
   Then I should see "Bobbins"
   And I should see "Smith"
   And I should not see "Chase"
-  And I should see "Enter Manual Pickups Below"
+  And I should see "Non-EggBasket managed pickup"
   
 
-  

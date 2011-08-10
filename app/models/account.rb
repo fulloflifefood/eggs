@@ -15,6 +15,7 @@ class Account < ActiveRecord::Base
   has_many :account_transactions, :order => 'created_at ASC'
 
   has_many :account_location_tags
+  has_many :subscriptions
   has_many :location_tags, :through => :account_location_tags
 
   liquid_methods :member, :farm, :id
