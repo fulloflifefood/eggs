@@ -25,13 +25,31 @@ Given /^I am the registered member user (.+)$/ do |login|
     "password"=>"eggsrock",
     "password_confirmation"=>"eggsrock"
   }
-  @user = User.create!(params)
+  @user = User.find_by_email(login) || User.create!(params)
   @user.has_role!(:member)
   @user.active = true
-  @user.member = Factory(:member, :email_address => login)
+  @user.member = @user.member || Factory(:member, :email_address => login)
   @user.member.farms << @farm
   @user.save!
 end
+
+Given /^there is a member user with the following attributes:$/ do |table|
+  table.hashes.each do |attributes|
+    member = Factory(:member)
+    member.email_address = attributes['email_address']
+    member.first_name = attributes['first_name']
+    member.last_name = attributes['last_name']
+    member.farms << @farm
+    member.save!
+    user = User.create!(:email => member.email_address, :password => 'eggsrock', :password_confirmation => 'eggsrock')
+    user.has_role!(:member, @farm)
+    user.active = true
+    user.member = member
+    user.save!
+  end
+end
+
+
 
 When /^I login with valid credentials$/ do
   fill_in('user_session_email', :with => @user.email)
