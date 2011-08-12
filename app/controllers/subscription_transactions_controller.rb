@@ -82,8 +82,6 @@ class SubscriptionTransactionsController < ApplicationController
             subscription_transaction.description = description
             subscription_transaction.date = date
             subscription_transaction.allow_negative_amount(false)
-            puts "not zero: #{subscription_transaction.amount != 0}"
-            puts "amount: #{subscription_transaction.amount}"
             subscription_transaction.save! if subscription_transaction.amount != 0
             total_saved = total_saved + 1 if subscription_transaction.valid?
           end
