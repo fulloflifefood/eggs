@@ -35,30 +35,57 @@ describe Delivery do
     delivery.estimated_total.should == delivery.orders.inject(0){|total, o| total + o.estimated_total}
   end
 
-  it "should be able to deduct finalized order prices from member balances" do
-    delivery = Factory(:delivery_with_orders)
-    delivery.orders.each do |order|
-      account = Factory.create(:account, :farm => delivery.farm, :member => order.member)
+  describe "deductions" do
+    before (:each) do
+      @delivery = Factory(:delivery_with_orders)
+      @delivery.orders.each do |order|
+        account = Factory.create(:account, :farm => @delivery.farm, :member => order.member)
+      end      
     end
 
-    delivery.deductions_complete.should == false
-    member = delivery.orders.first.member
-    delivery.orders.first.finalized_total = 24.5
+    it "should be able to deduct finalized order prices from member balances" do
+      @delivery.deductions_complete.should == false
+      member = @delivery.orders.first.member
+      @delivery.orders.first.finalized_total = 24.5
 
-    # set initial balance
-    AccountTransaction.create!(:account_id => member.accounts.first, :amount => 100, :debit => false, :date => Date.today)
-    
-    member.balance_for_farm(delivery.farm).should == 100
-    delivery.perform_deductions!.should == true
-    member.balance_for_farm(delivery.farm).should == 75.5
+      # set initial balance
+      AccountTransaction.create!(:account_id => member.accounts.first, :amount => 100, :debit => false, :date => Date.today)
+
+      member.balance_for_farm(@delivery.farm).should == 100
+      @delivery.perform_deductions!.should == true
+      member.balance_for_farm(@delivery.farm).should == 75.5
 
 
-    # check that it won't happen again
-    delivery.deductions_complete.should == true
-    delivery.perform_deductions!.should == false
-    member.balance_for_farm(delivery.farm).should == 75.5
-    
+      # check that it won't happen again
+      @delivery.deductions_complete.should == true
+      @delivery.perform_deductions!.should == false
+      member.balance_for_farm(@delivery.farm).should == 75.5
 
+    end
+
+    it "should deduct subscription orders" do
+      order = @delivery.orders.first
+      product = order.order_items.first.stock_item.product
+      product.update_attribute(:subscribable, true)
+
+      account = order.member.account_for_farm(@delivery.farm)
+      account.subscriptions << Subscription.new(:product => product)
+      subscription = account.subscriptions.first
+      Factory(:subscription_transaction, :subscription => subscription,
+                                          :amount => 100,
+                                          :debit => false)
+
+      subscription.current_balance.should == 100
+
+      order.order_items.first.update_attribute("quantity", 2)
+
+      @delivery.perform_deductions!.should == true
+      subscription.current_balance.should == 98
+      subscription.subscription_transactions.size.should == 2
+      subscription.subscription_transactions.last.description.should == @delivery.name
+
+
+    end
   end
 
   it "should have an available list of members for its related farm" do

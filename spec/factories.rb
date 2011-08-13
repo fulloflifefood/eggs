@@ -197,6 +197,14 @@ Factory.define :account_transaction do |account_transaction|
   account_transaction.association :account
 end
 
+Factory.define :subscription_transaction do |subscription_transaction|
+  subscription_transaction.amount 3
+  subscription_transaction.description "Ferry Building pickup"
+  subscription_transaction.debit true
+  subscription_transaction.association :subscription
+  subscription_transaction.date Date.today
+end
+
 Factory.define :snippet do |snippet|
   snippet.body '<h3>Welcome</h3><p>Thanks for joining us!</p>'
   snippet.identifier 'member_welcome'

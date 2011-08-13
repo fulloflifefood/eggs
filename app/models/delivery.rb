@@ -115,6 +115,20 @@ class Delivery < ActiveRecord::Base
                                       :order_id => order.id,
                                       :description => "Automatic debit for #{order.delivery.pretty_date} order pickup")
         account_transaction.save!
+
+        order.order_items.each do |order_item|
+          if order_item.stock_item.product.subscribable && order_item.quantity > 0
+            subscription = Subscription.find_by_account_id_and_product_id(account.id, order_item.stock_item.product.id)
+            subscription_transaction = SubscriptionTransaction.new(:subscription => subscription,
+                                              :amount => order_item.quantity,
+                                              :debit => true,
+                                              :date => Date.today,
+                                              :order_id => order.id,
+                                              :description => order.delivery.name)
+            subscription_transaction.save!
+          end
+        end
+
       end
       self.update_attribute(:deductions_complete, true)
     end
