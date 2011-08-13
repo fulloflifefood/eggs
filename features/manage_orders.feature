@@ -30,3 +30,11 @@ Scenario: Delete an order as an admin
   Then I should see "Delete Order"
   When I follow "Delete Order"
   Then I should not see "Brown, Ben"
+
+Scenario: Add an order as admin when it has subscribable products
+  Given the delivery "Emeryville" has the stock_item "EggShare Eggs" with a price of 0
+  Given the product "EggShare Eggs" is subscribable
+  When I follow "Emeryville"
+  Then I should see "EggShare Eggs"
+  And I should not see "SOLD OUT"
+  
