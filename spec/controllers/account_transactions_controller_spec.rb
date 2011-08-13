@@ -108,7 +108,7 @@ describe AccountTransactionsController do
                                      "item_number" => nil,
                                       "custom" => @account.id)
 
-        @account.transactions.count.should == 1
+        @account.account_transactions.count.should == 1
         @account.current_balance.should == 100
       end
 

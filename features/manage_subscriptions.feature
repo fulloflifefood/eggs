@@ -4,7 +4,7 @@ Feature: Manage Subscriptions
   I must be able to view and manage subscriptions for products
 
 Background:
-  Given there is a farm
+  Given there is a farm "Soul Food Farm"
   Given the product "Eggs" is subscribable
   Given the product "Veggie Box" is subscribable
   Given the farm has the member "Billy Bobbins"
@@ -20,8 +20,7 @@ Background:
 
 
   Given I am logged in as an admin
-  Given I am on farms
-  When I follow "Soul Food Farm"
+  Given I am on the farm "Soul Food Farm"
   Then I should see "Subscriptions / Shares:"
 
 Scenario: Viewing list of Subscriptions

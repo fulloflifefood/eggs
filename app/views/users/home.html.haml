@@ -128,7 +128,7 @@
         %h4{:style => "color:red"}= number_to_currency @account.current_balance
 
       %ul.menu
-        %li= link_to "Balance History", transactions_path(:farm_id => @farm.id, :member_id => @user.member.id)
+        %li= link_to "Balance History", account_transactions_path(:farm_id => @farm.id, :member_id => @user.member.id)
         - if @account.current_balance < 0
           %li= link_to "Click to PayPal #{number_to_currency @account.current_balance * -1}",
           "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=#{@farm.default_paypal_address}&item_name=#{@farm.name}+CSA+Payment&amount=#{@account.current_balance.round(2) * -1}&custom=#{@account.id}",

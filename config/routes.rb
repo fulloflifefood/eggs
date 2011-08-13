@@ -1,6 +1,5 @@
 Eggs::Application.routes.draw do
   resources :location_tags
-  resources :subscription_transactions
 
   get "subscriptions/index"
   get "subscriptions/show"
