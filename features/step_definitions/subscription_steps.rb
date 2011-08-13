@@ -1,5 +1,10 @@
 Given /^the product "([^"]*)" is subscribable$/ do |product_name|
-  @farm.products << Factory(:product, :subscribable => true, :name => product_name, :farm => @farm)
+  product = Product.find_by_farm_id_and_name(@farm.id, product_name)
+  if product
+    product.update_attribute("subscribable", true)
+  elsif
+    @farm.products << Factory(:product, :subscribable => true, :name => product_name, :farm => @farm)
+  end
 end
 
 Given /^the member "([^"]*)" has a subscription for "([^"]*)"$/ do |member_last_name, product_name|

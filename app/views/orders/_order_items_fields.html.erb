@@ -14,9 +14,10 @@
   </thead>
 
   <% @order.order_items.each do |item| %>
-      <tr <%= "class='zero_quantity'" if item.stock_item.quantity_available < 1 && item.quantity == 0 %>>
-      <tr class="<%= 'zero_quantity' if item.stock_item.quantity_available < 1 && item.quantity == 0 %>
-          <%= cycle("even", "odd") %>">  
+
+    <% if item_available?(item, @member) %>
+          
+      <tr class="<%= cycle("even", "odd") %>">
 
         <%= f.fields_for :order_items, item do |builder| %>
             <%= builder.hidden_field :stock_item_id, :value => item.stock_item.id %>
@@ -55,6 +56,14 @@
         <td><%= item.stock_item.quantity_remaining %></td>
         <td><%= item.stock_item.sold_out? ? "SOLD OUT" : "-" %></td>
       </tr>
+    <% else %>
+      <%= f.fields_for :order_items, item do |builder| %>
+        <%= builder.hidden_field :stock_item_id, :value => item.stock_item.id %>
+        <%= builder.hidden_field :quantity, :value => 0 %>
+
+      <% end %>
+
+    <% end %>
 
   <% end %>
 

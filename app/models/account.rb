@@ -77,4 +77,8 @@ class Account < ActiveRecord::Base
     false
   end
 
+  def has_subscription?(product)
+    self.subscriptions.detect {|subscription|  subscription.product == product} != nil     
+  end
+
 end

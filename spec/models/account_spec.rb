@@ -152,4 +152,16 @@ describe Account do
     end
   end
 
+  describe "Subscriptions" do
+    it "should return if it has a subscription for a product" do
+      account = Factory(:account)
+      product1 = Factory(:product)
+      product2 = Factory(:product)
+      Subscription.create!(:product => product1, :account => account)
+
+      account.has_subscription?(product1).should == true
+      account.has_subscription?(product2).should == false
+    end
+  end
+
 end
