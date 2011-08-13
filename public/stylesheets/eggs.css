@@ -6,6 +6,10 @@ h1#branding {
   font-weight: bold;
 }
 
+#subscriptions_sidebar {
+    display:none;
+}
+
 .template_code {
   font: 13px Courier, Courier New, Andale Mono, monospace;
 }

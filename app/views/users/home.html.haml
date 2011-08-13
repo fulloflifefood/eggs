@@ -155,7 +155,7 @@
             %br
             %br
   - if @account.subscriptions.size > 0
-    .box
+    .box#subscriptions_sidebar
       .block
         %h5= @account.subscriptions.first.product.name
         Current Balance: #{@account.subscriptions.first.current_balance}
