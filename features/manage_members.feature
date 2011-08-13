@@ -20,15 +20,15 @@ Scenario: View list of members
   And I should see "Smith"
   And I should not see "Smith (pending)"
 
-Scenario: Add transaction for member through details page
+Scenario: Add account_transaction for member through details page
   Given the farm has the member "Suzy Smith"
   When I follow "Members" within "#manage_farm_links"
   Then I should see "Smith"
   When I follow "Smith"
-  Then I should see "Add Transaction"
-  When I follow "Add Transaction"
+  Then I should see "Add AccountTransaction"
+  When I follow "Add AccountTransaction"
   Then I should see "Current Balance: $0.00"
-  Then "credit" should be selected for "transaction_debit"
+  Then "credit" should be selected for "account_transaction_debit"
 
 Scenario: View and change a member's joined_on date
   Given the farm has the member "Suzy Smith"

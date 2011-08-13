@@ -33,4 +33,9 @@ describe Product do
     product = Factory(:product, :category => "poultry")
     product.category.should == "poultry"
   end
+
+  it "can be subscribable" do
+    product = Factory(:product, :subscribable => true)
+    product.subscribable.should == true
+  end
 end

@@ -39,15 +39,15 @@ describe Member do
     member.orders.filter_by_farm(member.farms.first).size.should == 1
   end
 
-  it "can return the balance for a account given a farm" do
+  it "can return the balance for an account given a farm" do
     farm = Factory(:farm_with_members)
     member = farm.members.first
     member.accounts.size.should == 1
 
-    transaction = Transaction.new(:account => member.accounts.first,
+    account_transaction = AccountTransaction.new(:account => member.accounts.first,
                     :amount => 90, :debit => true)
     
-    transaction.save.should == true
+    account_transaction.save.should == true
     member.accounts.first.current_balance.should == -90
     member.balance_for_farm(farm).should == -90
 
@@ -186,7 +186,7 @@ describe Member do
   end
 
   def make_transaction(account, debit, amount, date)
-    Transaction.new(:account => account, :amount => amount, :debit => debit, :date => date).save!
+    AccountTransaction.new(:account => account, :amount => amount, :debit => debit, :date => date).save!
 
   end
 end

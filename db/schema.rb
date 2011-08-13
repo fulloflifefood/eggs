@@ -19,6 +19,24 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
     t.datetime "updated_at"
   end
 
+  create_table "account_transactions", :force => true do |t|
+    t.date     "date"
+    t.float    "amount"
+    t.string   "description"
+    t.integer  "member_id"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "debit"
+    t.float    "balance"
+    t.integer  "account_id"
+    t.string   "paypal_transaction_id"
+  end
+
+  add_index "account_transactions", ["account_id"], :name => "index_account_transactions_on_account_id"
+  add_index "account_transactions", ["order_id"], :name => "index_account_transactions_on_order_id"
+  add_index "account_transactions", ["paypal_transaction_id"], :name => "index_account_transactions_on_paypal_transaction_id"
+
   create_table "accounts", :force => true do |t|
     t.integer  "member_id"
     t.integer  "farm_id"
@@ -229,6 +247,7 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
     t.integer  "default_quantity",   :default => 100
     t.integer  "default_per_member", :default => 4
     t.integer  "position"
+    t.boolean  "subscribable",       :default => false
   end
 
   add_index "products", ["farm_id"], :name => "index_products_on_farm_id"
@@ -286,23 +305,26 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
   add_index "stock_items", ["delivery_id"], :name => "index_stock_items_on_delivery_id"
   add_index "stock_items", ["product_id"], :name => "index_stock_items_on_product_id"
 
-  create_table "transactions", :force => true do |t|
-    t.date     "date"
+  create_table "subscription_transactions", :force => true do |t|
     t.float    "amount"
     t.string   "description"
-    t.integer  "member_id"
     t.integer  "order_id"
+    t.boolean  "debit",           :default => false
+    t.float    "balance"
+    t.integer  "subscription_id"
+    t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "debit"
-    t.float    "balance"
-    t.integer  "account_id"
-    t.string   "paypal_transaction_id"
   end
 
-  add_index "transactions", ["account_id"], :name => "index_transactions_on_account_id"
-  add_index "transactions", ["order_id"], :name => "index_transactions_on_order_id"
-  add_index "transactions", ["paypal_transaction_id"], :name => "index_transactions_on_paypal_transaction_id"
+  add_index "subscription_transactions", ["subscription_id"], :name => "index_subscription_transactions_on_subscription_id"
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "phone_number"

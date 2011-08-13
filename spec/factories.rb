@@ -191,10 +191,18 @@ Factory.define :member_with_orders_from_2_farms, :parent => :member do |member|
   end
 end
 
-Factory.define :transaction do |transaction|
-  transaction.amount 24.50
-  transaction.debit false
-  transaction.association :account
+Factory.define :account_transaction do |account_transaction|
+  account_transaction.amount 24.50
+  account_transaction.debit false
+  account_transaction.association :account
+end
+
+Factory.define :subscription_transaction do |subscription_transaction|
+  subscription_transaction.amount 3
+  subscription_transaction.description "Ferry Building pickup"
+  subscription_transaction.debit true
+  subscription_transaction.association :subscription
+  subscription_transaction.date Date.today
 end
 
 Factory.define :snippet do |snippet|

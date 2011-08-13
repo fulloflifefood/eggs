@@ -30,6 +30,8 @@ class FarmsController < ApplicationController
     @deliveries_notyetopen = Delivery.find_all_by_farm_id_and_status(@farm.id, "notyetopen", :order => "date ASC")
     @deliveries_archived   = Delivery.find_all_by_farm_id_and_status(@farm.id, "archived", :order => "date DESC")
 
+    @subscribable_products = Product.find_all_by_farm_id_and_subscribable(@farm.id, true, :order => "created_at ASC")
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @farm }

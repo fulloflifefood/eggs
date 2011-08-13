@@ -17,7 +17,7 @@ end
 
 Given /^I have a balance of "([^\"]*)"$/ do |balance|
   account = @user.member.account_for_farm(@farm)
-  transaction = Transaction.new(:amount => balance)
-  account.transactions << transaction
+  account_transaction = AccountTransaction.new(:amount => balance)
+  account.account_transactions << account_transaction
 
 end

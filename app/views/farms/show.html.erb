@@ -89,4 +89,14 @@
       </ul>
     </div>
   </div>
+  <div class="box">
+    <h2>Subscriptions / Shares:</h2>
+    <div class="block">
+      <ul class="menu">
+        <% @subscribable_products.each do |product| %>
+          <li><%= link_to product.name, subscriptions_path(:product_id => product.id, :farm_id => @farm.id) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>

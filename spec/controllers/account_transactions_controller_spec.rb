@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TransactionsController do
+describe AccountTransactionsController do
 
   before(:each) do
     @farm = Factory(:farm)
@@ -12,7 +12,7 @@ describe TransactionsController do
   end
 
   def mock_transaction(stubs={})
-    @mock_transaction ||= mock_model(Transaction, stubs)
+    @mock_transaction ||= mock_model(AccountTransaction, stubs)
   end
 
   def mock_member(stubs={})
@@ -65,12 +65,12 @@ describe TransactionsController do
 
       end
 
-      it "acknowledges a successful transaction" do
+      it "acknowledges a successful account_transaction" do
 
-        @account.transactions.count.should == 0
+        @account.account_transactions.count.should == 0
         post :ipn, @ipn_params.merge("acknowledge" => "true")
         response.should be_success
-        @account.transactions.count.should == 1
+        @account.account_transactions.count.should == 1
         @account.current_balance.should == 100
 
       end
@@ -81,14 +81,14 @@ describe TransactionsController do
         post :ipn, @ipn_params.merge("acknowledge" => "true")
         response.should be_success
 
-        @account.transactions.count.should == 1
+        @account.account_transactions.count.should == 1
         @account.current_balance.should == 100
 
       end
 
-      it "should look up a account by email address if no id is given" do
+      it "should look up an account by email address if no id is given" do
         post :ipn, @ipn_params.merge("acknowledge" => "true", "item_number" => nil)
-        @account.transactions.count.should == 1
+        @account.account_transactions.count.should == 1
         @account.current_balance.should == 100
       end
 
@@ -98,7 +98,7 @@ describe TransactionsController do
                                      "item_number" => nil,
                                      "payer_email" => @account.member.alternate_email)
 
-        @account.transactions.count.should == 1
+        @account.account_transactions.count.should == 1
         @account.current_balance.should == 100
         
       end
@@ -108,7 +108,7 @@ describe TransactionsController do
                                      "item_number" => nil,
                                       "custom" => @account.id)
 
-        @account.transactions.count.should == 1
+        @account.account_transactions.count.should == 1
         @account.current_balance.should == 100
       end
 
@@ -126,31 +126,31 @@ describe TransactionsController do
 
 
   describe "GET index" do
-    it "assigns all transactions for a specified user as @transactions" do
+    it "assigns all account_transactions for a specified user as @account_transactions" do
       UserSession.create Factory(:member_user)      
       member = UserSession.find.user.member
       farm = Factory(:farm)
       account = Factory(:account, :farm => farm, :member => member)
-      Factory(:transaction)
-      Factory(:transaction, :account => account)
+      Factory(:account_transaction)
+      Factory(:account_transaction, :account => account)
 
       get :index, :member_id => member.id, :farm_id => farm.id
-      assigns[:transactions].length.should == 1
+      assigns[:account_transactions].length.should == 1
     end
   end
 
   describe "GET show" do
-    it "assigns the requested transaction as @transaction" do
-      Transaction.stub(:find).with("37").and_return(mock_transaction)
+    it "assigns the requested account_transaction as @account_transaction" do
+      AccountTransaction.stub(:find).with("37").and_return(mock_transaction)
       get :show, :id => "37"
-      assigns[:transaction].should equal(mock_transaction)
+      assigns[:account_transaction].should equal(mock_transaction)
     end
   end
 
   describe "GET new" do
-    it "assigns a new transaction as @transaction and member as @member" do
+    it "assigns a new account_transaction as @account_transaction and member as @member" do
       get :new, :member_id => @member.id, :farm_id => @farm.id
-      assigns[:transaction].class.should == Transaction
+      assigns[:account_transaction].class.should == AccountTransaction
     end
 
     it "assigns a member as @member" do
@@ -160,39 +160,39 @@ describe TransactionsController do
   end
 
   describe "GET edit" do
-    it "assigns the requested transaction as @transaction" do
-      Transaction.stub(:find).with("37").and_return(mock_transaction)
+    it "assigns the requested account_transaction as @account_transaction" do
+      AccountTransaction.stub(:find).with("37").and_return(mock_transaction)
       get :edit, :id => "37"
-      assigns[:transaction].should equal(mock_transaction)
+      assigns[:account_transaction].should equal(mock_transaction)
     end
   end
 
   describe "POST create" do
 
     describe "with valid params" do
-      it "assigns a newly created transaction as @transaction" do
-        Transaction.stub(:new).with({'these' => 'params'}).and_return(mock_transaction(:save => true, :debit=>false, "deliver_credit_notification!"=>nil))
-        post :create, :transaction => {:these => 'params'}
-        assigns[:transaction].should equal(mock_transaction)
+      it "assigns a newly created account_transaction as @account_transaction" do
+        AccountTransaction.stub(:new).with({'these' => 'params'}).and_return(mock_transaction(:save => true, :debit=>false, "deliver_credit_notification!"=>nil))
+        post :create, :account_transaction => {:these => 'params'}
+        assigns[:account_transaction].should equal(mock_transaction)
       end
 
       it "redirects to the index" do
-        Transaction.stub(:new).and_return(mock_transaction(:save => true, :debit=>false, "deliver_credit_notification!"=>nil))
-        post :create, :transaction => {}
-        response.should redirect_to(transactions_url)
+        AccountTransaction.stub(:new).and_return(mock_transaction(:save => true, :debit=>false, "deliver_credit_notification!"=>nil))
+        post :create, :account_transaction => {}
+        response.should redirect_to(account_transactions_url)
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved transaction as @transaction" do
-        Transaction.stub(:new).with({'these' => 'params'}).and_return(mock_transaction(:save => false))
-        post :create, :transaction => {:these => 'params'}
-        assigns[:transaction].should equal(mock_transaction)
+      it "assigns a newly created but unsaved account_transaction as @account_transaction" do
+        AccountTransaction.stub(:new).with({'these' => 'params'}).and_return(mock_transaction(:save => false))
+        post :create, :account_transaction => {:these => 'params'}
+        assigns[:account_transaction].should equal(mock_transaction)
       end
 
       it "re-renders the 'new' template" do
-        Transaction.stub(:new).and_return(mock_transaction(:save => false))
-        post :create, :transaction => {}
+        AccountTransaction.stub(:new).and_return(mock_transaction(:save => false))
+        post :create, :account_transaction => {}
         response.should render_template('new')
       end
     end
@@ -202,40 +202,40 @@ describe TransactionsController do
   describe "PUT update" do
 
     describe "with valid params" do
-      it "updates the requested transaction" do
-        Transaction.should_receive(:find).with("37").and_return(mock_transaction)
+      it "updates the requested account_transaction" do
+        AccountTransaction.should_receive(:find).with("37").and_return(mock_transaction)
         mock_transaction.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :transaction => {:these => 'params'}
+        put :update, :id => "37", :account_transaction => {:these => 'params'}
       end
 
-      it "assigns the requested transaction as @transaction" do
-        Transaction.stub(:find).and_return(mock_transaction(:update_attributes => true))
+      it "assigns the requested account_transaction as @account_transaction" do
+        AccountTransaction.stub(:find).and_return(mock_transaction(:update_attributes => true))
         put :update, :id => "1"
-        assigns[:transaction].should equal(mock_transaction)
+        assigns[:account_transaction].should equal(mock_transaction)
       end
 
-      it "redirects to the transaction" do
-        Transaction.stub(:find).and_return(mock_transaction(:update_attributes => true))
+      it "redirects to the account_transaction" do
+        AccountTransaction.stub(:find).and_return(mock_transaction(:update_attributes => true))
         put :update, :id => "1"
-        response.should redirect_to(transaction_url(mock_transaction))
+        response.should redirect_to(account_transaction_url(mock_transaction))
       end
     end
 
     describe "with invalid params" do
-      it "updates the requested transaction" do
-        Transaction.should_receive(:find).with("37").and_return(mock_transaction)
+      it "updates the requested account_transaction" do
+        AccountTransaction.should_receive(:find).with("37").and_return(mock_transaction)
         mock_transaction.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :transaction => {:these => 'params'}
+        put :update, :id => "37", :account_transaction => {:these => 'params'}
       end
 
-      it "assigns the transaction as @transaction" do
-        Transaction.stub(:find).and_return(mock_transaction(:update_attributes => false))
+      it "assigns the account_transaction as @account_transaction" do
+        AccountTransaction.stub(:find).and_return(mock_transaction(:update_attributes => false))
         put :update, :id => "1"
-        assigns[:transaction].should equal(mock_transaction)
+        assigns[:account_transaction].should equal(mock_transaction)
       end
 
       it "re-renders the 'edit' template" do
-        Transaction.stub(:find).and_return(mock_transaction(:update_attributes => false))
+        AccountTransaction.stub(:find).and_return(mock_transaction(:update_attributes => false))
         put :update, :id => "1"
         response.should render_template('edit')
       end
@@ -244,16 +244,16 @@ describe TransactionsController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested transaction" do
-      Transaction.should_receive(:find).with("37").and_return(mock_transaction)
+    it "destroys the requested account_transaction" do
+      AccountTransaction.should_receive(:find).with("37").and_return(mock_transaction)
       mock_transaction.should_receive(:destroy)
       delete :destroy, :id => "37"
     end
 
-    it "redirects to the transactions list" do
-      Transaction.stub(:find).and_return(mock_transaction(:destroy => true))
+    it "redirects to the account_transactions list" do
+      AccountTransaction.stub(:find).and_return(mock_transaction(:destroy => true))
       delete :destroy, :id => "1"
-      response.should redirect_to(transactions_url)
+      response.should redirect_to(account_transactions_url)
     end
   end
 

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: transactions
+# Table name: account_transactions
 #
 #  id              :integer(4)      not null, primary key
 #  date            :date
@@ -20,7 +20,7 @@
 one:
   date: 2010-01-18
   amount: 100
-  description: Initial PayPal topup, transaction id 39394943
+  description: Initial PayPal topup, account_transaction id 39394943
   debit: false
   balance: 100
   account: ben_sf
