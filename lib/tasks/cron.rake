@@ -2,9 +2,9 @@ task :cron => :environment do
   # runs every hour
 
   # back up at 3am
-  if Time.now.hour == 3
+  #if Time.now.hour == 3
     Rake::Task['heroku:backup'].invoke
-  end
+  #end
 
   Rake::Task['reminders:deliver'].invoke
   Rake::Task['deliveries:update_status'].invoke
