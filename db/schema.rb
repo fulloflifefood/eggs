@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110815215557) do
+ActiveRecord::Schema.define(:version => 20110815220359) do
 
   create_table "account_location_tags", :force => true do |t|
     t.integer  "account_id"
@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(:version => 20110815215557) do
   add_index "stock_items", ["product_id"], :name => "index_stock_items_on_product_id"
 
   create_table "subscription_transactions", :force => true do |t|
-    t.float    "amount"
+    t.integer  "amount"
     t.string   "description"
     t.integer  "order_id"
     t.boolean  "debit",           :default => false
