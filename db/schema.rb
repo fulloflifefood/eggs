@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110715223553) do
+ActiveRecord::Schema.define(:version => 20110815215557) do
 
   create_table "account_location_tags", :force => true do |t|
     t.integer  "account_id"
@@ -310,7 +310,7 @@ ActiveRecord::Schema.define(:version => 20110715223553) do
     t.string   "description"
     t.integer  "order_id"
     t.boolean  "debit",           :default => false
-    t.float    "balance"
+    t.integer  "balance"
     t.integer  "subscription_id"
     t.date     "date"
     t.datetime "created_at"
