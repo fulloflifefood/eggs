@@ -4,6 +4,7 @@ class SubscriptionTransactionImporter
     count = 0
     puts "perform: #{perform}"
     deliveries.each do |delivery|
+      next if delivery.status != "archived"
       delivery.orders.each do |order|
         order.order_items.each do |item|
           if item.stock_item.product
