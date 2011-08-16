@@ -18,6 +18,7 @@ class SubscriptionTransactionImporter
                 trans.amount = item.quantity
                 trans.debit = true
                 trans.subscription_id = subscription.id
+                trans.order_id = order.id
                 count = count + 1
                 if perform
                   trans.save!
