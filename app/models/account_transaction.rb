@@ -46,7 +46,7 @@ class AccountTransaction < ActiveRecord::Base
 
   def deliver_credit_notification!
     template = EmailTemplate.find_by_identifier_and_farm_id("transaction_notification", self.account.farm.id)
-    template.deliver_to(self.account.member.email_address, :account_transaction => self) if template
+    template.deliver_to(self.account.member.email_address, :transaction => self) if template
   end
 
 end
