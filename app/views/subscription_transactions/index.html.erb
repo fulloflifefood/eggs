@@ -21,7 +21,7 @@
     <td><%= subscription_transaction.date %></td>
     <td><%= subscription_transaction.description %></td>
     <td><%= subscription_transaction.notes %></td>
-    <td><%= subscription_transaction.order_id %></td>
+    <td><%= link_to subscription_transaction.order_id, order_path(:id => subscription_transaction.order_id, :farm_id => @farm.id) if subscription_transaction.order_id %></td>
     <td class="amount" style="<%= 'color:green;font-weight:bold' if !subscription_transaction.debit? %>"><%= subscription_transaction.debit? ? "-" : "+"%><%= subscription_transaction.amount.to_i %></td>
     <td class="balance"><%= subscription_transaction.balance.to_i %></td>
   </tr>

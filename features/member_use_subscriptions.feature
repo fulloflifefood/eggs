@@ -19,7 +19,7 @@ Background:
 
   Given the member "Brick" has a "EggShare Eggs" transaction "credit" for "100"
   Given the member "Brick" has a "EggShare Eggs" transaction "debit" for "3"
-  Given the member "Brick" has a "EggShare Eggs" transaction "debit" for "17"
+  Given the member "Brick" has a "EggShare Eggs" transaction "debit" for "17" from order "1456"
 
   And I am on login
   When I login with valid credentials
@@ -39,6 +39,7 @@ Scenario: View history
   Then I should see "100"
   And I should see "-3"
   And I should see "-17"
+  And I should see "1456"
   And I should see "Back to Dashboard"
   And I should not see "Back to subscriptions"
 

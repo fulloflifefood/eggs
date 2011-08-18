@@ -16,7 +16,7 @@ Background:
 
   Given the member "Bobbins" has a "Eggs" transaction "credit" for "100"
   Given the member "Smith" has a "Eggs" transaction "credit" for "100"
-  Given the member "Bobbins" has a "Eggs" transaction "debit" for "3"
+  Given the member "Bobbins" has a "Eggs" transaction "debit" for "3" from order "1234"
   Given the member "Smith" has a "Eggs" transaction "debit" for "17"
 
 
@@ -44,6 +44,9 @@ Scenario: Viewing list of transactions for a Subscription
   Then I should see the following table rows:
     | +100 |
     | -3   |
+  And I should see "1234"
+  When I follow "1234"
+  Then I should see "Order Details:"
 
 Scenario: Adding transactions for a Subscription
   Given I am on the farm "Soul Food Farm"
