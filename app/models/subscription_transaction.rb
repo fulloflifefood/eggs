@@ -4,13 +4,15 @@ class SubscriptionTransaction < ActiveRecord::Base
 
   validates_presence_of :description, :date
   validates_numericality_of :amount, :only_integer => true
-  validates_numericality_of :amount, :greater_than => 0, :unless => :allow_negative_amount?, :message => "can't be negative"
+  validates_numericality_of :amount, :greater_than => -1, :unless => :allow_negative_amount?, :message => "can't be negative"
+
+  after_initialize :set_initial_negative_parameter
 
   before_create do
     calculate_balance self.subscription.subscription_transactions.last
   end
 
-  def after_initialize
+  def set_initial_negative_parameter
     allow_negative_amount(true)
   end
 
