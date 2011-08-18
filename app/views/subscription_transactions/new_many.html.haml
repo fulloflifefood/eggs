@@ -5,7 +5,7 @@
   %h2 Non-EggBasket managed pickup:
   %p{:style => "color: #C00;"}= flash[:notice]
 
-  .grid_5
+  .grid_8
     = form_tag(:controller => "subscription_transactions", :action => "create_many") do
       %input{:type=>"hidden", :name=>"product_id", :value=>"#{@product_id}"}
       %input{:type=>"hidden", :name=>"farm_id", :value =>"#{@farm.id}"}
@@ -13,12 +13,13 @@
         Date:<br/>
         %input{:type => "text", :name=>"date", :id => "datepicker", :size => "10", :value => @subscription_transactions.first.date}
       %p
-        Description: (e.g. Avedano's, Ferry Building, etc.)<br/>
+        Pickup Description: (e.g. Avedano's, Ferry Building, etc.)<br/>
         %input{:type => "text", :name=>"description", :size=>"50", :value => @subscription_transactions.first.description}
       %table
         %thead
           %th Last Name
           %th Debit Amount (Quantity)
+          %th Notes (Optional: Can be details of who picked up, etc.)
         %tbody
           - @subscription_transactions.each_with_index do |subscription_transaction, i|
             %tr
@@ -26,7 +27,9 @@
                 %td= subscription_transaction.subscription.account.member.last_name
                 %td
                   %img.increment_transaction{:src=>"/images/icons/plus_alt_16x16.png", :style => "vertical-align:middle;margin-bottom:4px"}
-                  = builder.text_field :amount, :size => 5, :value => subscription_transaction.amount || 0, :class => "positive_int"
+                  = builder.text_field :amount, :size => 5, :value => subscription_transaction.amount || 0, :class => "positive_int amount"
+                %td
+                  = builder.text_field :notes, :size => 75, :value => subscription_transaction.notes
                 = builder.hidden_field :debit, :value => subscription_transaction.debit?
                 = builder.hidden_field :subscription_id, :value => subscription_transaction.subscription.id
       = submit_tag("Submit")

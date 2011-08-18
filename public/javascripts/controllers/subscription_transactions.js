@@ -5,7 +5,7 @@
 var subscription_transactions = {
   init: function(){
     $(".increment_transaction").css( 'cursor', 'pointer' ).click(function(){
-      var field = $(this).closest('tr').find(":text");
+      var field = $(this).closest('tr').find(".amount");
       var oldValue = field.val() || 0;
       field.val(parseFloat(field.val() || 0) + 1)
 

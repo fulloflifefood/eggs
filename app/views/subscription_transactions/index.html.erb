@@ -8,7 +8,8 @@
   <tr>
     <th>Timestamp</th>
     <th>Date of pickup</th>
-    <th>Description</th>
+    <th>Pickup Description</th>
+    <th>Notes</th>
     <th>Order ID</th>
     <th>Amount</th>    
     <th>Balance</th>
@@ -19,9 +20,10 @@
     <td><%= subscription_transaction.created_at %></td>
     <td><%= subscription_transaction.date %></td>
     <td><%= subscription_transaction.description %></td>
+    <td><%= subscription_transaction.notes %></td>
     <td><%= subscription_transaction.order_id %></td>
-    <td style="<%= 'color:green;font-weight:bold' if !subscription_transaction.debit? %>"><%= subscription_transaction.debit? ? "-" : "+"%><%= subscription_transaction.amount.to_i %></td>
-    <td><%= subscription_transaction.balance.to_i %></td>
+    <td class="amount" style="<%= 'color:green;font-weight:bold' if !subscription_transaction.debit? %>"><%= subscription_transaction.debit? ? "-" : "+"%><%= subscription_transaction.amount.to_i %></td>
+    <td class="balance"><%= subscription_transaction.balance.to_i %></td>
   </tr>
 <% end %>
 </table>

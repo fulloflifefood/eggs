@@ -10,27 +10,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110815220359) do
+ActiveRecord::Schema.define(:version => 20110816223350) do
 
   create_table "account_location_tags", :force => true do |t|
-    t.integer  "account_id"
-    t.integer  "location_tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "account_id"
+    t.integer   "location_tag_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "account_transactions", :force => true do |t|
-    t.date     "date"
-    t.float    "amount"
-    t.string   "description"
-    t.integer  "member_id"
-    t.integer  "order_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "debit"
-    t.float    "balance"
-    t.integer  "account_id"
-    t.string   "paypal_transaction_id"
+    t.date      "date"
+    t.float     "amount"
+    t.string    "description"
+    t.integer   "member_id"
+    t.integer   "order_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.boolean   "debit"
+    t.float     "balance"
+    t.integer   "account_id"
+    t.string    "paypal_transaction_id"
   end
 
   add_index "account_transactions", ["account_id"], :name => "index_account_transactions_on_account_id"
@@ -38,17 +38,17 @@ ActiveRecord::Schema.define(:version => 20110815220359) do
   add_index "account_transactions", ["paypal_transaction_id"], :name => "index_account_transactions_on_paypal_transaction_id"
 
   create_table "accounts", :force => true do |t|
-    t.integer  "member_id"
-    t.integer  "farm_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "deposit_type",        :default => "unknown (old system)"
-    t.boolean  "deposit_received",    :default => true
-    t.boolean  "joined_mailing_list", :default => true
-    t.boolean  "pending",             :default => false
-    t.string   "referral"
-    t.text     "private_notes"
-    t.boolean  "is_inactive",         :default => false
+    t.integer   "member_id"
+    t.integer   "farm_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "deposit_type",        :default => "unknown (old system)"
+    t.boolean   "deposit_received",    :default => true
+    t.boolean   "joined_mailing_list", :default => true
+    t.boolean   "pending",             :default => false
+    t.string    "referral"
+    t.text      "private_notes"
+    t.boolean   "is_inactive",         :default => false
   end
 
   add_index "accounts", ["farm_id"], :name => "index_accounts_on_farm_id"
@@ -123,63 +123,62 @@ ActiveRecord::Schema.define(:version => 20110815220359) do
   add_index "email_templates", ["farm_id"], :name => "index_email_templates_on_farm_id"
 
   create_table "farms", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "key"
-    t.string   "paypal_link"
-    t.string   "contact_email"
-    t.string   "contact_name"
-    t.string   "subdomain",                      :default => "soulfood"
-    t.string   "mailing_list_subscribe_address"
-    t.string   "address"
-    t.boolean  "require_deposit",                :default => true
-    t.boolean  "require_mailinglist",            :default => true
-    t.boolean  "request_referral",               :default => true
-    t.string   "paypal_account"
-    t.boolean  "reminders_enabled",              :default => false
+    t.string    "name"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "key"
+    t.string    "paypal_link"
+    t.string    "contact_email"
+    t.string    "contact_name"
+    t.string    "subdomain",                      :default => "soulfood"
+    t.string    "mailing_list_subscribe_address"
+    t.string    "address"
+    t.boolean   "require_deposit",                :default => true
+    t.boolean   "require_mailinglist",            :default => true
+    t.boolean   "request_referral",               :default => true
+    t.string    "paypal_account"
+    t.boolean   "reminders_enabled",              :default => false
   end
 
   add_index "farms", ["name"], :name => "index_farms_on_name"
   add_index "farms", ["subdomain"], :name => "index_farms_on_subdomain"
 
   create_table "location_tags", :force => true do |t|
-    t.string   "name"
-    t.integer  "farm_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "name"
+    t.integer   "farm_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "locations", :force => true do |t|
-    t.string   "name"
-    t.string   "host_name"
-    t.string   "host_phone"
-    t.string   "host_email"
-    t.string   "address"
-    t.text     "notes"
-    t.string   "time_window"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "farm_id"
-    t.string   "label_color",     :default => "000000"
-    t.integer  "location_tag_id"
+    t.string    "name"
+    t.string    "host_name"
+    t.string    "host_phone"
+    t.string    "host_email"
+    t.string    "address"
+    t.text      "notes"
+    t.string    "time_window"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.integer   "farm_id"
+    t.string    "label_color",     :default => "000000"
+    t.integer   "location_tag_id"
   end
 
   add_index "locations", ["farm_id"], :name => "index_locations_on_farm_id"
 
   create_table "members", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email_address"
-    t.string   "phone_number"
-    t.string   "neighborhood"
-    t.date     "joined_on"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "address"
-    t.string   "alternate_email"
-    t.text     "notes"
-    t.boolean  "is_inactive",     :default => false
+    t.string    "first_name"
+    t.string    "last_name"
+    t.string    "email_address"
+    t.string    "phone_number"
+    t.string    "neighborhood"
+    t.date      "joined_on"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "address"
+    t.string    "alternate_email"
+    t.text      "notes"
   end
 
   create_table "order_items", :force => true do |t|
@@ -235,19 +234,19 @@ ActiveRecord::Schema.define(:version => 20110815220359) do
   end
 
   create_table "products", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.float    "price"
-    t.boolean  "estimated"
-    t.integer  "farm_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "price_code"
-    t.string   "category"
-    t.integer  "default_quantity",   :default => 100
-    t.integer  "default_per_member", :default => 4
-    t.integer  "position"
-    t.boolean  "subscribable",       :default => false
+    t.string    "name"
+    t.text      "description"
+    t.float     "price"
+    t.boolean   "estimated"
+    t.integer   "farm_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "price_code"
+    t.string    "category"
+    t.integer   "default_quantity",   :default => 100
+    t.integer   "default_per_member", :default => 4
+    t.integer   "position"
+    t.boolean   "subscribable",       :default => false
   end
 
   add_index "products", ["farm_id"], :name => "index_products_on_farm_id"
@@ -306,37 +305,38 @@ ActiveRecord::Schema.define(:version => 20110815220359) do
   add_index "stock_items", ["product_id"], :name => "index_stock_items_on_product_id"
 
   create_table "subscription_transactions", :force => true do |t|
-    t.integer  "amount"
-    t.string   "description"
-    t.integer  "order_id"
-    t.boolean  "debit",           :default => false
-    t.integer  "balance"
-    t.integer  "subscription_id"
-    t.date     "date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "amount"
+    t.string    "description"
+    t.integer   "order_id"
+    t.boolean   "debit",           :default => false
+    t.integer   "balance"
+    t.integer   "subscription_id"
+    t.date      "date"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "notes"
   end
 
   add_index "subscription_transactions", ["subscription_id"], :name => "index_subscription_transactions_on_subscription_id"
 
   create_table "subscriptions", :force => true do |t|
-    t.integer  "product_id"
-    t.integer  "account_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "product_id"
+    t.integer   "account_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "phone_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "crypted_password"
-    t.string   "password_salt"
-    t.string   "persistence_token"
-    t.string   "email"
-    t.integer  "member_id"
-    t.string   "perishable_token"
-    t.boolean  "active",            :default => false, :null => false
+    t.string    "phone_number"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "crypted_password"
+    t.string    "password_salt"
+    t.string    "persistence_token"
+    t.string    "email"
+    t.integer   "member_id"
+    t.string    "perishable_token"
+    t.boolean   "active",            :default => false, :null => false
   end
 
   add_index "users", ["member_id"], :name => "index_users_on_member_id"
