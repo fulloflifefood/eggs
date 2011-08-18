@@ -11,11 +11,11 @@ var users = {
           $("#reminder_submit_btn, #reminder_cancel_btn").show();
         }
       });
-    })
+    });
 
     $("#reminder_cancel_btn").click(function(){
       $("#reminder_manager").hide();
-    })
+    });
     $("#reminder_submit_btn").click(function(){
       var form = $("#reminder_manager form")
       var output = $("#form_output")
@@ -46,4 +46,4 @@ var users = {
     })
   }
 
-}
+};
