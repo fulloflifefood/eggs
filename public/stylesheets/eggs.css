@@ -65,8 +65,9 @@ div.sidebar_block {
 
 a.button {
     margin-top: 4px;
+    margin-bottom: 4px;
     padding: 5px 10px;
-    display: inline;
+    display: inline-block;
     background: #777;
     border: none;
     color: #fff;
