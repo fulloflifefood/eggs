@@ -4,7 +4,7 @@ class FeedbackMailer < ActionMailer::Base
     @feedback = feedback
     mail(
         :to      => ENV['ADMIN_EMAIL'],
-        :from    => '"Eggbasket Feedback" <noreply@eggbasket.org>',
+        :from    => '"Eggbasket Feedback" <admin@eggbasket.org>',
         :subject => "[Feedback for YourSite] #{feedback.subject}"
     )
   end

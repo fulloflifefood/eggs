@@ -8,7 +8,7 @@ class Notifier < ActionMailer::Base
 
   def welcome_and_activation(user)
     subject       "Introducing Soul Food Farm's new CSA system!"
-    from          "EggBasket <noreply@eggbasket.org>"
+    from          "EggBasket <admin@eggbasket.org>"
     recipients    user.email
     sent_on       Time.now
     body          :account_activation_url => register_url(user.perishable_token), :user => user
@@ -17,7 +17,7 @@ class Notifier < ActionMailer::Base
 
   def new_member_notification(user, farm)
     subject       "New member: #{user.member.last_name}, #{user.member.first_name} - #{user.email}"
-    from          "#{farm.name} EggBasket <noreply@eggbasket.org>"
+    from          "#{farm.name} EggBasket <admin@eggbasket.org>"
     recipients    farm.contact_email
     sent_on       Time.now
     body          :user => user, :farm => farm
@@ -33,7 +33,7 @@ class Notifier < ActionMailer::Base
 
   def password_reset_instructions(user)
     subject       "EggBasket Password Reset Instructions"
-    from          "EggBasket <noreply@eggbasket.org>"
+    from          "EggBasket <admin@eggbasket.org>"
     recipients    user.email
     sent_on       Time.now
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
@@ -41,7 +41,7 @@ class Notifier < ActionMailer::Base
 
   def finalized_order_confirmation(order)
     subject       "Your #{order.delivery.farm.name} - #{order.location.name} order has been finalized!"
-    from          "#{order.delivery.farm.name} EggBasket <noreply@eggbasket.org>"
+    from          "#{order.delivery.farm.name} <#{order.delivery.farm.contact_email}>"
     recipients    order.member.email_address
     sent_on       Time.now
     body          :order => order
@@ -49,7 +49,7 @@ class Notifier < ActionMailer::Base
 
   def order_notes_notification(order)
     subject       "A recent order has special notes: #{order.member.last_name}, #{order.delivery.name}"
-    from          "EggBasket <noreply@eggbasket.org>"
+    from          "EggBasket <admin@eggbasket.org>"
     recipients    order.delivery.farm.contact_email
     sent_on       Time.now
     body          :order => order
@@ -57,7 +57,7 @@ class Notifier < ActionMailer::Base
 
   def admin_notification(notice, farm=nil)
     subject       "EggBasket Notice: #{notice[:subject]}"
-    from          "EggBasket <noreply@eggbasket.org>"
+    from          "EggBasket <admin@eggbasket.org>"
     recipients    farm ? farm.contact_email : ENV['ADMIN_EMAIL']
     bcc           "EggBasket Admin <#{ENV['ADMIN_EMAIL']}>"   
     sent_on       Time.now
@@ -66,7 +66,7 @@ class Notifier < ActionMailer::Base
 
   def admin_notify_reminders_sent(delivery, email_template)
     subject       "Ordering Reminders delivered for #{delivery.name}, #{delivery.pretty_date}"
-    from          "#{delivery.farm.name} EggBasket <noreply@eggbasket.org>"
+    from          "#{delivery.farm.name} EggBasket <admin@eggbasket.org>"
     recipients    delivery.farm.contact_email
     bcc           "EggBasket Admin <#{ENV['ADMIN_EMAIL']}>"
     sent_on       Time.now
