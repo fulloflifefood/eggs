@@ -35,7 +35,7 @@
   <%= javascript_include_tag "lib/jquery.dataTables" %>
   <%= javascript_include_tag "lib/jquery-fluid16" %>
   <%= javascript_include_tag "lib/jquery.dateFormat" %>
-  <%= javascript_include_tag "http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js" %>
+  <%= javascript_include_tag "lib/jquery.tmpl.min" %>
 
   <%= javascript_include_tag "lib/rails.js" %>
 
@@ -51,7 +51,21 @@
   <%= feedback_includes %>
 
   <%= feedback_tab(:position => 'top') %>
-  
+
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-25260184-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+
 
 </head>
 <body>
