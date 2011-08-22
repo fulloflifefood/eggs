@@ -11,6 +11,7 @@ class SubscriptionTransactionsController < ApplicationController
   def index
     @subscription_transactions = SubscriptionTransaction.find_all_by_subscription_id(params[:subscription_id])
     @subscription = Subscription.find(params[:subscription_id])
+    @subscription_transaction = SubscriptionTransaction.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,14 +48,10 @@ class SubscriptionTransactionsController < ApplicationController
   def create
     @subscription_transaction = SubscriptionTransaction.new(params[:subscription_transaction])
 
-    respond_to do |format|
-      if @subscription_transaction.save
-        format.html { redirect_to(@subscription_transaction, :notice => 'Subscription transaction was successfully created.') }
-        format.xml  { render :xml => @subscription_transaction, :status => :created, :location => @subscription_transaction }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @subscription_transaction.errors, :status => :unprocessable_entity }
-      end
+    if @subscription_transaction.save
+      render :json => {:data => @subscription_transaction, :status => "success"}
+    else
+      render :json => {:data => @subscription_transaction, :status => "error", :errors => @subscription_transaction.errors.full_messages.join("<br/>")}
     end
   end
 

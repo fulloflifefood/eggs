@@ -13,6 +13,10 @@
 src_files:
 src_files:
   - public/javascripts/lib/jquery-1.5.1.js
+  - public/javascripts/lib/jquery-ui-1.8.13.custom.min.js
+  - public/javascripts/lib/jquery.dateFormat.js
+  - public/javascripts/lib/jquery.numeric.js
+  - public/javascripts/lib/jquery.tmpl.min.js
   - public/javascripts/controllers/*.js
 
 # stylesheets
