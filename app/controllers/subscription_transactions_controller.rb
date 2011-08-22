@@ -66,6 +66,7 @@ class SubscriptionTransactionsController < ApplicationController
     date = params["date"]
     @product_id = params["product_id"]
     @subscriptions = Subscription.find_all_by_product_id(@product_id)
+    @subscriptions.sort! {|x,y| x.account.member.last_name <=> y.account.member.last_name }
     
 
 
