@@ -4,7 +4,7 @@ class DeliveriesController < ApplicationController
   require "prawn/measurement_extensions"
   prawnto :prawn => { :left_margin => 0.18.in, :right_margin => 0.18.in}
 
-  skip_before_filter :authenticate, :only => [:public_summary, :show_host_sheet]
+  skip_before_filter :authenticate, :only => [:public_summary, :show_host_sheet, :show_packing_sheet]
 
   access_control do
     allow :admin
