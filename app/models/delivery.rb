@@ -26,6 +26,10 @@ class Delivery < ActiveRecord::Base
     def with_nonzero_quantity
       self.select {|item| item.quantity_available > 0 || item.quantity_remaining < 0}
     end
+
+    def with_orders
+      self.select {|item| item.quantity_ordered > 0}
+    end
   end
   has_many :delivery_questions, :dependent => :destroy do
     def visible

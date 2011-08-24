@@ -26,6 +26,10 @@ class Order < ActiveRecord::Base
     def with_stock_quantity
       self.select{|item|item.stock_item.quantity_available > 0}
     end
+
+    def with_order_quantity
+      self.select{|item|item.stock_item.quantity_ordered > 0}
+    end
   end
   belongs_to :location
   has_many :order_questions, :dependent => :destroy, :include => :delivery_question do

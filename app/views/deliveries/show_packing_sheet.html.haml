@@ -45,7 +45,7 @@
             %tr
               %th Last Name
               %th First Name
-              - @delivery.stock_items.with_quantity.each do |item|
+              - @delivery.stock_items.with_orders.each do |item|
                 %th.small_column
                   = item.product_name
               - @delivery.delivery_questions.visible.each do |question|
@@ -56,7 +56,7 @@
           %tbody
             %tr.item_totals
               %td{:colspan => "2"}= location.name
-              - @delivery.stock_items.with_quantity.each do |item|
+              - @delivery.stock_items.with_orders.each do |item|
                 %td= item.quantity_ordered_for_location(location)
               %td
               %td
@@ -66,7 +66,7 @@
               %tr{:class => i.even? ? "even" : "odd"}
                 %td= order.member.last_name
                 %td= order.member.first_name
-                - order.order_items.with_stock_quantity.each do |item|
+                - order.order_items.with_order_quantity.each do |item|
                   %td
                     - if item.quantity == 0
                       = " "

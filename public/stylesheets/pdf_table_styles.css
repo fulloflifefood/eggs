@@ -1,6 +1,6 @@
 body{
     margin: 50px;
-    font-size: 14px;
+    font-size: 11px;
 }
 
 table {
@@ -41,7 +41,7 @@ tr.item_totals td {
     background-color: darkslategray;
     color: white;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     padding: 5px;
 }
 
@@ -62,7 +62,7 @@ tr.item_totals td {
 }
 
 #egg_totals table td {
-    font-size: 14px;
+    font-size: 12px;
     border-width: 0;
     padding: 5px 10px;
     font-weight: bold;
