@@ -1,0 +1,79 @@
+%html
+
+  %head
+
+    = stylesheet_link_tag "http://eggbasket.org/stylesheets/lib/fluid960gs/reset.css", :media => "all"
+    = stylesheet_link_tag "http://eggbasket.org/stylesheets/lib/fluid960gs/text.css", :media => "all"
+
+    - if Rails.env == "development"
+      = stylesheet_link_tag "/stylesheets/pdf_table_styles.css", :media => "all"
+    - else
+      = stylesheet_link_tag "http://eggbasket.org/stylesheets/pdf_table_styles.css", :media => "all"
+
+
+    %style
+      @page { size: US-Letter landscape }
+      @page { border: none }
+      @page { margin: 0pt }
+      @page { prince-shrink-to-fit: auto }
+
+  %body
+
+    %h3 Packing sheet for #{@delivery.name} - #{@delivery.pretty_date}
+    #delivery_info
+      %table
+        - @delivery.locations.each do |location|
+          %tr
+            %td=location.name
+            %td=location.host_name
+            %td=location.address
+            %td=location.host_phone
+            %td=location.host_email
+
+    #egg_totals
+      %h4 Egg Totals:
+      %table
+        - @delivery.locations.each do |location|
+          %tr
+            %td #{location.name}:
+            %td= egg_total_for_location(location)
+
+    - @delivery.locations.each do |location|
+      #orderlist
+        %table
+          %thead
+            %tr
+              %th Last Name
+              %th First Name
+              - @delivery.stock_items.with_quantity.each do |item|
+                %th.small_column
+                  = item.product_name
+              - @delivery.delivery_questions.visible.each do |question|
+                %th= question.short_code
+              %th.medium_column Notes, questions
+              %th.money_column Finalized Bag Total
+              %th Last Name
+          %tbody
+            %tr.item_totals
+              %td{:colspan => "2"}= location.name
+              - @delivery.stock_items.with_quantity.each do |item|
+                %td= item.quantity_ordered_for_location(location)
+              %td
+              %td
+              %td
+              %td
+            - @delivery.orders.for_location(location).each_with_index do |order, i|
+              %tr{:class => i.even? ? "even" : "odd"}
+                %td= order.member.last_name
+                %td= order.member.first_name
+                - order.order_items.with_stock_quantity.each do |item|
+                  %td
+                    - if item.quantity == 0
+                      = " "
+                    - else
+                      %b= item.quantity
+                - order.order_questions.visible.each do |question|
+                  %td= question.option_code
+                %td= order.notes
+                %td
+                %td= order.member.last_name

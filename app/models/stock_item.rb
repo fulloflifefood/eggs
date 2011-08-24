@@ -61,6 +61,11 @@ class StockItem < ActiveRecord::Base
     OrderItem.with_quantity.find_all_by_stock_item_id(id).inject(0){|total, item| total + item.quantity}
   end
 
+  def quantity_ordered_for_location(location)
+    order_items = OrderItem.with_quantity.find_all_by_stock_item_id(id).select {|item| item.order.location == location}
+    order_items.inject(0){|total, item| total + item.quantity}
+  end
+
   def quantity_remaining
     quantity_available - quantity_ordered
   end

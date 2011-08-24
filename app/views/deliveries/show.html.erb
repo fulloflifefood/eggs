@@ -41,6 +41,23 @@
     <p style="color: green"><%= flash[:notice] %></p>
 
     <h5>Current Status: <%= "#{@delivery.pretty_status.upcase}"%></h5>
+    <div>
+        <%= link_to "Packing Sheet",
+                        {:controller => 'deliveries', :action => 'show_packing_sheet',
+                        :id => @delivery.id, :farm_id => @farm.id},
+                        :class => "button", :target => "_blank" %><br/>
+
+            <form method='post' action='http://docraptor.com/docs'>
+                   <div>
+                     <input name='doc[document_type]' value='pdf' type='hidden' />
+                     <input name="doc[document_url]" value="http://eggbasket.org/deliveries/show_packing_sheet/<%=@delivery.id%>?farm_id=<%=@farm.id%>" type="hidden"/>
+                     <input name="user_credentials" value="<%= ENV['DOCRAPTOR_KEY'] %>" type="hidden" />
+                     <input name="doc[test]" value="true" type="hidden"/>
+                     <input name="doc[name]" value="SFF Packing Sheet" type="hidden"/>
+                     <input value='Print Packing Sheet' type='submit'/>
+                   </div>
+            </form>
+    </div>
 
     <% if @delivery.description != nil %>
     <p>
@@ -114,7 +131,7 @@
               <%= link_to "Host Sheet for #{location.name}",
                         {:controller => 'deliveries', :action => 'show_host_sheet',
                         :id => @delivery.id, :farm_id => @farm.id, :location_id => location.id},
-                        :class => "button green", :target => "_blank" %><br/>
+                        :class => "", :target => "_blank" %><br/>
 
             <form method='post' action='http://docraptor.com/docs'>
                    <div>

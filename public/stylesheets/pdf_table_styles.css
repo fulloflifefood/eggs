@@ -1,5 +1,6 @@
 body{
     margin: 50px;
+    font-size: 14px;
 }
 
 table {
@@ -34,4 +35,35 @@ th.money_column {
 
 tr.even {
     background-color: #efefef;
+}
+
+tr.item_totals td {
+    background-color: darkslategray;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px;
+}
+
+#delivery_info table{
+    background-color: whitesmoke;
+}
+#delivery_info table td {
+    padding: 5px 10px;    
+}
+
+#egg_totals {
+    background-color: gold;
+    width: 300px;
+    padding-left: 10px;
+}
+#egg_totals h4 {
+    margin-bottom: 5px;
+}
+
+#egg_totals table td {
+    font-size: 14px;
+    border-width: 0;
+    padding: 5px 10px;
+    font-weight: bold;
 }

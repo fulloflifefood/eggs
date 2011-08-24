@@ -8,7 +8,7 @@ class DeliveriesController < ApplicationController
 
   access_control do
     allow :admin
-    allow all, :to => [:show_host_sheet, :public_summary]
+    allow all, :to => [:show_host_sheet, :public_summary, :show_packing_sheet]
   end
 
   def index
@@ -75,6 +75,12 @@ class DeliveriesController < ApplicationController
     end
   end
 
+  def show_packing_sheet
+    @delivery = Delivery.find(params[:id])
+    respond_to do |format|
+      format.html{render :layout => false}
+    end
+  end
 
   def edit_order_totals
     @delivery = Delivery.find(params[:id])
