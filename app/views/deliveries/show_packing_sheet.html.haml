@@ -51,6 +51,7 @@
               - @delivery.delivery_questions.visible.each do |question|
                 %th= question.short_code
               %th.medium_column Notes, questions
+              %th.money_column Estimated total
               %th.money_column Finalized Bag Total
               %th Last Name
           %tbody
@@ -58,6 +59,7 @@
               %td{:colspan => "2"}= location.name
               - @delivery.stock_items.with_orders.each do |item|
                 %td= item.quantity_ordered_for_location(location)
+              %td
               %td
               %td
               %td
@@ -75,5 +77,6 @@
                 - order.order_questions.visible.each do |question|
                   %td= question.option_code
                 %td= order.notes
+                %td= number_to_currency order.estimated_total
                 %td
                 %td= order.member.last_name
