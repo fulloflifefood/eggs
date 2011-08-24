@@ -1,10 +1,15 @@
 body{
-    margin: 5px 50px;
+    margin: 5px 20px;
     font-size: 11px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 5px;
 }
 
 table {
     word-wrap:break-word;
+    margin-bottom: 8px;
 }
 
 tbody th, tbody td, thead th {
@@ -57,13 +62,10 @@ tr.item_totals td {
     width: 300px;
     padding-left: 10px;
 }
-#egg_totals h4 {
-    margin-bottom: 5px;
-}
 
 #egg_totals table td {
     font-size: 12px;
     border-width: 0;
-    padding: 5px 10px;
+    padding: 2px 10px;
     font-weight: bold;
 }
