@@ -24,6 +24,7 @@ class MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
     @account = Account.find_by_member_id_and_farm_id(@member.id,@farm.id)
+    @orders = @member.orders.filter_by_farm(@farm)
 
     respond_to do |format|
       format.html # show.html.erb

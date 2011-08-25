@@ -1,6 +1,6 @@
 Feature: Manage Members
   In order to manage a CSA delivery
-  I want to be able to veiw and manage members
+  I want to be able to view and manage members
 
 Background:
   Given there is a farm "Soul Food Farm"

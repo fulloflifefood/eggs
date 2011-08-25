@@ -12,6 +12,22 @@ Given /^the member "([^\"]*)" has an order for the delivery "([^\"]*)" and the l
   delivery.save!
 end
 
+Given /^the member "([^\"]*)" has orders for all farms$/ do |member_last_name|
+  farms = Farm.all
+
+  farms.each do |farm|
+    farm.deliveries.each do |delivery|
+      order = Order.new_from_delivery(delivery)
+      order.member = Member.find_by_last_name(member_last_name)
+      order.location = farm.locations.first
+
+      order.order_items.each{|item| item.quantity = 1}
+      delivery.orders << order
+      delivery.save!
+    end
+  end
+end
+
 Given /^the farm has a product called "([^\"]*)"$/ do |product_name|
   @farm.products << Factory.create(:product, :name => product_name, :farm => @farm)
 end
