@@ -162,12 +162,10 @@
       <h2>Manage Delivery</h2>
       <div class="block">
         <ul class="menu">
-          <li><%= link_to "View Worksheet", :controller => 'deliveries', :action => 'show_sheet', :id => @delivery.id, :farm_id => @farm.id %></li>
           <li><%= link_to "Enter Finalized Totals", :controller => 'deliveries', :action => 'edit_order_totals', :id => @delivery.id, :farm_id => @farm.id %></li>
           <% if @delivery.finalized_totals && !@delivery.deductions_complete %>
             <li><%= link_to "Deduct Member Bag Totals", :controller => 'deliveries', :action => 'preview_deductions', :id => @delivery.id, :farm_id => @farm.id %></li>
           <% end %>
-          <li><%= link_to "Public Summary", :controller => 'deliveries', :action => "public_summary", :id => @delivery.id, :farm_id => @farm.id %></li>
           <li><%= link_to "Export as CSV", delivery_path(@delivery, :csv, :farm_id => @farm.id) %></li>
           <li><%= link_to "Export as TSV", delivery_path(@delivery, :csv, :farm_id => @farm.id, :tabs => true) %></li>
           <li><%= link_to "Export as XLS", delivery_path(@delivery, :xls, :farm_id => @farm.id) %></li>
