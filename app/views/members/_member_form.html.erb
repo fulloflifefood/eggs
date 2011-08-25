@@ -94,7 +94,7 @@
     </li>
     <li>
       <label>Private notes (only admins see):</label>
-      <div><%= text_area :private_notes, :value => @account.private_notes %></div>
+      <div><%= text_area_tag :private_notes, @account.private_notes, :size => "40x10" %></div>
     </li>
     <% end %>
 
