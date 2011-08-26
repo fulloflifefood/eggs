@@ -12,6 +12,7 @@ Background:
   And I follow "Emeryville"
   Then I should see "Delivery: Emeryville"
 
+@wip
 Scenario: View a worksheet
   When I follow "View Worksheet"
   Then I should see "Brown" 

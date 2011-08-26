@@ -31,6 +31,7 @@ Scenario: See subscription with current balance
   Then I should see "EggShare Eggs"
   And I should see "Current Balance: 80"
 
+@wip  
 Scenario: View history
   Given I am on home
   Then I should see "EggShare Eggs"
