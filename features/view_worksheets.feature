@@ -1,3 +1,4 @@
+@wip
 Feature: View delivery Worksheet
   In order to manage a CSA delivery
   I want to see a worksheet view of a delivery
@@ -12,7 +13,6 @@ Background:
   And I follow "Emeryville"
   Then I should see "Delivery: Emeryville"
 
-@wip
 Scenario: View a worksheet
   When I follow "View Worksheet"
-  Then I should see "Brown" 
+  Then I should see "Brown"
