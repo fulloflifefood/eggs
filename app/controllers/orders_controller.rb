@@ -61,7 +61,15 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(params[:order])
     @member = @order.member
-    
+
+    previous_order = Order.find_by_delivery_id_and_member_id(@order.delivery.id, @member.id)
+    if previous_order
+      previous_order.order_items.delete_all
+      previous_order.order_questions.delete_all
+      previous_order.update_attributes(params[:order])
+      @order = previous_order
+    end
+
     respond_to do |format|
       if @order.save
         Notifier.order_confirmation(@order).deliver

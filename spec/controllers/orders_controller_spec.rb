@@ -30,15 +30,20 @@ describe OrdersController do
   end
 
   it "should create new order_items when rendering 'create" do
-    p = Factory(:delivery_with_stock_items)
+    delivery = Factory(:delivery_with_stock_items)
     s1 = Factory(:stock_item)
     s2 = Factory(:stock_item)
-    get :create, :delivery_id => p.id, :order => { :delivery_id => p.id,
-            :order_items_attributes => {
-                    "0" => {:stock_item_id => s1.id, :quantity => "2"},
-                    "1" => {:stock_item_id => s2.id, :quantity => "0"}}}
-    
+    get :create,  :delivery_id => delivery.id,
+                  :farm_id => delivery.farm.id,
+                  :order => { :delivery_id => delivery.id,
+                      :member_id => Factory(:member),
+                      :location_id => Factory(:location),
+                      :order_items_attributes => {
+                              "0" => {:stock_item_id => s1.id, :quantity => "2"},
+                              "1" => {:stock_item_id => s2.id, :quantity => "0"}}}
+
     assigns(:order).order_items.size.should == 2
+    response.should be_redirect
   end
 
   it "should set @member from current user when rendering new and there is no member_id in params" do
@@ -70,6 +75,43 @@ describe OrdersController do
 
     get :edit, :id => order.id, :delivery_id => delivery.id
     assigns(:member).should == member
+  end
+
+  it "should update rather than create if there's already an order for that delivery (back button issue)" do
+
+    delivery = Factory(:delivery_with_stock_items)
+    member = Factory(:member)
+    location1 = Factory(:location)
+    location2 = Factory(:location)
+    order = Factory(:order_with_items, :member => member, :delivery => delivery, :location => location1)
+
+    order.order_items.first.update_attribute("quantity", 1)
+    
+    member.orders.size.should == 1
+    order.order_items.size.should == 2
+
+    order_params = { :delivery_id => delivery.id,
+                    :member_id => member.id,
+                    :location_id => location2.id,
+                    :order_items_attributes => {
+                            "0" => {:stock_item_id => delivery.stock_items[0].id, :quantity => "2"},
+                            "1" => {:stock_item_id => delivery.stock_items[1].id, :quantity => "0"}}
+    }
+
+    get :create, :delivery_id => delivery.id,
+        :order => order_params,
+        :farm_id => delivery.farm.id
+
+    member.orders.size.should == 1
+    response.should redirect_to(order_path(:id => order, :farm_id => delivery.farm.id))
+    assigns(:order).id.should == order.id
+    assigns(:order).order_items.first.quantity.should == 2
+    assigns(:order).location.should == location2
+
+    new_order = assigns(:order)
+    new_order.reload
+    new_order.order_items.size.should == 2
+
   end
 
 end
