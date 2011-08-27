@@ -78,4 +78,59 @@ describe Farm do
     farm.location_tags.first.name.should == "SF-Potrero" 
   end
 
+  describe "#cloning_and_deleting" do
+    before(:each) do
+      @farm = Factory(:farm_with_locations)
+      @farm.email_templates << Factory(:email_template, :farm => @farm, :identifier => 'template1')
+      @farm.email_templates << Factory(:email_template, :farm => @farm, :identifier => 'template2')
+
+      @farm.snippets << Factory(:snippet, :farm => @farm, :identifier => "snippet1")
+      @farm.snippets << Factory(:snippet, :farm => @farm, :identifier => "snippet2")
+
+    end
+
+    it "can clone the basics of a full farm" do
+
+      Location.count.should == 7
+      LocationTag.count.should == 5
+
+      cloned_farm = @farm.clone_farm
+
+      Location.count.should == 14
+      LocationTag.count.should == 10
+
+      cloned_farm.email_templates.size.should == 2
+      cloned_farm.snippets.size.should == 2
+      cloned_farm.location_tags.size.should == @farm.location_tags.size
+      cloned_farm.locations.size.should == @farm.locations.size
+
+    end
+
+    it "destroys dependent records when destroying farm" do
+      Location.count.should == 7
+      LocationTag.count.should == 5
+      Snippet.count.should == 2
+      EmailTemplate.count.should == 2
+
+      cloned_farm = @farm.clone_farm
+
+      Location.count.should == 14
+      LocationTag.count.should == 10
+      Snippet.count.should == 4
+      EmailTemplate.count.should == 4
+
+      Farm.destroy(cloned_farm.id)
+
+      Location.count.should == 7
+      LocationTag.count.should == 5
+      Snippet.count.should == 2
+      EmailTemplate.count.should == 2
+
+    end
+
+
+
+
+  end
+
 end

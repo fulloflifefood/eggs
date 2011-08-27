@@ -14,14 +14,15 @@
 
 class Farm < ActiveRecord::Base
   validates_presence_of :name
-  has_many :products, :order => 'position'
-  has_many :deliveries
-  has_many :accounts
+  has_many :products, :order => 'position', :dependent => :destroy
+  has_many :deliveries, :dependent => :destroy
+  has_many :accounts, :dependent => :destroy
   has_many :members, :through => :accounts, :order => 'last_name, first_name', :include => [:user,:accounts], :readonly => false
-  has_many :locations
-  has_many :location_tags
-  has_many :email_templates
-  has_many :product_questions
+  has_many :locations, :dependent => :destroy
+  has_many :location_tags, :dependent => :destroy
+  has_many :email_templates, :dependent => :destroy
+  has_many :product_questions, :dependent => :destroy
+  has_many :snippets, :dependent => :destroy
 
   acts_as_authorization_object
 
@@ -31,7 +32,7 @@ class Farm < ActiveRecord::Base
     Farm.all.each do |farm|
       return farm if farm.has_paypal_address?(address)
     end
-    return nil
+    nil
   end
 
   # TODO: Figure out why this relationship is broken!
@@ -44,11 +45,43 @@ class Farm < ActiveRecord::Base
   end
 
   def has_paypal_address?(address)
-    return paypal_account.split(",").include?(address)
+    paypal_account.split(",").include?(address)
   end
 
   def default_paypal_address
-    return paypal_account.split(",").first
+    paypal_account.split(",").first
+  end
+
+  def clone_farm
+    farm = self.clone
+    count = Farm.count + 1
+    farm.name = self.name + " Copy #{count}"
+    farm.subdomain = self.subdomain + "_#{count}"
+    farm.key = self.subdomain + "_#{count}"
+    farm.save
+
+    self.email_templates.each do |template|
+      farm.email_templates << template.clone
+    end
+
+    self.snippets.each do |snippet|
+      farm.snippets << snippet.clone
+    end
+
+    self.location_tags.each do |location_tag|
+      farm.location_tags << location_tag.clone
+    end
+
+    self.locations.each do |location|
+      new_location = location.clone
+      tag = LocationTag.find_or_create_by_farm_id_and_name(farm.id, location.location_tag.name)
+      new_location.location_tag = tag
+      farm.locations << new_location
+    end
+
+
+    farm
+
   end
 
 end
