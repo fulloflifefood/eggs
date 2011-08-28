@@ -7,7 +7,7 @@ class DeliveriesController < ApplicationController
   skip_before_filter :authenticate, :only => [:public_summary, :show_host_sheet, :show_packing_sheet]
 
   access_control do
-    allow :admin
+    allow :admin, :of => @farm
     allow all, :to => [:show_host_sheet, :public_summary, :show_packing_sheet]
   end
 

@@ -3,8 +3,7 @@ class ProductsController < ApplicationController
   # GET /products.xml
 
   access_control do
-    allow :admin
-    deny  :member
+    allow :admin, :of => @farm
   end
 
   def index

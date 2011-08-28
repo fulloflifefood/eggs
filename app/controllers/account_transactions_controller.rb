@@ -6,7 +6,7 @@ class AccountTransactionsController < ApplicationController
   protect_from_forgery :except => [:ipn]
 
   access_control do
-    allow :admin
+    allow :admin, :of => @farm
     allow :member, :to => [:show, :index]
     allow all, :to => "ipn"
   end

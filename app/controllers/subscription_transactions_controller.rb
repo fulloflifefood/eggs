@@ -3,7 +3,7 @@ class SubscriptionTransactionsController < ApplicationController
   protect_from_forgery
 
   access_control do
-    allow :admin
+    allow :admin, :of => @farm
     allow :member, :to => [:show, :index]
   end
 

@@ -3,8 +3,7 @@ class StockItemsController < ApplicationController
   # GET /stock_items.xml
 
   access_control do
-    allow :admin
-    deny  :member
+    allow :admin, :of => @farm
   end
 
   def index

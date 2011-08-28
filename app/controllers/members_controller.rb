@@ -5,7 +5,7 @@ class MembersController < ApplicationController
   skip_before_filter :authenticate, :only => [:new, :create, :confirm]
 
   access_control do
-    allow :admin
+    allow :admin, :of => @farm
     allow all, :to => [:new, :create, :confirm]
   end
 

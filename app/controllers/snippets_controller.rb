@@ -1,4 +1,9 @@
 class SnippetsController < ApplicationController
+
+  access_control do
+    allow :admin, :of => @farm
+  end
+
   # GET /snippets
   # GET /snippets.xml
   def index

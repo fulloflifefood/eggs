@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   access_control do
-    allow :admin
+    allow :admin, :of => @farm
     allow :member, :to => [:show, :edit, :update]
   end
 

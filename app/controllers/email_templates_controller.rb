@@ -1,4 +1,8 @@
 class EmailTemplatesController < ApplicationController
+  access_control do
+    allow :admin, :of => @farm
+  end
+
   # GET /email_templates
   # GET /email_templates.xml
   def index

@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
   # GET /accounts.xml
 
   access_control do
-    allow :admin
+    allow :admin, :of => @farm
     allow :member, :to => [:edit_reminder_locations]
   end  
 

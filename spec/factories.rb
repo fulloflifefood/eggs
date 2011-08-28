@@ -170,7 +170,7 @@ end
 
 Factory.define :admin_user, :parent => :user do |user|
   user.after_create do |u|
-      Factory(:roles_user, :role => Factory(:role, :name => 'admin'), :user => u)
+    u.has_role!(:admin)
   end
 end
 

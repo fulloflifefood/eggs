@@ -1,8 +1,7 @@
 class ProductQuestionsController < ApplicationController
 
   access_control do
-    allow :admin
-    deny  :member
+    allow :admin, :of => @farm
   end
 
   def index
