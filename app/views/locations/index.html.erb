@@ -33,7 +33,7 @@
     <td><%=h location.time_window %></td>
     <td><%=h location.location_tag.name if location.location_tag %></td>
     <td><%= link_to 'Edit', edit_location_path(location, :farm_id => @farm.id) %></td>
-    <td><%= link_to 'Delete', location, :confirm => 'Are you sure you want to do this?  This could screw up deliveries that use this location!', :method => :delete %></td>
+    <td><%= link_to 'Delete', {:action => "destroy", :id => location.id, :farm_id => @farm.id}, :confirm => 'Are you sure you want to do this?  This could screw up deliveries that use this location!', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

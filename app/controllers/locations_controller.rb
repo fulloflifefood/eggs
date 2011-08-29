@@ -79,7 +79,8 @@ class LocationsController < ApplicationController
     @location.destroy
 
     respond_to do |format|
-      format.html { redirect_to(locations_url) }
+      flash[:notice] = 'Location was deleted'
+      format.html { redirect_to(locations_path(:farm_id => @farm.id)) }
       format.xml  { head :ok }
     end
   end
