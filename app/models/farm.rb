@@ -79,6 +79,9 @@ class Farm < ActiveRecord::Base
       farm.locations << new_location
     end
 
+    self.products.each do |product|
+      farm.products << product.clone
+    end
 
     farm
 
