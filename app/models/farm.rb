@@ -83,6 +83,10 @@ class Farm < ActiveRecord::Base
       farm.products << product.clone
     end
 
+    self.product_questions.each do |question|
+      farm.product_questions << question.clone
+    end
+
     farm
 
   end

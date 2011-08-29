@@ -84,6 +84,13 @@ Factory.define :order_item do |p|
   p.quantity 1
 end
 
+Factory.define :product_question do |p|
+  p.association :farm
+  p.description "Are you ok with frozen birds?"
+  p.options  "Yes I am | YES \n No I am not | NO"
+  p.short_code "Froz ok?"
+end
+
 
 Factory.define :order_with_items, :parent => :order do |o|
   o.order_items do |i|

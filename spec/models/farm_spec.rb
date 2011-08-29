@@ -90,6 +90,8 @@ describe Farm do
       @farm.products << Factory(:product, :farm => @farm)
       @farm.products << Factory(:product, :farm => @farm)
 
+      @farm.product_questions << Factory(:product_question, :farm => @farm)
+
     end
 
     it "can clone the basics of a full farm" do
@@ -106,6 +108,8 @@ describe Farm do
       cloned_farm.snippets.size.should == 2
       cloned_farm.location_tags.size.should == @farm.location_tags.size
       cloned_farm.locations.size.should == @farm.locations.size
+      cloned_farm.products.size.should == @farm.products.size
+      cloned_farm.product_questions.size.should == @farm.product_questions.size
 
     end
 
@@ -115,6 +119,7 @@ describe Farm do
       Snippet.count.should == 2
       EmailTemplate.count.should == 2
       Product.count.should == 2
+      ProductQuestion.count.should == 1
 
       cloned_farm = @farm.clone_farm
 
@@ -123,6 +128,7 @@ describe Farm do
       Snippet.count.should == 4
       EmailTemplate.count.should == 4
       Product.count.should == 4
+      ProductQuestion.count.should == 2
 
       Farm.destroy(cloned_farm.id)
 
@@ -131,6 +137,7 @@ describe Farm do
       Snippet.count.should == 2
       EmailTemplate.count.should == 2
       Product.count.should == 2
+      ProductQuestion.count.should == 1
 
     end
 
