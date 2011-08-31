@@ -50,6 +50,10 @@ describe Order do
     order = Factory.build(:order)
     order.order_items << Factory(:order_item)
     order.order_items << Factory(:order_item)
+
+    order.order_items[0].stock_item.product_price = 20
+    order.order_items[1].stock_item.product_price = 40
+
     order.estimated_total.should == 60
   end
 

@@ -76,6 +76,7 @@ end
 Factory.define :stock_item do |p|
   p.association :delivery
   p.association :product
+  p.product_price 2
 end
 
 Factory.define :order_item do |p|
@@ -102,11 +103,11 @@ Factory.define :order_with_items, :parent => :order do |o|
 end
 
 Factory.define :cheap_order_item, :parent => :order_item do |i|
-  i.stock_item {Factory(:stock_item, :product => Factory(:product, :price => 5))}
+  i.stock_item {Factory(:stock_item, :product_price => 5, :product => Factory(:product, :price => 5))}
 end
 
 Factory.define :expensive_order_item, :parent => :order_item do |i|
-  i.stock_item {Factory(:stock_item, :product => Factory(:product, :price => 100))}
+  i.stock_item {Factory(:stock_item, :product_price => 100, :product => Factory(:product, :price => 100))}
 end
 
 Factory.define :delivery_with_orders, :parent => :delivery do |p|

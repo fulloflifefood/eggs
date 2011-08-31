@@ -40,14 +40,14 @@ class DeliveriesController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @delivery }
       format.csv do
-        csv_string = DeliveryExporter.get_csv(@delivery, params[:tabs])
+        csv_string = DeliveryExporter.get_csv(@delivery, params[:tabs], params[:location_sort])
 
         send_data csv_string,
                 :type => 'text/csv; charset=iso-8859-1; header=present',
                 :disposition => "attachment; filename=#{@delivery.date}#{@delivery.name}.csv"
       end
       format.xls do
-        xls = DeliveryExporter.get_xls(@delivery)
+        xls = DeliveryExporter.get_xls(@delivery, params[:tabs], params[:location_sort])
         data = StringIO.new('')
         xls.write(data)
 
