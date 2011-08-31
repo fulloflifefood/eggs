@@ -25,7 +25,11 @@ class LabelMaker
 
   def get_labels_from_delivery(delivery)
     labels = []
-    delivery.orders.each do |order|
+    orders = delivery.orders
+
+    orders = orders.sort_by { |order| [order.location.name, order.member.last_name] }
+
+    orders.each do |order|
       order_labels = get_labels_from_order order
       labels += order_labels
     end
