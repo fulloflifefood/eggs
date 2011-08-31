@@ -38,9 +38,9 @@ class AccountTransaction < ActiveRecord::Base
 
   def calculate_balance(previous_transaction)
     if previous_transaction
-      self.balance = previous_transaction.balance + (debit ? -amount : amount)
+      self.balance = (previous_transaction.balance + (debit ? -amount : amount)).round(2)
     else
-      self.balance = debit ? -amount : amount
+      self.balance = debit ? -amount.round(2) : amount.round(2)
     end
   end
 

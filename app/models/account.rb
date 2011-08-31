@@ -29,7 +29,7 @@ class Account < ActiveRecord::Base
 
   def current_balance
     last_transaction = self.account_transactions.last
-    last_transaction ? last_transaction.balance : 0
+    last_transaction ? last_transaction.balance.round(2) : 0
   end
 
   def calculate_balance

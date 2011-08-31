@@ -33,12 +33,21 @@ describe AccountTransaction do
     AccountTransaction.create!(@valid_attributes)
   end
 
-  it "should calculate a new balance based on the previous" do
-    account = Factory(:account)
-    Factory(:account_transaction, :account => account, :amount => 100, :debit => false, :balance => 100)
-    Factory(:account_transaction, :account => account, :amount => 40, :debit => true)
-    account.account_transactions.reload
-    account.current_balance.should == 60;
+  describe "Calculating Balance" do
+    before(:each) do
+      @account = Factory(:account)
+      Factory(:account_transaction, :account => @account, :amount => 100, :debit => false, :balance => 100)
+      Factory(:account_transaction, :account => @account, :amount => 40, :debit => true)
+    end
+    it "should calculate a new balance based on the previous" do
+      @account.account_transactions.reload
+      @account.current_balance.should == 60;
+    end
+
+    it "should round balances to nearest cent" do
+      Factory(:account_transaction, :account => @account, :amount => 10.00000001, :debit => true)
+      @account.current_balance.should == 50.00;
+    end
   end
 
 end
