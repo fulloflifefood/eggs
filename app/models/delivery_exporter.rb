@@ -81,7 +81,7 @@ class DeliveryExporter < ActiveRecord::Base
     row << order.location.name if !by_location
     order.order_items.with_stock_quantity.each{ |item| row << item.quantity }
     order.order_questions.visible.each {|question| row << question.option_code }
-    row += [order.notes, order.estimated_total.round(2), order.finalized_total, account.current_balance, nil, order.member.last_name]
+    row += ["#{order.notes}", order.estimated_total.round(2), order.finalized_total, account.current_balance, nil, order.member.last_name]
     row
   end
 end
