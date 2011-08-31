@@ -288,7 +288,7 @@ describe Delivery do
     rows = FasterCSV.parse(csv)
 
     rows[5...rows.size].each do |row|
-      row.size.should == 14
+      row.size.should == 13
     end
     
   end

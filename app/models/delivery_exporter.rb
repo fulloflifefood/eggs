@@ -60,7 +60,7 @@ class DeliveryExporter < ActiveRecord::Base
   def self.get_headers(delivery, by_location = false)
     headers = ["Last Name", "First Name", "Email", "Cell Phone"]
     headers << "Location" if !by_location
-    delivery.stock_items.with_quantity.each {|item| headers << "#{item.product_name} - #{item.product_price_code}"}
+    delivery.stock_items.with_orders.each {|item| headers << "#{item.product_name} - #{item.product_price_code}"}
     delivery.delivery_questions.visible.each {|question| headers << question.short_code }
     headers += ["Notes", "Estimated Total", "Bag Total", "Balance", "How Paid", "Last Name"]
     headers
@@ -69,7 +69,7 @@ class DeliveryExporter < ActiveRecord::Base
   def self.get_totals(delivery, location = nil)
     totals = [' ',' ',' ',' ']
     totals << ' ' if location == nil
-    delivery.stock_items.with_quantity.each do |item|
+    delivery.stock_items.with_orders.each do |item|
       totals << (location ? item.quantity_ordered_for_location(location) : item.quantity_ordered)
     end
     totals
@@ -79,7 +79,7 @@ class DeliveryExporter < ActiveRecord::Base
     account = order.member.accounts.select{|item| item.farm.name == order.delivery.farm.name}.first
     row = [order.member.last_name, order.member.first_name, order.member.email_address, order.member.phone_number]
     row << order.location.name if !by_location
-    order.order_items.with_stock_quantity.each{ |item| row << item.quantity }
+    order.order_items.with_order_quantity.each{ |item| row << (item.quantity > 0 ? item.quantity : " " )}
     order.order_questions.visible.each {|question| row << question.option_code }
     row += ["#{order.notes}", order.estimated_total.round(2), order.finalized_total, account.current_balance, nil, order.member.last_name]
     row
