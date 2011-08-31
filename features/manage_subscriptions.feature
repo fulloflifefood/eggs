@@ -67,4 +67,4 @@ Scenario: Adding transactions for a Subscription
   Then I should see "95"
   And I should see "83"
   When I follow "Bobbins"
-  Then I should see "Picked up by Andy Bobbins"
+  Then I should see "95"

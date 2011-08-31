@@ -32,6 +32,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'webrat'
   gem 'jasmine'
+  gem "jasmine-fixtures-generator"
 end
 
 group :development do

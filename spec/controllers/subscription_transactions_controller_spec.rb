@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe SubscriptionTransactionsController do
+  render_views
 
   before(:each) do
     @farm = Factory(:farm)
     activate_authlogic
     UserSession.create Factory(:admin_user)
+    UserSession.find.user.has_role!(:admin, @farm)
 
     @member = UserSession.find.user.member
     @account = Factory(:account, :farm => @farm, :member => @member)
@@ -70,49 +72,33 @@ describe SubscriptionTransactionsController do
       subscription2.current_balance.should == 100
       subscription2.subscription_transactions.size.should == 1
 
-      end
     end
-
-
-
   end
 
+  describe "GET #index" do
+    it "should assign the transactions for the subscription" do
+      subscription = @accounts.first.subscriptions.first
+      subscription.subscription_transactions << Factory(:subscription_transaction, :amount => 3, :subscription => subscription)
+      subscription.subscription_transactions << Factory(:subscription_transaction, :amount => 2, :subscription => subscription)
+
+      get :index, :subscription_id => subscription.id, :farm_id => @farm.id
+
+      assigns(:subscription).should == subscription
+      assigns(:subscription_transactions).size.should == 2
+
+      save_fixture(html_for('body'), 'subscription_transactions_index.html')
+
+    end
+  end
+
+end
 
 
 
 
 
-#  describe "POST create" do
-#
-#    describe "with valid params" do
-#      it "assigns a newly created account_transaction as @account_transaction" do
-#        AccountTransaction.stub(:new).with({'these' => 'params'}).and_return(mock_transaction(:save => true, :debit=>false, "deliver_credit_notification!"=>nil))
-#        post :create, :account_transaction => {:these => 'params'}
-#        assigns[:account_transaction].should equal(mock_transaction)
-#      end
-#
-#      it "redirects to the index" do
-#        AccountTransaction.stub(:new).and_return(mock_transaction(:save => true, :debit=>false, "deliver_credit_notification!"=>nil))
-#        post :create, :account_transaction => {}
-#        response.should redirect_to(account_transactions_url)
-#      end
-#    end
-#
-#    describe "with invalid params" do
-#      it "assigns a newly created but unsaved account_transaction as @account_transaction" do
-#        AccountTransaction.stub(:new).with({'these' => 'params'}).and_return(mock_transaction(:save => false))
-#        post :create, :account_transaction => {:these => 'params'}
-#        assigns[:account_transaction].should equal(mock_transaction)
-#      end
-#
-#      it "re-renders the 'new' template" do
-#        AccountTransaction.stub(:new).and_return(mock_transaction(:save => false))
-#        post :create, :account_transaction => {}
-#        response.should render_template('new')
-#      end
-#    end
-#
-#  end
+
+
 
 
 

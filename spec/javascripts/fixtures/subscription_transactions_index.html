@@ -1,186 +1,99 @@
-<body> 
+<div>
 
   <div class="container_12">
 
     <div class="grid_12">
-  <h1 id="branding">EggBasket - Soul Food Farm</h1>
+  <h1 id="branding">EggBasket - Default Farm</h1>
 </div>
 <div class="clear"></div>
 
 <div class="grid_12">
   <ul class="nav main">
-          <li><a href="/farms/1213367748">Home</a></li>
-          <li><a href="/members?farm_id=1213367748">Members</a></li>
+<li><a href="/farms/1">Home</a></li>
+          <li><a href="/members?farm_id=1">Members</a></li>
 
     <li class="secondary">
         <a href="/logout">Log out</a>
     </li>
-      <li class="secondary">
-        <a href="#">Switch Farms </a>
-        <ul>
-            <li><a href="/farms/321305737">Clark Summit Farm</a></li>
-            <li><a href="/farms/1213367748">Soul Food Farm</a></li>
-        </ul>
-      </li>
 
   </ul>
 </div>
 
     <div class="clear"></div>
 
-    <script id='subscription_transaction_template' type='text/x-jquery-tmpl'>
-  <tr>
-    <td>${$item.format_timestamp()}</td>
-    <td>${$item.format_date()}</td>
-    <td>${description}</td>
-    <td>${notes}</td>
-    {{if order_id}}
-    <td>
-      <a href='/orders/${order_id}?farm_id=1213367748'>view order</a>
-    </td>
-    {{else}}
-    <td></td>
-    {{/if}}
-    <td class='amount' style='${$item.format_amount_style()}'>${$item.format_amount()}</td>
-    <td class='balance'>${balance}</td>
-  </tr>
-</script>
-<script type='text/javascript'>
-  var subscription_transactions_list = [
-  {
-  created_at : "2011-08-19 20:22:53 -0700",
-  date : "2011-06-08",
-  description : "Initial credits",
-  notes : "",
-  order_id : "",
-  amount : 100,
-  balance : 100,
-  debit : false
-  },
-  {
-  created_at : "2011-08-19 20:25:38 -0700",
-  date : "2011-08-30",
-  description : "asdf",
-  notes : "",
-  order_id : "",
-  amount : 2,
-  balance : 98,
-  debit : true
-  },
-  {
-  created_at : "2011-08-19 21:17:23 -0700",
-  date : "2011-08-25",
-  description : "Ferry Building",
-  notes : "",
-  order_id : "1736124991",
-  amount : 1,
-  balance : 97,
-  debit : true
-  },
-  {
-  created_at : "2011-08-19 22:58:37 -0700",
-  date : "2011-08-10",
-  description : "San Francisco Ferry Building",
-  notes : "Bob picked up this time",
-  order_id : "",
-  amount : 2,
-  balance : 95,
-  debit : true
-  },
-  {
-  created_at : "2011-08-19 22:59:07 -0700",
-  date : "2011-08-02",
-  description : "ruh roh",
-  notes : "whaz going on with amounts?",
-  order_id : "",
-  amount : 4,
-  balance : 91,
-  debit : true
-  },
-  {
-  created_at : "2011-08-19 22:59:30 -0700",
-  date : "2011-08-24",
-  description : "fasdf",
-  notes : "",
-  order_id : "",
-  amount : 2,
-  balance : 89,
-  debit : true
-  },
-  {
-  created_at : "2011-08-19 23:02:27 -0700",
-  date : "2011-08-24",
-  description : "Ferry Building",
-  notes : "",
-  order_id : "",
-  amount : 2,
-  balance : 87,
-  debit : true
-  },
-  ];
-</script>
-<div class='grid_12'>
-  <h1>Transaction History for: Aaker</h1>
-  <h3>
-    Current Egg Share eggs Balance:
-    <span id='current_balance'>87</span>
-  </h3>
-  <br>
-  <table id='subscription_transactions_list'>
-    <tr>
-      <th width='130'>Timestamp</th>
-      <th width='110'>Date of pickup / recording</th>
-      <th>Pickup Description</th>
-      <th>Notes</th>
-      <th>Order</th>
-      <th width='30'>Amount</th>
-      <th width='30'>Balance</th>
-    </tr>
-  </table>
-  <a class='button green' id='show_new_transaction_btn'>Add new transaction</a>
-  <br>
-  <div id='new_transaction' style='display:none'>
-    <h4>New transaction:</h4>
-    <form accept-charset="UTF-8" action="/subscription_transactions" class="new_subscription_transaction" id="new_subscription_transaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="GIr+N1NKOgJOEeXmCWZ0mFexACAPiPvb/tGfzqZ5UfY=" /></div>
-        <input id="farm_id" name="farm_id" type="hidden" value="1213367748" />
-        <input id="subscription_transaction_subscription_id" name="subscription_transaction[subscription_id]" type="hidden" value="1" />
-        <table>
-          <tr>
-            <th>Date</th>
-            <th>Pickup Description (e.g. "Ferry Building")</th>
-            <th>Notes (optional, e.g. "Bob picked up")</th>
-            <th>Amount</th>
-            <th>Debit</th>
-          </tr>
-          <tr>
-            <td><input id="datepicker" name="subscription_transaction[date]" size="12" type="text" /></td>
-            <td><input id="subscription_transaction_description" name="subscription_transaction[description]" size="50" type="text" /></td>
-            <td><input id="subscription_transaction_notes" name="subscription_transaction[notes]" size="50" type="text" /></td>
-            <td>
-              <img class='increment_transaction' src='/images/icons/plus_alt_16x16.png' style='vertical-align:middle;margin-bottom:4px'>
-              <input class="positive_int amount" id="subscription_transaction_amount" name="subscription_transaction[amount]" size="4" type="text" />
-            </td>
-            <td><input name="subscription_transaction[debit]" type="hidden" value="0" /><input checked="checked" id="subscription_transaction_debit" name="subscription_transaction[debit]" type="checkbox" value="1" /></td>
-          </tr>
-        </table>
-        <div id='form_output'></div>
-        <a class='button green' id='transaction_submit_btn'>Submit</a>
-        <a class='button gray' id='transaction_cancel_btn'>Cancel</a>
-        <br>
-        <br>
-    </form>
-  </div>
-  <a href="/subscriptions?farm_id=1213367748&amp;product_id=2039018335">Back to subscriptions</a>
-  <br>
+    <script id="subscription_transaction_template" type="text/x-jquery-tmpl">
+<tr>
+<td>${$item.format_timestamp()}</td>
+<td>${$item.format_date()}</td>
+<td>${subscription_transaction.description}</td>
+<td>${subscription_transaction.notes}</td>
+{{if subscription_transaction.order_id}}
+<td>
+<a href='/orders/${subscription_transaction.order_id}?farm_id=1'>view order</a>
+</td>
+{{else}}
+<td></td>
+{{/if}}
+<td class='amount' style='${$item.format_amount_style()}'>${$item.format_amount()}</td>
+<td class='balance'>${subscription_transaction.balance}</td>
+</tr>
+</script><div class="grid_12">
+<h1>Transaction History for: Riggins</h1>
+<h3>
+Current EggShare Eggs Balance:
+<span id="current_balance">-5</span>
+</h3>
+<br><table data-subscription-transactions='[{"subscription_transaction":{"created_at":"2011-08-30T16:36:18-07:00","debit":true,"notes":null,"order_id":null,"updated_at":"2011-08-30T16:36:18-07:00","amount":3,"date":"2011-08-30","id":1,"subscription_id":1,"description":"Ferry Building pickup","balance":-3}},{"subscription_transaction":{"created_at":"2011-08-30T16:36:18-07:00","debit":true,"notes":null,"order_id":null,"updated_at":"2011-08-30T16:36:18-07:00","amount":2,"date":"2011-08-30","id":2,"subscription_id":1,"description":"Ferry Building pickup","balance":-5}}]' id="subscription_transactions_list"><tr>
+<th width="130">Timestamp</th>
+<th width="110">Date of pickup / recording</th>
+<th>Pickup Description</th>
+<th>Notes</th>
+<th>Order</th>
+<th width="30">Amount</th>
+<th width="30">Balance</th>
+</tr></table>
+<a class="button green" id="show_new_transaction_btn">Add new transaction</a>
+<br><div id="new_transaction" style="display:none">
+<h4>New transaction:</h4>
+<form accept-charset="UTF-8" action="/subscription_transactions" class="new_subscription_transaction" id="new_subscription_transaction" method="post">
+<div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+<input id="farm_id" name="farm_id" type="hidden" value="1"><input id="subscription_transaction_subscription_id" name="subscription_transaction[subscription_id]" type="hidden" value="1"><table>
+<tr>
+<th>Date</th>
+<th>Pickup Description (e.g. "Ferry Building")</th>
+<th>Notes (optional, e.g. "Bob picked up")</th>
+<th>Amount</th>
+<th>Debit</th>
+</tr>
+<tr>
+<td><input id="datepicker" name="subscription_transaction[date]" size="12" type="text"></td>
+<td><input id="subscription_transaction_description" name="subscription_transaction[description]" size="50" type="text"></td>
+<td><input id="subscription_transaction_notes" name="subscription_transaction[notes]" size="50" type="text"></td>
+<td>
+<img class="increment_transaction" src="/images/icons/plus_alt_16x16.png" style="vertical-align:middle;margin-bottom:4px"><input class="positive_int amount" id="subscription_transaction_amount" name="subscription_transaction[amount]" size="4" type="text">
+</td>
+<td>
+<input name="subscription_transaction[debit]" type="hidden" value="0"><input checked id="subscription_transaction_debit" name="subscription_transaction[debit]" type="checkbox" value="1">
+</td>
+</tr>
+</table>
+<div id="form_output"></div>
+<a class="button green" id="transaction_submit_btn">Submit</a>
+<a class="button gray" id="transaction_cancel_btn">Cancel</a>
+<br><br>
+</form>
+</div>
+<a href="/subscriptions?farm_id=1&amp;product_id=1">Back to subscriptions</a>
+<br>
 </div>
 
 
     <div class="clear"></div>
-    <div class="grid_12">&nbsp;</div>
+    <div class="grid_12"> </div>
 
     <div class="grid_12" id="site_info">
   <div class="box">
-      <p><a href="mailto:csa@soulfoodfarm.com">Contact the Soul Food Farm CSA</a></p>
+      <p><a href="mailto:">Contact the Default Farm CSA</a></p>
     <p>EggBasket (BETA) by <a href="mailto:kathryn@kathrynaaker.com">Kathryn Aaker</a> - hosted on Heroku</p>
   </div>
 </div>
@@ -191,12 +104,9 @@
             window["subscription_transactions"].init();
         }
       });
-    </script>
-
-
-    <div class="clear"></div>
+    </script><div class="clear"></div>
 
 
   </div>
 
-</body>
+</div>

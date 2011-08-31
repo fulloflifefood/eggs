@@ -19,32 +19,32 @@ var subscription_transactions = {
 
     var format_methods = {
         format_timestamp: function(){
-          var date = new Date(this.data.created_at);
+          var date = new Date(this.data.subscription_transaction.created_at);
           return $.format.date(date.toString(), "MM/dd/yyyy hh:mm:ss");
         },
         format_date: function(){
-          var date = new Date(this.data.date);
+          var date = new Date(this.data.subscription_transaction.date);
           return date.toDateString();
         },
         format_amount: function(){
-          if (this.data.debit == true){
-            return "-"+this.data.amount;
+          if (this.data.subscription_transaction.debit == true){
+            return "-"+this.data.subscription_transaction.amount;
           }else{
-            return "+"+this.data.amount;
+            return "+"+this.data.subscription_transaction.amount;
           }
         },
         format_amount_style: function(){
-          if(this.data.debit == false){
+          if(this.data.subscription_transaction.debit == false){
             return "color:green;font-weight:bold";
           }
         },
         format_order_id: function(){
-          return "<a href='foo'>"+this.data.order_id+"</a>"
+          return "<a href='foo'>"+this.data.subscription_transaction.order_id+"</a>"
         }
     };
 
-    if (typeof subscription_transactions_list != 'undefined'){
-      $("#subscription_transaction_template").tmpl(subscription_transactions_list, format_methods)
+    if ($('#subscription_transactions_list').data('subscription-transactions')){
+      $("#subscription_transaction_template").tmpl($("#subscription_transactions_list").data('subscription-transactions'), format_methods)
         .appendTo("#subscription_transactions_list")
     }
 
@@ -76,7 +76,7 @@ var subscription_transactions = {
           success: function(data) {
             if(data.status == "success") {
               output.html("Save successful");
-              $("#subscription_transaction_template").tmpl(data['data']['subscription_transaction'], format_methods)
+              $("#subscription_transaction_template").tmpl(data['data'], format_methods)
                 .appendTo("#subscription_transactions_list").children().effect("highlight", {}, 3500);
               $("#current_balance").html(data['data']['subscription_transaction']['balance']);
               self.resetDialog();

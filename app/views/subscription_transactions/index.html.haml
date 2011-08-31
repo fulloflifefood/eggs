@@ -5,33 +5,18 @@
   %tr
     %td ${$item.format_timestamp()}
     %td ${$item.format_date()}
-    %td ${description}
-    %td ${notes}
-    {{if order_id}}
+    %td ${subscription_transaction.description}
+    %td ${subscription_transaction.notes}
+    {{if subscription_transaction.order_id}}
     %td
-      %a{:href => "/orders/${order_id}?farm_id=#{@farm.id}"} view order
+      %a{:href => "/orders/${subscription_transaction.order_id}?farm_id=#{@farm.id}"} view order
     {{else}}
     %td
     {{/if}}
     %td.amount{:style=>"${$item.format_amount_style()}"} ${$item.format_amount()}
-    %td.balance ${balance}
+    %td.balance ${subscription_transaction.balance}
 
 
-%script{:type => 'text/javascript'}
-  var subscription_transactions_list = [
-  - @subscription_transactions.each do |subscription_transaction|
-    {
-    created_at : "#{subscription_transaction.created_at}",
-    date : "#{subscription_transaction.date}",
-    description : "#{subscription_transaction.description}",
-    notes : "#{subscription_transaction.notes}",
-    order_id : "#{subscription_transaction.order_id}",
-    amount : #{subscription_transaction.amount},
-    balance : #{subscription_transaction.balance},
-    debit : #{subscription_transaction.debit}
-    },
-  ];
-  
 .grid_12
   %h1 Transaction History for: #{@subscription.account.member.last_name}
   %h3
@@ -39,7 +24,7 @@
     %span#current_balance #{@subscription.current_balance}
   %br
 
-  %table#subscription_transactions_list
+  %table#subscription_transactions_list{"data-subscription-transactions" => @subscription_transactions.to_json}
     %tr
       %th{:width => 130} Timestamp
       %th{:width => 110} Date of pickup / recording
