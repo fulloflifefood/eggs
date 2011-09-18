@@ -43,10 +43,9 @@
     <br/>
     <div class="grid_5 alpha">
       <% if @farm.paypal_link %>
-      <p>
-        <%= link_to "Click here to top up your account using PayPal", "#{@farm.paypal_link}&custom=#{@account.id}", :target => "_blank"%><br/>
-        (will open new window)
-      </p>
+      <!--<p>
+        <% link_to "Click here to top up your account using PayPal", "#{@farm.paypal_link}&custom=#{@account.id}", :target => "_blank"%><br/>
+      </p>-->
       <% end %>
 
       <%= @balance_template.render('farm' => @farm).html_safe if @balance_template %>
