@@ -1,0 +1,180 @@
+
+
+Category,Name,"Price 
+",Sale price (if applicable),Bottom range pounds,Upper range pounds,unit label (defaults to lb),"static price (not estimated), (defaults to no)",Number that size?,Number per person (defaults to 3),Description (usually stays the same from month to month),Notes (anything special this month),Price code (do not edit)
+bread,Wheat Levain Loaf,$5.5,,,22oz,oz,yes,10,,"Baked fresh on delivery morning by the fabulous Brickmaiden Breads in Point Reyes, where farmer Liz's daughter Ashley lives and oversees the baking. Brickmaiden uses a wood-fired oven and organic ingredients.",,"5.5,-22oz"
+bread,Sesame Wheat Levain Loaf,$5.5,,,22oz,oz,yes,10,,"Baked fresh on delivery morning by the fabulous Brickmaiden Breads in Point Reyes, where farmer Liz's daughter Ashley lives and oversees the baking. Brickmaiden uses a wood-fired oven and organic ingredients.",,"5.5,-22oz"
+bread,Country Sourdough Loaf,$5.5,,,24oz,oz,yes,10,,"Baked fresh on delivery morning by the fabulous Brickmaiden Breads in Point Reyes, where farmer Liz's daughter Ashley lives and oversees the baking. Brickmaiden uses a wood-fired oven and organic ingredients.",,"5.5,-24oz"
+bread,Salted Potato Flatbread loaf,$6.5,,,20oz,oz,yes,10,,"This is really unusual and tasty. Crispy salty crunchy crust and big chunks of potato in it. Baked fresh on delivery morning by the fabulous Brickmaiden Breads in Point Reyes, where farmer Liz's daughter Ashley lives and oversees the baking. Brickmaiden uses a wood-fired oven and organic ingredients.",,"6.5,-20oz"
+bread,Sourdough Baguettes ,$4,,,16oz,oz,yes,10,,"Baked fresh on delivery morning by the fabulous Brickmaiden Breads in Point Reyes, where farmer Liz's daughter Ashley lives and oversees the baking. Brickmaiden uses a wood-fired oven and organic ingredients.",,"4,-16oz"
+,,,,,,,,,,,,",-"
+eggs,Eggs,$7.5,,,,,yes,45,,"Certified Organic, from chickens raised freely on pasture, bugs, and organic grains. Beautiful orange yolks and brown, white, or blue-green shells. Eggs are seasonal - laying hens rest in the winter unless subjected to inhumane practices such as forced molting.",,"7.5,-"
+eggs,Pullet Eggs,$5,,,,,yes,15,,The first eggs from new layers (young chickens). Small but yolks highly prized by bakers (look them up!),,"5,-"
+chicken,Chickens REGULAR ,$6.50/lb,,3,5,,,7,,"Chickens are Black Broilers, raised on organic pasture ""salad bar"" and organic grains, slaughtered and plucked on the farm by Liz and her family. They are nicely fatty and quite juicy.",There will be lots of chickens next month,"$6.50/lb,3-5"
+chicken,Chickens LARGE,$6.50/lb,,5,6,,,,,,,"$6.50/lb,5-6"
+chicken,X-LARGE Chickens,$5.50/lb,,6,7,,,,,,,"$5.50/lb,6-7"
+chicken,Chicken feet,$2.50/lb,,2/lb,,,,,,,,"$2.50/lb,2/lb-"
+chicken,Chicken heads,$2/lb,,,,,,,,,,"$2/lb,-"
+chicken,Chicken livers,$6/lb,,,,,,,,,,"$6/lb,-"
+chicken,Chicken gizzards,$5/lb,,,,,,,,,,"$5/lb,-"
+chicken,Chicken hearts?,$5/lb,,,,,,,,,,"$5/lb,-"
+chicken,Chicken liver/heart combo,$5/lb,,,,,,,,,,"$5/lb,-"
+,,,,,,,,,,,,",-"
+mixed,Recession Special Ground Multi-Pack II,$50,,About 9 lbs,,,yes,5,,"4 beef, 3 veal, 2 pork",,"50,About 9 lbs-"
+,,,,,,,,,,,,",-"
+,PORK,,,,,,,,,,,",-"
+pork,Bacon,$12# ,,1/lb.,,,,15,,"Smoked by Bud's Custom Meats, uses nitrates in the cure (working on that)",fattier this month,"$12# ,1/lb.-"
+pork,Ham SMALL & MED,$9/lb ,,3,5,,,,,,,"$9/lb ,3-5"
+pork,Ham MED,$8/lb,,5,7,,,,,,,"$8/lb,5-7"
+pork,Hams LARGE,$7.50/lb,,,11,,,,,,,"$7.50/lb,-11"
+pork,Ham slices ,$9.75/lb ,,1.5/b,2/lb,,,11,,"These are slabs -- slice them thinner for sandwiches, or fry up for breakfast and top with an egg.",,"$9.75/lb ,1.5/b-2/lb"
+pork,"Hocks, smoked  ",$6.50/lb ,$5.50/lb,1.25/lb,2/lb,,,15,,Great with beans.
+pork,Ground pork,$6.50/lb ,,1/lb,,,,8
+pork,Link sausage: Hot links,$9.50/lb,,1/lb,1.25/lb,,,11
+pork,Smoked neck bones,$5.50/lb,,2/lb
+pork,Stew,$6.50/lb ,,1/b.
+pork,Link sausage: Chorizo,9.50/lb,,1/lb.,1.25/lb,,,5
+pork,Link sausage: Garlic,9.50/lb,,1/lb.,1.25/lb
+pork,Link sausage: Bratwurst,9.50/lb,,1/lb.,,,,20
+pork,Link sausage: Polish,$9.50/lb,,1/lb,1.25/lb,,,15
+pork,Beef/pork nitrate free hot dogs,$9.50/lb,,1/lb,1.25/lb,,,20,,,Four not-huge dogs per pack
+pork,Baby Back Ribs,$10/lb,,1.25/lb,,,,8
+pork,Chop. Center Cut BONELESS,$15.00/lb.,,1/lb,1.25/lb,,,10,,2-3 chops per package
+pork,"Chops, Center cut w/ bone",$14/lb ,,1/lb,1.25/lb,,,10,,2-3 chops per package
+pork,Tenderloin ,$17/lb,,1/lb,,,,2
+pork,Roast: leg (aka fresh ham),$9/lb ,,2.75/lb
+pork,Roast: Loin w/bone,$7.50/lb ,,4/lb,5/lb
+pork,Roast: Fresh leg boneless,$11/lb,,9/lb
+pork,Roast: Fresh loin boneless,$11/lb,,3/lb
+pork,Roast: Boston Butt,$8/lb,,2/lb,2.5/lb,,,3,,Everybody's favorite slow-cooker pork
+pork,Roast: Shoulder,$8/lb,,2.5/lb,3/lb,,,5
+pork,Roast: Shoulder,$8/lb,,,5lb,,,2
+pork,Spare ribs ,$8.75/lb ,,2,3,,,7
+
+pork,"Shanks, fresh",$6/lb
+pork,Offal: Bones - Neck (meaty),$2.50/lb,,2/lb,,,,4
+pork,Offal: Feet,$6 per pkg ,,2/lb,,,yes,4
+pork,Offal: Head,$20 per head 
+pork,Offal: Lard ,$2.50/lb,,2/lb,3/lb,,,2
+pork,Offal: Liver,$4/lb,,1.5/lb,,,,,,,sale $2/lb
+pork,Offal: Skin,$2/lb ,,1.75/lb
+pork,Offal: Tail and ears,$5.00lb.,,0.75
+pork,Offal: Tongue,$5,,,.50
+pork,Petfood: ground pork,$3lb,,5/lb
+pork,Petfood: pork chunks,$3lb,,5/lb,,,,5
+
+,BEEF: 
+beef,Ground,$7/lb,,1/lb,1.25/lb,,,25
+beef,Recession special: 10ish lbs ground beef,$55 flat,,10,,,yes,5,,,"May be a little over or under 10 pounds, might be some 2-lb pkgs. "
+
+beef,Stew meat,$7/lb ,,1/lb,1.25/lb,,,1
+beef,Steaks: Chateaubriand,$14/lb ,,2/lb,,,,2,,,"This is a thick top sirloin, rather than the French cut from the tenderloin"
+beef,Steak: Chuck,$7/lb ,,,,,,,,,"From the shoulder, so tough but flavorful, best braised"
+beef,Steaks: Filet mignon ,$20/lb ,,1/lb
+beef,Steaks: Flank ,$12/lb,,1.25/lb,,,,1
+beef,Steak: Hanger,$11/lb,,1/lb
+beef,Steak: Market,$16/lb,,2/lb,2.75/lb,,,,,,From the rib (Like a rib-eye) 
+beef,Steaks: Minute,$8/lb ,,1/lb,,,,1,,,"Boneless loin steak, like a fillet"
+beef,Steaks: Rib-eye  ,$16/lb ,,2/lb,,,,1
+beef,Steaks: Sirloin Tip Steak,$11.00/lb.,,1.25/lb,1.5/lb,,,6
+beef,Sirloin Steak,$11.00/lb.,,1.25/lb,2/lb,,,4
+beef,Steaks: Skirt ,$12/lb,,.75/lb
+beef,Steaks: Swiss ,$7/lb
+beef,"Steaks: T-bones,  ",$16/lb ,,1.75/lb
+beef,Steaks: Top sirloin steak,$14/lb 
+beef,Brisket,$7/lb,,2.5/lb,3.85/lb
+beef,BBQ Ribs,$6.50 lb.,,2//b
+beef,London Broil ,$10/lb ,,2/lb
+beef,Roast: Bottom Round,$8/lb.,,2.8/lb
+beef,Roast: Chuck roasts ,$7/lb ,$6.50/lb,3/lb,4,,,6
+beef,Roast: Cross-Rib ,$8/lb ,,3.8/lb,,,,1
+beef,Roast: Rump ,$8/lb ,,2.75/lb,,,,1
+beef,Roast: Sirloin Tip,$12/lb 
+beef,Roast: Eye of Round,$13/lb ,,3/lb
+beef,Fillet Mignon Roast,16,,4/lb,,,,1
+beef,Tri Tip Roast,13,,1.25/lb,1.50/lb,,,1
+beef,"Offal: Bones, soup, LG",$2/lb,,4/lb,5/lb,,,8
+beef,"Offal: Bones, soup, reg",$2.50/lb,,2/lb,3/lb,,,3
+beef,"Offal: Cheeks, beef",$9.50/lb 
+beef,"Offal: Heart, beef",$6/lb,,1/lb,,,,3
+beef,"Offal: Liver, beef ",$6.50/lb ,$5.00/lb,1/lb,1.25/lb,,,10
+beef,Offal: Neck Bones,$2.50/lb,,2/lb,,,,2
+beef,Offal: Marrow bone,$3/lb
+beef,Offal: Oxtail,$6.50#,,1/lb
+beef,Offal: Tongue,$6.50#,,1.3/lb
+beef,Carne Asada,$11/lb,$10.00/lb,2/lb,2.50/lb,,,11,,,thin lean strips from the leg
+
+
+,VITELLO
+veal,V: Ground,$8.50/lb ,$7.5,1/lb,1.25/lb,,,10
+veal,V:Fajita,$12/lb 
+veal,V: Stew,$8.50/lb ,,,,,,5
+veal,V: Steaks: Flank,$16/lb,,1,,,,1
+veal,V: Steaks: Chuck ,$9/lb ,$8.00/lb,1.5/lb,,,,3,,,Braise or slow-cook.
+veal,V: Steaks: Flat Iron,$13/lb ,,3/lb
+veal,V: Steaks: Filet mignon,$22/lb,,.75/lb
+veal,V: Flap Meat,$14/lb,,2/lb
+veal,V: Steaks: Hanger
+veal,V: Steaks: NY ,$16/lb 
+veal,V: Top Sirloin,$14/lb,,1/lb,1.25/lb
+veal,V: Cross Rib Steak,$15.00/lb,,1/lb,1.5/lb,,,2
+,,$15/lb 
+veal,V:Chops: Sirloin,$16/lb ,,3/lb
+veal,V: Steaks: Skirt,$16/lb ,,.75/lb
+veal,V: Steaks: Rib,$17,,2,,,,1
+veal,V: Steaks: Swiss ,$11/lb 
+veal,V: Steaks: T-bone,$17/lb,,1/lb,1.25/lb,,,6
+veal,V: Brisket,$8/lb,,3/lb,4/lb
+veal,V: Breast w/pocket,$10/lb,,5/lb,,,,1
+veal,V: Cheeks,$10/lb,,1.5/lb
+veal,V: Shoulder chop ,$12/lb ,,1.75/lb
+veal,V: London Broil ,$11lb,,1.75/lb
+veal,V: X-Rib Roast,$12/lb ,,3/lb
+veal,V: Scalopini,$11/lb ,,1/lb
+veal,V: Osso Bucco,$7.5,,2/lb
+veal,V:Offal: Oxtail,,,1/lb
+veal,V: Roast: Tri Tip,$15/lb,,1.5/lb
+veal,"V: Offal: Bones, big bag",$2/lb,,3,,,,3
+veal,"V: Offal: Bones, Neck",$2.50/lb,,2/lb
+veal,"V: Offal: Calves' liver, ",$7.50/lb ,,2/lb,2.75/lb
+veal,V: Short Ribs,$7.50/lb,,2/lb,3/lb
+veal,"V: Offal: Oxtail, ",$5,,1/lb
+veal,"V: Offal: Tongue, ",$6,,2.5/lb
+
+,Lamb
+lamb,Rack,$12/lb,,2/lb
+lamb,Breast,$12lb.,,2/lb,,,,1
+lamb,Shoulder Chops,$14,,1.25,2,,,13
+lamb,Riblets,$12/lb,,2/lb
+lamb,Rib chops,$18/lb,,1.25,2,,,5
+lamb,Loin Chops,$18/lb,,1/lb,1.25/lb,,,4
+lamb,Sirloin Chop,$16/1b,,1.5,2,,,6
+lamb,Shank,$7/lb,,3,,,,1
+lamb,Round Bone Chop,$12/lb,,1.25,1.75,,,3
+lamb,"Leg, butterflied",$14/lb
+lamb,"Leg, bone in whole",$8/lb,,4.5/lb
+lamb,Stew,$9,,1,,,,1
+lamb,Leg Steaks,$12,,2,,,,4
+lamb,Ground,$9/lb.,,1/lb,,,,5
+lamb,Kebobs,$9/lb.
+lamb,Neckbones,$2.75/lb,,1/lb,,,,1
+lamb,Kidney,$2/lb,,.5lb,,,,2
+lamb,Liver,$7.00/lb,,1/lb,,,,1
+lamb,Tongue,$2/lb,,.5lb,,,,1
+,GOAT
+goat,Rack,$11/lb
+goat,Shoulder roasts,$9/lb.
+goat,Breast,$12lb.
+goat,Riblets,$12/lb
+goat,Rib chops,$18/lb
+goat,Loin Chops,$18/lb
+goat,Sirloin Chop,$16/1b
+goat,Shank,$7/lb
+goat,Round Bone Chop,$12/lb
+goat,"Leg, butterflied",$14/lb
+goat,"Leg, bone in whole",$8/lb
+goat,Stew,$8/lb
+goat,Ground SPECIAL ,$8/lb,,1/lb
+goat,Kebobs,$9/lb.
+goat,Liver
+goat,Kidney

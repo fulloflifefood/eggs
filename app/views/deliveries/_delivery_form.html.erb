@@ -85,7 +85,7 @@
 
         <%= f.fields_for :stock_items, item do |builder| %>
         <tr>
-          <%= builder.hidden_field :product_id, :value => item.product.id %>
+          <%= builder.hidden_field :product_id, :value => item.product.id if item.product%>
           <td><%= builder.text_field :product_name, :size => "18" %></td>
           <td><%= builder.text_field :quantity_available, :size => "2" %></td>
           <td><%= builder.text_field :max_quantity_per_member, :size => "2" %></td>
