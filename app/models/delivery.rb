@@ -121,7 +121,7 @@ class Delivery < ActiveRecord::Base
         account_transaction.save!
 
         order.order_items.each do |order_item|
-          if order_item.stock_item.product.subscribable && order_item.quantity > 0
+          if !order_item.stock_item.product.nil? && order_item.stock_item.product.subscribable && order_item.quantity > 0
             subscription = Subscription.find_by_account_id_and_product_id(account.id, order_item.stock_item.product.id)
             subscription_transaction = SubscriptionTransaction.new(:subscription => subscription,
                                               :amount => order_item.quantity,
