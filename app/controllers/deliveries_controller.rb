@@ -234,6 +234,27 @@ class DeliveriesController < ApplicationController
     end
   end
 
+  def replace_products
+    @delivery = Delivery.find(params[:id])
+  end
+
+  def do_replace_products
+    @delivery = Delivery.find(params[:id])
+
+    @imported_data = FasterCSV.parse(params[:product_csv])
+    @importer = DeliveryImporter.new
+
+    @delivery.stock_items.delete_all
+
+    @imported_data.each do |line|
+      stock_item = @importer.get_stock_item(line)
+      @delivery.stock_items << stock_item if !stock_item.nil?
+    end
+
+    redirect_to :action => "show", :id => @delivery.id, :farm_id => @farm.id
+
+  end
+
   # DELETE /deliveries/1
   # DELETE /deliveries/1.xml
   def destroy

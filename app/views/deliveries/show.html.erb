@@ -172,6 +172,9 @@
           <li><%= link_to "XLS by location", delivery_path(@delivery, :xls, :farm_id => @farm.id, :location_sort => true) %></li>
           <li><%= link_to "Export Labels", delivery_path(@delivery, :pdf, :farm_id => @farm.id), :target => "_blank" %></li>
           <li><%= link_to "Send Email to Members with Orders", :controller => 'deliveries', :action => 'setup_emails', :id => @delivery.id, :farm_id => @farm.id %></li>
+          <% if @delivery.farm.name == "Clark Summit Farm" %>
+              <li><%= link_to "Replace Products with CSV import", :controller => 'deliveries', :action => 'replace_products', :id => @delivery.id, :farm_id => @farm.id %></li>
+          <% end %>
           <li><%= link_to 'Delete Delivery', { :id => @delivery.id,
                                          :farm_id => @farm.id},
                                          :confirm => 'This action will delete all orders associated with this delivery.  Are you sure you want to continue?',

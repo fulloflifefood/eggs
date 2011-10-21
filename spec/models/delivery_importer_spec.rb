@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe DeliveryExporter do
+describe DeliveryImporter do
   before(:each) do
     @imported_data = FasterCSV.read("spec/csmc_import.csv")
     @importer = DeliveryImporter.new
