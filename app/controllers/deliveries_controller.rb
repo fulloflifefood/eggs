@@ -251,6 +251,16 @@ class DeliveriesController < ApplicationController
       @delivery.stock_items << stock_item if !stock_item.nil?
     end
 
+    40.times do
+      stock_item = StockItem.new
+      stock_item.quantity_available = 0
+      stock_item.max_quantity_per_member = 0
+      stock_item.product_price = 0
+      stock_item.product_name = ""
+
+      @delivery.stock_items << stock_item
+    end
+
     redirect_to :action => "show", :id => @delivery.id, :farm_id => @farm.id
 
   end
