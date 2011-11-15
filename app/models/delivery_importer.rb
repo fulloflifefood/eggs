@@ -48,7 +48,8 @@ class DeliveryImporter
 
     if stock_item.product_estimated
       if !bottom.nil? && !top.nil?
-        stock_item.product_price = price * top_num
+        medium_num = ((top_num - bottom_num)*.75) + bottom_num
+        stock_item.product_price = price * medium_num
         code = "#{number_to_currency price}/#{units}, #{bottom_num}-#{top_num}#{units}"
       elsif !top.nil?
         stock_item.product_price = price * top_num
