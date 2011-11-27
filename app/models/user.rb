@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
 
   def resend_activation_instructions!
     reset_perishable_token!
-    url = "http://#{self.member.farms.first.subdomain}.eggbasket.org/register"+self.perishable_token
+    url = "http://#{self.member.farms.first.subdomain}.eggbasket.org/register/"+self.perishable_token
     deliver_activation_instructions!(url)
   end
 
