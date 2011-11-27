@@ -14,7 +14,7 @@ class ActivationResetsController < ApplicationController
         flash[:notice] = "Hmm, It looks like your account is already active. Perhaps try resetting your password?"
         redirect_to login_url
       else
-        @user.deliver_welcome_and_activation!
+        @user.resend_activation_instructions!
         flash[:notice] = "Woohoo! Instructions to activate your account have been emailed to you. " +
         "Please check your email."
         redirect_to login_url

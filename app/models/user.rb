@@ -15,7 +15,7 @@
 #  active            :boolean(1)      default(FALSE), not null
 #
 
-class User < ActiveRecord::Base  
+class User < ActiveRecord::Base
   belongs_to :member
   has_many :roles_users
   has_many :roles, :through => :roles_users
@@ -78,6 +78,12 @@ class User < ActiveRecord::Base
                         {:farm => self.member.farms.first,
                          :account_activation_url => registration_url}) if template
 
+  end
+
+  def resend_activation_instructions!
+    reset_perishable_token!
+    url = "http://#{self.member.farms.first.subdomain}.eggbasket.org/register"+self.perishable_token
+    deliver_activation_instructions!(url)
   end
 
   def deliver_activation_confirmation!
