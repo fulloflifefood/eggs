@@ -25,7 +25,7 @@ describe DeliveryImporter do
     stock_item = @importer.get_stock_item(line)
 
     stock_item.product_estimated.should == true
-    stock_item.product_price.should == 19
+    stock_item.product_price.should == 18
     stock_item.product_price_code.should == "$9.75/lb, 1.5-2lb"
 
   end
