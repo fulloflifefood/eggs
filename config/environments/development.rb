@@ -27,8 +27,8 @@ Eggs::Application.configure do
   config.action_mailer.delivery_method = :test
 
   config.action_mailer.smtp_settings = {
-      :address => "smtp.sendgrid.net",
-      :port => '587',
+      :address => "smtp.postmarkapp.com",
+      :port => '25',
       :tls => true,
       :domain => ENV["SENDGRID_DOMAIN"],
       :authentication => :plain,
