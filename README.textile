@@ -37,7 +37,7 @@ h3. Managers of a CSA can:
 
 h2. Status
 
-Eggs has been rolled out to two farms on EggBasket ([eggbasket.org](http://eggbasket.org/)), hosted on Heroku.
+Eggs has been rolled out to two farms on EggBasket (http://eggbasket.org/), hosted on Heroku.
 
 All features have been built specifically for those two farms - a more general use case will require some tweaking, at the very least.
 
