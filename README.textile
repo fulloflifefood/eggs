@@ -37,9 +37,11 @@ h3. Managers of a CSA can:
 
 h2. Status
 
-Eggs has been rolled out to two farms, but a lot of things are still missing UI pieces and all features are built specifically for those two farms - a more general use case will require some tweaking, at the very least.
+Eggs has been rolled out to two farms on EggBasket ([eggbasket.org](http://eggbasket.org/)), hosted on Heroku.
 
-We have a bunch more features in the works, including PayPal integration.  I'd love some help, so please contact me if you're interested: kathryn@kathrynaaker.com
+All features have been built specifically for those two farms - a more general use case will require some tweaking, at the very least.
+
+Contact me with questions of any sort: kathryn@kathrynaaker.com
 
 It's released under the MIT license, so use freely!
 
