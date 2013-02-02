@@ -1,6 +1,6 @@
 source :gemcutter
 
-gem 'rails', '>=3'
+gem 'rails', '3.0.20'
 gem 'sqlite3'
 gem 'hoptoad_notifier'
 gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
@@ -28,7 +28,7 @@ gem 'factory_girl_rails'
 group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'webrat'
   gem 'jasmine'
